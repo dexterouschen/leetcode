@@ -1,0 +1,96 @@
+<2014.06.18, Wednesday>
+<Task>
+Continued trying to run Spark clusters on AWS (spark-ec2);
+</Task>
+
+
+
+<Running_Spark_EC2_on_AWS_clusters>
+The following protocol is used to lauch AWS-EC2 instances and build Apache Spark on them.
+
+(1)
+Log into AWS instance:
+
+There are two sets of keys for "TangentDS-M3-Large_East":
+	private key pair: "tangentds-m3-large.pem" 
+	public key pair:"m3-large-east"
+You need private key pair to login AWS instance and public key pair to start spark-ec2.
+
+
+(2)
+Start spark-ec2 master/slaves:
+
+	~/spark-ect -k <key_pair_name> -i <key_pair_file> -s <number of slaves> launch <name of your master>
+
+For example:
+
+$SPARK_HOME/ec2/spark-ec2 -k tangentds-m3-large -i /home/ubuntu/Developments/security_keys/tangentds-m3-large.pem -s 1 launch test4
+
+Please be noted that you Need to change the name of project (arg after "launch") everytime you want to start one.
+
+
+(3)
+Displayed information after successfully initiating clusters should look like the following:
+	Connection to ec2-54-86-198-138.compute-1.amazonaws.com closed.
+	Spark standalone cluster started at http://ec2-54-86-198-138.compute-1.amazonaws.com:8080
+	Ganglia started at http://ec2-54-86-198-138.compute-1.amazonaws.com:5080/ganglia
+
+
+(4)
+Pull out the info for master, in case needed:
+	~/spark-ec2 -k <key_pair_name> -i <key_pair_file> get-master <master_name>
+
+For example:
+
+	$SPARK_HOME/ec2/spark-ec2 -k m3-large-east -i /home/ubuntu/Developments/security_keys/m3-large-east.pem login test4
+
+
+(5)
+Log into spark-EC2 master:
+	~/spark-ect -k <key_pair_name> -i <key_pair_file> -s <number of slaves> login <name of your master>
+
+For example:
+
+	$SPARK_HOME/ec2/spark-ec2 -k m3-large-east -i /home/ubuntu/Developments/security_keys/m3-large-east.pem login test3
+
+
+(6)
+After logging into the master, you may find a series of directories such as:
+
+"ephemeral-hdfs  hadoop-native  mapreduce  persistent-hdfs  scala  shark  spark  spark-ec2  tachyon"
+
+Spark-ec2 uses hadoop files (hdfs) instead of regular linux/windows files. Therefore, data need to be transformed and stored in hdfs format. This can ba accomplised by using:
+
+ [a]: "hadoop fs -mkdir <hadoop-folder-name>" and
+
+ [b]: "hadoop fs -copyFromLocal <files-in-local-directory> <hadoop-folder-name>"
+
+For example:
+	~/ephemeral-hdfs/bin/hadoop fs -mkdir input
+	~/ephemeral-hdfs/bin/hadoop fs -copyFromLocal ~/spark/README.md input
+
+You may check the content of hadoop files by using:
+ [c]: "hadoop dfs -ls"
+
+For example:
+	~/ephemeral-hdfs/bin/hadoop dfs -ls
+
+(7)
+To run spark-ec2 for map-reduce operations in Scala, you can run an ordinary spark-shell on master, such as:
+	~spark/bin/spark-shell
+
+Please be careful that to load data into a variable, you need the directory of hadoop-files, NOT regular file-directories. For example:
+
+	val text = sc.textFile("input/README.md")
+
+
+(8)
+After loading data to variales, you are now ready to run them similar to regular Spark projects, like:
+text.count().
+
+
+(9)
+Command for copying data to slaves:
+	~/spark-ec2/copy-dir.sh <directory of data you want to deploy to slaves>
+
+</Running_Spark_EC2_on_AWS_clusters>

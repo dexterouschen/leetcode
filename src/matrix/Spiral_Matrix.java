@@ -1,0 +1,70 @@
+package matrix;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+
+/*
+ Given a matrix of m x n elements (m rows, n columns), 
+ return all elements of the matrix in spiral order.
+
+ For example,
+ Given the following matrix:
+
+ [
+ [ 1, 2, 3 ],
+ [ 4, 5, 6 ],
+ [ 7, 8, 9 ]
+ ]
+ You should return [1,2,3,6,9,8,7,4,5].
+ */
+public class Spiral_Matrix {
+
+	public static ArrayList<Integer> spiralOrder(int[][] matrix) {
+		ArrayList<Integer> list = new ArrayList<Integer>();
+		if (matrix == null || matrix.length == 0) {
+			return list;
+		}
+		// solve this spiral problem by a while loop that travels through the
+		// boundary of the matrix clock-wisely, using 4 indexes top, bottom,
+		// left, right. Values of these 4 variables changes each time after the
+		// while loop goes through the boundary.
+		int row = matrix.length, col = matrix[0].length;
+		int top = 0, bottom = row - 1, left = 0, right = col - 1;
+		while (top < bottom && left < right) {
+			for (int i = left; i < right; i++) {
+				list.add(matrix[top][i]);
+			}
+			for (int i = top; i < bottom; i++) {
+				list.add(matrix[i][right]);
+			}
+			for (int i = right; i > left; i--) {
+				list.add(matrix[bottom][i]);
+			}
+			for (int i = bottom; i > top; i--) {
+				list.add(matrix[i][left]);
+			}
+			left++;
+			right--;
+			top++;
+			bottom--;
+		}
+		// if the number of columns and/or rows is odd
+		if (top == bottom) {
+			for (int i = left; i <= right; i++) {
+				list.add(matrix[top][i]);
+			}
+		} else if (left == right) {
+			for (int i = top; i <= bottom; i++) {
+				list.add(matrix[i][left]);
+			}
+		}
+		return list;
+	}
+
+	public static void main(String[] args) {
+		// int[][] A = { { 1, 2, 3, 4 }, { 10, 11, 12, 5 }, { 9, 8, 7, 6 } };
+		int[][] A = { { 2, 5 }, { 8, 4 }, { 0, -1 } };
+		System.out.println(spiralOrder(A));
+	}
+
+}
