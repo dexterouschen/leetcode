@@ -25,8 +25,7 @@ public class Permutation_Sequence {
 	}
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+		System.out.println(getPermutation(3, 4)); // return "231"
 	}
 
 }
