@@ -1,8 +1,8 @@
 package test_data_structure;
 
 public class Interval {
-	int start;
-	int end;
+	public int start;
+	public int end;
 
 	public Interval() {
 		start = 0;

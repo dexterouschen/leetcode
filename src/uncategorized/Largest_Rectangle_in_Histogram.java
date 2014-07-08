@@ -1,4 +1,4 @@
-package unanswered;
+package uncategorized;
 
 import java.util.Arrays;
 import java.util.Stack;
