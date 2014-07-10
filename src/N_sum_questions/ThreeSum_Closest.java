@@ -1,4 +1,4 @@
-package dynamic_programming;
+package N_sum_questions;
 
 import java.util.Arrays;
 

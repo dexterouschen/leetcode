@@ -8,6 +8,12 @@ package unanswered;
 
 public class Longest_Palindromic_Substring {
 
+	/*
+	 * Starting at each position in the string, and then look for its largest
+	 * palindromic substring. Please be noted that two conditions: palindromic
+	 * string with an odd number of central char and even number of central
+	 * chars. This algorithm has a complexity of O(n^2).
+	 */
 	public static String longestPalindrome(String s) {
 		int maxLength = 0;
 		String longest = "";
