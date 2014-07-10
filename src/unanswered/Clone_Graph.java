@@ -1,5 +1,7 @@
 package unanswered;
 
+import test_data_structure.UndirectedGraphNode;
+
 /*
  Clone an undirected graph. Each node in the graph contains a label and a list of its neighbors.
 
@@ -28,7 +30,9 @@ package unanswered;
 public class Clone_Graph {
 
 	public UndirectedGraphNode cloneGraph(UndirectedGraphNode node) {
+		UndirectedGraphNode newNode = null;
 
+		return newNode;
 	}
 
 	public static void main(String[] args) {
