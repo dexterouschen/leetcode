@@ -37,10 +37,8 @@ public class Merge_Intervals {
 		nlist.add(list.get(0));
 		for (int i = 1; i < list.size(); i++) {
 			// check ith interval's end value is between i-1th's start and end
-			if (list.get(i).start <= nlist.get(nlist.size() - 1).end) { // if
-																		// true
-																		// than
-				// merge
+			if (list.get(i).start <= nlist.get(nlist.size() - 1).end) {
+				 // if true than merge
 				Interval nintv = new Interval(nlist.get(nlist.size() - 1).start,
 						list.get(i).end > nlist.get(nlist.size() - 1).end ? list.get(i).end
 								: nlist.get(nlist.size() - 1).end);
