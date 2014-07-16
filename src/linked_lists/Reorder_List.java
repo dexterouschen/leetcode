@@ -1,4 +1,4 @@
-package unanswered;
+package linked_lists;
 
 import test_data_structure.ListNode;
 import java.util.*;

@@ -1,4 +1,4 @@
-package unanswered;
+package uncategorized;
 
 /*
  Given two numbers represented as strings, return multiplication of the numbers as a string.

@@ -1,4 +1,4 @@
-package unanswered;
+package uncategorized;
 
 /*
  Given a string S, find the longest palindromic substring in S. 
