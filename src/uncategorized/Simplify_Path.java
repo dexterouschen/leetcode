@@ -1,4 +1,6 @@
-package unanswered;
+package uncategorized;
+
+import java.util.Stack;
 
 /*
  Given an absolute path for a file (Unix-style), simplify it.
@@ -18,8 +20,25 @@ package unanswered;
 public class Simplify_Path {
 
 	public static String simplifyPath(String path) {
-
-		return null;
+		Stack<String> s = new Stack<String>();
+		String[] split = path.split("/");
+		for (String a : split) {
+			if (!a.equals(".") && !a.isEmpty()) {
+				if (a.equals("..")) {
+					if (!s.isEmpty()) {
+						s.pop();
+					}
+				} else {
+					s.push(a);
+				}
+			}
+		}
+		StringBuilder sb = new StringBuilder();
+		while (!s.isEmpty()) {
+			sb.insert(0, s.pop());
+			sb.insert(0, "/");
+		}
+		return sb.length() == 0 ? "/" : sb.toString();
 	}
 
 	public static void main(String[] args) {
