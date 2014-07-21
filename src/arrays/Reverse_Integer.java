@@ -18,13 +18,8 @@ package arrays;
  */
 public class Reverse_Integer {
 
-	public Reverse_Integer() {
-		// TODO Auto-generated constructor stub
-	}
-
 	public static int reverse(int x) {
-		Integer t = x;
-		char[] array = t.toString().toCharArray();
+		char[] array = new Integer(x).toString().toCharArray();
 		int len = array.length;
 		char prefix;
 		char[] newArray = new char[len];

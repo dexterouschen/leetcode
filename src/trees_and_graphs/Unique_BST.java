@@ -15,10 +15,6 @@ package trees_and_graphs;
 
 public class Unique_BST {
 
-	public Unique_BST() {
-		// TODO Auto-generated constructor stub
-	}
-
 	/*
 	 * for any picking number which is set as the root, the number of possible
 	 * BST is equal to # of left subtree * # of right subtree, in which # of
@@ -30,18 +26,14 @@ public class Unique_BST {
 	public static int numTrees(int n) {
 		if (n <= 1)
 			return 1;
-
 		int count = 0;
 		for (int i = 1; i <= n; i++) {
-			int left = i - 1;
-			int right = n - i;
-			count += numTrees(left) * numTrees(right);
+			count += numTrees(i - 1) * numTrees(n - i);
 		}
-
 		return count;
 	}
 
 	public static void main(String[] args) {
-		System.out.println(numTrees(4));
+		System.out.println(numTrees(3));
 	}
 }

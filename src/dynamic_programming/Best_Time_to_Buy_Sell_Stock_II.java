@@ -14,47 +14,40 @@ public class Best_Time_to_Buy_Sell_Stock_II {
 
 	/*
 	 * the general strategy: buy when the next day is higher; sell when the next
-	 * day is lower; hold if enum is hold and next day is higher;
+	 * day is lower; hold if "hasStock" is true and next day is higher;
 	 */
-	public enum State {
-		HOLD, EMPTY
-	}
-
 	public static int maxProfit(int[] prices) {
-		State state = State.EMPTY;
+		boolean hasStock = false;
 		int len = prices.length;
-		int profit = 0;
-		int cost = 0;
-		int gain = 0;
-
+		int profit = 0, cost = 0, gain = 0;
 		if (len < 2) {
 			return 0;
 		}
 		int lastBuy = 0;
 		for (int i = 0; i < len - 1; i++) {
-			if (prices[i] < prices[i + 1] && state == State.EMPTY) { // buy
-				state = State.HOLD;
+			if (prices[i] < prices[i + 1] && hasStock == false) { // buy
+				hasStock = true;
 				cost = prices[i];
 				lastBuy = i;
-			} else if (prices[i] > prices[i + 1] && state == State.HOLD) { // sell
-				state = State.EMPTY;
+			} else if (prices[i] > prices[i + 1] && hasStock == true) { // sell
+				hasStock = false;
 				gain = prices[i];
 				profit += gain - cost;
 			}
 		}
 		// check the last day
-		if (prices[len - 1] > prices[lastBuy] && state == State.HOLD) {
+		if (prices[len - 1] > prices[lastBuy] && hasStock == true) {
 			profit += prices[len - 1] - prices[lastBuy];
 		}
 		return profit;
 	}
 
 	public static void main(String[] args) {
-		int[] fb = { 5612, 5731, 5721, 5709, 5809, 6014, 6483, 6402, 5982,
-				5872, 5532, 5587 };
+		int[] fb = { 5612, 5731, 5721, 5709, 5809, 6014, 6483, 6402, 5982, 5872, 5532, 5587 };
 		// correct answer should be 948
 		int[] fb1 = { 1, 9, 6, 9, 1, 7, 1, 1, 5, 9, 9, 9 };
 		System.out.println(maxProfit(fb));
+		System.out.println(maxProfit(fb1)); // 25
 	}
 
 }
