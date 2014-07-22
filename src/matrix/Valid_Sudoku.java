@@ -22,7 +22,6 @@ public class Valid_Sudoku {
 			return false;
 		}
 		// check lines
-		int row = board.length, col = board[0].length;
 		boolean res = true;
 		for (int i = 0; i < 9; i++) {
 			char[] hor = new char[9];
@@ -81,10 +80,8 @@ public class Valid_Sudoku {
 		System.out.println(isValidLine(A));
 		System.out.println(isValidLine(B));
 		System.out.println(isValidLine(C));
-		char[][] boxA = { { '.', '5', '.' }, { '3', '.', '.' },
-				{ '.', '.', '3' } };
-		char[][] boxB = { { '.', '1', '.' }, { '.', '.', '.' },
-				{ '.', '.', '1' } };
+		char[][] boxA = { { '.', '5', '.' }, { '3', '.', '.' }, { '.', '.', '3' } };
+		char[][] boxB = { { '.', '1', '.' }, { '.', '.', '.' }, { '.', '.', '1' } };
 		System.out.println(isValidBox(boxA));
 		System.out.println(isValidBox(boxB));
 

@@ -1,7 +1,6 @@
 package matrix;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /*
  Given a matrix of m x n elements (m rows, n columns), 

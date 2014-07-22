@@ -1,9 +1,6 @@
 package matrix;
 
 import java.util.ArrayList;
-import java.util.List;
-
-;
 
 /*
  Given a triangle, find the minimum path sum from top to bottom. 

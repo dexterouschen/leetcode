@@ -1,7 +1,5 @@
 package linked_lists;
 
-import java.util.ArrayList;
-
 import test_data_structure.ListNode;
 
 /*

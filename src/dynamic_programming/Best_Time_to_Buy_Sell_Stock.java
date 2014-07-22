@@ -31,6 +31,7 @@ public class Best_Time_to_Buy_Sell_Stock {
 	public static void main(String[] args) {
 		int[] fb = { 2, 6, 4, 1, 7, 9, 8, 5, 1 }; // should return 8;
 		int[] fb1 = { 3, 3, 5, 0, 0, 3, 1, 4 };
+		System.out.println(maxProfit(fb));
 		System.out.println(maxProfit(fb1));
 	}
 

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
-import test_data_structure.TreeLink;
 import test_data_structure.TreeLinkNode;
 
 public class Populating_Next_Right_Pointers_in_Each_Node_II {

@@ -1,9 +1,7 @@
 package trees_and_graphs;
 
 import java.util.ArrayList;
-import java.util.Hashtable;
 import java.util.List;
-import java.util.Stack;
 
 import test_data_structure.Tree;
 import test_data_structure.TreeNode;
