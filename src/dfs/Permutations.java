@@ -1,11 +1,6 @@
 package dfs;
 
 import java.util.ArrayList;
-import java.util.Hashtable;
-import java.util.Stack;
-
-import test_data_structure.TreeNode;
-import trees_and_graphs.Binary_Tree_Preorder_Traversal.State;
 
 /*
  Given a collection of numbers, return all possible permutations.
@@ -31,8 +26,8 @@ public class Permutations {
 		return lists;
 	}
 
-	public static void dfs(int[] num, ArrayList<ArrayList<Integer>> lists,
-			ArrayList<Integer> list, boolean[] isVisited) {
+	public static void dfs(int[] num, ArrayList<ArrayList<Integer>> lists, ArrayList<Integer> list,
+			boolean[] isVisited) {
 		int len = num.length;
 		if (list.size() == len) {
 			lists.add(new ArrayList<Integer>(list));

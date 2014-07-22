@@ -39,58 +39,35 @@ import test_data_structure.TreeLink;
  4->5->6->7 -> NULL
  */
 
-public class Populate_Next_Right_Pointers_Each_Node {
-	// public static ArrayList<TreeLinkNode> list = new
-	// ArrayList<TreeLinkNode>();
-	// public static ArrayList<TreeLinkNode> nullList = new
-	// ArrayList<TreeLinkNode>();
+public class Populating_Next_Right_Pointers_Each_Node {
 
 	public static void connect(TreeLinkNode root) {
-  		ArrayList<TreeLinkNode> list = new ArrayList<TreeLinkNode>();
-	ArrayList<TreeLinkNode> LastNodes = new ArrayList<TreeLinkNode>();
-	// 1. BFS to print a list of nodes
-	Queue<TreeLinkNode> queue = new LinkedList<TreeLinkNode>();
-	if (root == null) { // if node is null
-		return;
-	}
-	queue.add(root);
-	while (!queue.isEmpty()) {
-		TreeLinkNode node = (TreeLinkNode) queue.poll();
-		list.add(node);
-		if (node.left != null && node.right != null) {
-			queue.add(node.left);
-			queue.add(node.right);
+		if (root == null) {
+			return;
 		}
+		if (root.left != null) {
+			root.left.next = root.right;
+			root.right.next = root.next == null ? null : root.next.left;
+		}
+		connect(root.left);
+		connect(root.right);
 	}
-	// 2. using BFS to link all nodes
-	for (int i = 0; i < list.size() - 1; i++) {
-		list.get(i).next = list.get(i + 1);
-	}
-	// 3. find the LAST node on each layer, re-link them to NULL
-	TreeLinkNode current = root;
-	while (current != null) {
-		LastNodes.add(current);
-		current = current.right;
-	}
-	for (int i = 0; i < LastNodes.size(); i++) {
-		LastNodes.get(i).next = null;
-	}  
-}
 
 	public static void main(String[] args) {
-		// TreeLink tree = new TreeLink();
-		// connect(tree.root);
 		TreeLinkNode n1 = new TreeLinkNode(1);
 		TreeLinkNode n2 = new TreeLinkNode(2);
 		TreeLinkNode n3 = new TreeLinkNode(3);
 		TreeLinkNode n4 = new TreeLinkNode(4);
 		TreeLinkNode n5 = new TreeLinkNode(5);
+		TreeLinkNode n6 = new TreeLinkNode(6);
+		TreeLinkNode n7 = new TreeLinkNode(7);
 		n1.left = n2;
 		n1.right = n3;
 		n2.left = n4;
-		n3.right = n5;
+		n2.right = n5;
+		n3.left = n6;
+		n3.right = n7;
 		connect(n1);
-		System.out.println(n4.next); // should be 5
-
+		System.out.println(n5.next.val); // should be 6
 	}
 }

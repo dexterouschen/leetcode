@@ -1,8 +1,6 @@
 package dfs;
 
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
 
 /*
  Given a string s, partition s such that every substring of the partition is a palindrome.
@@ -32,8 +30,7 @@ public class Palindrome_Partitioning {
 		return myLists;
 	}
 
-	private static void dfs(ArrayList<ArrayList<String>> myLists,
-			ArrayList<String> list, String str) {
+	private static void dfs(ArrayList<ArrayList<String>> myLists, ArrayList<String> list, String str) {
 		// 当处理到传入的字符串长度等于0,则这个集合list满足条件，加入到结果集中
 		if (str.length() == 0)
 			myLists.add(new ArrayList<String>(list));

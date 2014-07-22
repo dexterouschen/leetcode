@@ -22,25 +22,14 @@ import test_data_structure.TreeNode;
  */
 public class Binary_Tree_Inorder_Traversal {
 
-	public Binary_Tree_Inorder_Traversal() {
-		// TODO Auto-generated constructor stub
-	}
-
 	public static ArrayList<Integer> inorderTraversal(TreeNode root) {
-		ArrayList<Integer> list = new ArrayList<Integer>();
-		if (root == null)
+		ArrayList<Integer> list = new ArrayList<>();
+		if (root == null) {
 			return list;
-		Stack<TreeNode> stack = new Stack<TreeNode>();
-		while (!stack.isEmpty() || root != null) {
-			if (root != null) {
-				stack.push(root);
-				root = root.left;
-			} else {
-				root = stack.pop();
-				list.add(root.val);
-				root = root.right;
-			}
 		}
+		list.addAll(inorderTraversal(root.left));
+		list.add(root.val);
+		list.addAll(inorderTraversal(root.right));
 		return list;
 	}
 

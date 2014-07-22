@@ -2,6 +2,7 @@ package trees_and_graphs;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.List;
 import java.util.Stack;
 
 import test_data_structure.Tree;
@@ -23,45 +24,15 @@ import test_data_structure.TreeNode;
  */
 
 public class Binary_Tree_Preorder_Traversal {
-	private static Hashtable<TreeNode, State> visitTable = new Hashtable<TreeNode, State>();
 
-	public enum State {
-		VISITED, UNVISITTED
-	}
-
-	public static void setVisit(TreeNode node) {
-		State state = State.VISITED;
-		visitTable.put(node, state);
-	}
-
-	public static boolean isVisited(TreeNode node) {
-		if (visitTable.get(node) == State.VISITED) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	/*
-	 * DFS algorithm
-	 */
-	public static ArrayList<Integer> preorderTraversal(TreeNode root) {
-		ArrayList<Integer> list = new ArrayList<Integer>();
-		if (root == null)
+	public static List<Integer> preorderTraversal(TreeNode root) {
+		List<Integer> list = new ArrayList<>();
+		if (root == null) {
 			return list;
-		Stack<TreeNode> stack = new Stack<TreeNode>();
-		stack.push(root);
-		while (!stack.isEmpty()) {
-			TreeNode node = stack.pop();
-			list.add(node.val);
-			if (isVisited(node) == false) {
-				setVisit(node);
-				if (node.right != null)
-					stack.push(node.right);
-				if (node.left != null)
-					stack.push(node.left);
-			}
 		}
+		list.add(root.val);
+		list.addAll(preorderTraversal(root.left));
+		list.addAll(preorderTraversal(root.right));
 		return list;
 	}
 

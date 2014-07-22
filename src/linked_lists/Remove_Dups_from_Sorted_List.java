@@ -12,20 +12,19 @@ import test_data_structure.ListNode;
 public class Remove_Dups_from_Sorted_List {
 
 	public static ListNode deleteDuplicates(ListNode head) {
-		if (head == null) {
-			return null;
+		if (head == null || head.next == null) {
+			return head;
 		}
-		ListNode trav = head;
-		ListNode newHead = trav;
-		while (trav != null) {
-			ListNode cur = trav;
-			while (cur != null && cur.val == trav.val) {
-				cur = cur.next;
+		ListNode cur = head;
+		while (cur != null) {
+			ListNode dup = cur;
+			while (dup != null && dup.val == cur.val) {
+				dup = dup.next;
 			}
-			trav.next = cur;
-			trav = trav.next;
+			cur.next = dup;
+			cur = cur.next;
 		}
-		return newHead;
+		return head;
 	}
 
 	public static void main(String[] args) {
