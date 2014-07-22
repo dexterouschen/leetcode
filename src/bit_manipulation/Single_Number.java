@@ -1,4 +1,4 @@
-package arrays;
+package bit_manipulation;
 
 import java.util.ArrayList;
 import java.util.Hashtable;

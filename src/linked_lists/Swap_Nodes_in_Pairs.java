@@ -14,33 +14,25 @@ import test_data_structure.ListNode;
 
 public class Swap_Nodes_in_Pairs {
 
-	public Swap_Nodes_in_Pairs() {
-		// TODO Auto-generated constructor stub
-	}
-
 	public static ListNode swapPairs(ListNode head) {
-		if (head == null) {
-			return null;
-		}
-		if (head.next == null) {
+		if (head == null || head.next == null) {
 			return head;
 		}
-		ListNode trav = head;
-		ListNode newHead = trav.next;
-		while (trav != null && trav.next != null) {
-			ListNode temp = trav.next.next;
-			trav.next.next = trav;
-			trav.next = temp;
-
-			if (temp != null && trav.next.next != null) {
-				ListNode temp2 = trav;
-				trav = trav.next;
-				temp2.next = trav.next;
-			} else {
-				trav = trav.next;
+		ListNode nhead = new ListNode(888);
+		nhead.next = head;
+		ListNode curhead = nhead, before = head, after = head.next;
+		while (after != null) {
+			curhead.next = after;
+			before.next = after.next;
+			after.next = before;
+			if (before.next == null || before.next.next == null) {
+				break;
 			}
+			curhead = before;
+			after = before.next.next;
+			before = before.next;
 		}
-		return newHead;
+		return nhead.next;
 	}
 
 	public static void main(String[] args) {

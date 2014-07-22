@@ -11,49 +11,24 @@ package arrays;
 
 public class Merge_Sorted_Array {
 
-	public Merge_Sorted_Array() {
-		// TODO Auto-generated constructor stub
-	}
-
+	/*
+	 * Use two pointers 'ia', 'ib' to merge two arrays from end to beginning.
+	 */
 	public static void merge(int A[], int m, int B[], int n) {
-		int[] array = new int[m + n];
-		int lp = 0;
-		int rp = 0;
-		int ap = 0;
-		if (n == 0) {
-			return;
+		int ia = m - 1, ib = n - 1;
+		while (ia >= 0 && ib >= 0) {
+			if (B[ib] > A[ia]) {
+				A[ia + ib + 1] = B[ib];
+				ib--;
+			} else {
+				A[ia + ib + 1] = A[ia];
+				ia--;
+			}
 		}
-		if (m == 0 && n != 0) {
-			for (int i = 0; i < n; i++) {
+		if (ia < 0) {
+			for (int i = ib; i >= 0; i--) {
 				A[i] = B[i];
 			}
-		}
-		if (m == 0 && n == 0) {
-			return;
-		}
-		while (lp < m && rp < n) {
-			if (A[lp] <= B[rp]) {
-				array[ap] = A[lp];
-				lp++;
-			} else {
-				array[ap] = B[rp];
-				rp++;
-			}
-			ap++;
-		}
-		if (lp == m) {
-			for (int i = rp; i < n; i++) {
-				array[ap] = B[i];
-				ap++;
-			}
-		} else {
-			for (int i = lp; i < m; i++) {
-				array[ap] = A[i];
-				ap++;
-			}
-		}
-		for (int i = 0; i < m + n; i++) {
-			A[i] = array[i];
 		}
 	}
 

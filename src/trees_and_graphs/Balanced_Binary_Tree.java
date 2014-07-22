@@ -11,28 +11,23 @@ import test_data_structure.TreeNode;
  */
 public class Balanced_Binary_Tree {
 
-	public Balanced_Binary_Tree() {
-		// TODO Auto-generated constructor stub
-	}
-
 	public static boolean isBalanced(TreeNode root) {
-		if (root == null) {
+		if (root == null || (root.left == null && root.right == null)) {
 			return true;
 		}
-		if (Math.abs(getHeight(root.left) - getHeight(root.right)) > 1) {
-			return false;
-		} else {
-			return isBalanced(root.left) && isBalanced(root.right);
-		}
+		boolean res = Math.abs(getHeight(root.left) - getHeight(root.right)) <= 1 ? true : false;
+		return res && isBalanced(root.left) && isBalanced(root.right);
 	}
 
 	public static int getHeight(TreeNode root) {
 		if (root == null) {
 			return 0;
 		}
-		int h = 1;
-		h += Math.max(getHeight(root.left), getHeight(root.right));
-		return h;
+		if (root.left == null && root.right == null) {
+			return 1;
+		}
+		int height = 1;
+		return height + Math.max(getHeight(root.left), getHeight(root.right));
 	}
 
 	public static void main(String[] args) {

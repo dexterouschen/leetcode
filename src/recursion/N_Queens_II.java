@@ -77,18 +77,16 @@ public class N_Queens_II {
 		return newTable;
 	}
 
+	// for debugging
 	public static void printTable(boolean[][] newTable) {
 		int n = newTable.length;
 		for (int m = 0; m < n; m++) {
 			for (int l = 0; l < n; l++) {
-				System.out.println("table[" + m + "]" + "[" + l + "] is: "
-						+ newTable[m][l]);
+				System.out.println("table[" + m + "]" + "[" + l + "] is: " + newTable[m][l]);
 			}
 		}
 	}
 
-
-	
 	public static void main(String[] args) {
 		System.out.println(totalNQueens(4));
 	}

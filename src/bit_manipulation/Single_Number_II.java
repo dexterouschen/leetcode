@@ -1,4 +1,4 @@
-package arrays;
+package bit_manipulation;
 
 /*
  Given an array of integers, every element appears three times except for one.

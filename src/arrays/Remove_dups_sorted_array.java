@@ -14,28 +14,22 @@ package arrays;
 public class Remove_dups_sorted_array {
 
 	public static int removeDuplicates(int[] A) {
-		int len = A.length;
-		if (len <= 1) {
-			return len;
-		}
-		int count = 0;
-		for (int i = 0; i < len - 1; i++) {
-			if (A[i] == A[i + 1]) {
+		if (A == null || A.length == 0)
+			return 0;
+		int count = 0, mark = A[0];
+		for (int i = 1; i < A.length; i++) {
+			if (A[i] == mark) {
 				count++;
 			} else {
 				A[i - count] = A[i];
+				mark = A[i];
 			}
 		}
-		// take care of the tail elements
-		if (A[len - 1] != A[len - 2]) {
-			A[len - count - 1] = A[len - 1];
-		}
-		return count;
+		return A.length - count;
 	}
 
 	public static void main(String[] args) {
-//		int[] A = { 1, 2, 2, 2, 3, 4, 5, 5, 6, 7, 7, 7, 8 };
-		int[] A = { 1, 2 };
+		int[] A = { 1, 2, 2, 2, 3, 4, 5, 5, 6, 7, 7, 7, 8 };
 		int n = removeDuplicates(A);
 		System.out.println("Number of duplicates: " + n);
 		for (int i = 0; i < A.length; i++) {

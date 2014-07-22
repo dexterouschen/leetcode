@@ -7,24 +7,19 @@ package arrays;
  */
 public class Remove_element {
 
-	public Remove_element() {
-		// TODO Auto-generated constructor stub
-	}
-
 	public static int removeElement(int[] A, int elem) {
-		int count = 0;
-		for (int i = 0; i < A.length; ++i) {
-			if (A[i] == elem) {
-				count++;
-			} else if (count > 0) {
-				A[i - count] = A[i];
-			}
-		}
+        int count = 0;
+        for (int i = 0; i < A.length; i++){
+            if(A[i] == elem){
+                count++;
+            }else{
+                A[i-count] = A[i];
+            }
+        }
 		return A.length - count;
 	}
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		int[] A = { 3, 3 };
 		int elem = 3;
 		System.out.println(removeElement(A, elem));

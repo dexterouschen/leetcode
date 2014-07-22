@@ -26,42 +26,23 @@ import test_data_structure.TreeNode;
 
 public class Symemtric_Tree {
 
-	public Symemtric_Tree() {
-		// TODO Auto-generated constructor stub
-	}
-
+	// A wrapper will be greatly helpful in this problem.
 	public static boolean isSymmetric(TreeNode root) {
 		if (root == null) {
 			return true;
 		}
-		if (root.left == null && root.right == null) {
-			return true;
-		}
-		if (root.left != null && root.right != null) {
-			TreeNode lp = root.left;
-			TreeNode rp = root.right;
-			if (lp.val == rp.val) {
-				return compareSubTree(lp, rp);
-			} else {
-				return false;
-			}
-		}
-		return false;
+		return isSymmetricTrees(root.left, root.right);
 	}
 
-	public static boolean compareSubTree(TreeNode r1, TreeNode r2) {
-		if (r1 == null && r2 == null) {
+	public static boolean isSymmetricTrees(TreeNode root1, TreeNode root2) {
+		if (root1 == null && root2 == null) {
 			return true;
 		}
-		if ((r1 == null && r2 != null) || (r1 != null && r2 == null)) {
+		if ((root1 == null && root2 != null) || (root1 != null && root2 == null) || (root1.val != root2.val)) {
 			return false;
 		}
-		if (r1.val != r2.val) {
-			return false;
-		}
-		boolean ans1 = compareSubTree(r1.left, r2.right);
-		boolean ans2 = compareSubTree(r1.right, r2.left);
-		return ans1 && ans2;
+		TreeNode lp1 = root1.left, rp1 = root1.right, lp2 = root2.left, rp2 = root2.right;
+		return isSymmetricTrees(lp1, rp2) && isSymmetricTrees(rp1, lp2);
 	}
 
 	public static void main(String[] args) {

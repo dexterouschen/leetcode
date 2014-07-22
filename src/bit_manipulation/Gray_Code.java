@@ -1,4 +1,4 @@
-package recursion;
+package bit_manipulation;
 
 import java.util.ArrayList;
 

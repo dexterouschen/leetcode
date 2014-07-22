@@ -1,5 +1,7 @@
 package trees_and_graphs;
 
+import java.util.Arrays;
+
 import test_data_structure.TreeNode;
 
 /*
@@ -8,27 +10,17 @@ import test_data_structure.TreeNode;
 
 public class Convert_sorted_array_to_BST {
 
-	public Convert_sorted_array_to_BST() {
-		// TODO Auto-generated constructor stub
-	}
-
 	public TreeNode sortedArrayToBST(int[] num) {
-		if (num == null) {
+		if (num == null || num.length == 0) {
 			return null;
 		}
-		int len = num.length;
-		if (len == 0) {
-			return null;
-		}
-		if (len == 1) {
+		if (num.length == 1) {
 			return new TreeNode(num[0]);
 		}
-		int mid = (int) len / 2;
+		int mid = num.length / 2;
 		TreeNode root = new TreeNode(num[mid]);
-		int[] left = toSubArray(num, 0, mid - 1);
-		int[] right = toSubArray(num, mid + 1, len - 1);
-		root.left = sortedArrayToBST(left);
-		root.right = sortedArrayToBST(right);
+		root.left = sortedArrayToBST(Arrays.copyOfRange(num, 0, mid));
+		root.right = sortedArrayToBST(Arrays.copyOfRange(num, mid + 1, num.length));
 		return root;
 	}
 

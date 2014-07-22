@@ -8,49 +8,24 @@ import test_data_structure.ListNode;
  */
 public class Merge_2_Sorted_Lists {
 
-	public Merge_2_Sorted_Lists() {
-		// TODO Auto-generated constructor stub
-	}
-
 	public static ListNode mergeTwoLists(ListNode l1, ListNode l2) {
-		ListNode trav;
-		ListNode nl;
-		if (l1 == null) {
-			return l2;
-		}
-		if (l2 == null) {
-			return l1;
-		}
-
-		if (l1.val <= l2.val) {
-			trav = l1;
-			nl = trav;
-			l1 = l1.next;
-		} else {
-			trav = l2;
-			nl = trav;
-			l2 = l2.next;
-		}
-
+		ListNode newhead = new ListNode(888);
+		ListNode head = newhead;
 		while (l1 != null && l2 != null) {
 			if (l1.val < l2.val) {
-				trav.next = l1;
-				trav = trav.next;
+				head.next = l1;
 				l1 = l1.next;
 			} else {
-				trav.next = l2;
-				trav = trav.next;
+				head.next = l2;
 				l2 = l2.next;
 			}
+			head = head.next;
 		}
-
-		if (l1 == null) {
-			trav.next = l2;
-		} else if (l2 == null) {
-			trav.next = l1;
-		}
-
-		return nl;
+		if (l1 == null)
+			head.next = l2;
+		else
+			head.next = l1;
+		return newhead.next;
 	}
 
 	public static void main(String[] args) {

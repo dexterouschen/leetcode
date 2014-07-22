@@ -9,44 +9,28 @@ import java.util.ArrayList;
  */
 public class Pascal_Triangle {
 
-	public Pascal_Triangle() {
-		// TODO Auto-generated constructor stub
-	}
-
+	/*
+	 * DP solution. Build solution from top to bottom.
+	 */
 	public static ArrayList<ArrayList<Integer>> generate(int numRows) {
-
-		ArrayList<ArrayList<Integer>> list = new ArrayList<ArrayList<Integer>>();
+		ArrayList<ArrayList<Integer>> lists = new ArrayList<ArrayList<Integer>>();
 		if (numRows <= 0) {
-			return list;
+			return lists;
 		}
-		// base cases
-		ArrayList<Integer> level0 = new ArrayList<Integer>();
-		level0.add(1);
-		list.add(level0);
-		if (numRows == 1) {
-			return list;
-		}
-		ArrayList<Integer> level1 = new ArrayList<Integer>();
-		level1.add(1);
-		level1.add(1);
-		list.add(level1);
-		if (numRows == 2) {
-			return list;
-		}
-
-		for (int i = 2; i < numRows; i++) {
-			ArrayList<Integer> level = new ArrayList<Integer>();
-			level.add(1);
-			int count = 0;
-			while (count < i - 1) {
-				count++;
-				level.add(list.get(i - 1).get(count - 1)
-						+ list.get(i - 1).get(count));
+		ArrayList<Integer> list = new ArrayList<Integer>();
+		list.add(1);
+		lists.add(list);
+		for (int i = 2; i <= numRows; i++) {
+			ArrayList<Integer> curList = new ArrayList<>();
+			curList.add(1);
+			ArrayList<Integer> prevList = lists.get(lists.size() - 1);
+			for (int j = 1; j < prevList.size(); j++) {
+				curList.add(prevList.get(j) + prevList.get(j - 1));
 			}
-			level.add(1);
-			list.add(level);
+			curList.add(1);
+			lists.add(curList);
 		}
-		return list;
+		return lists;
 	}
 
 	public static void main(String[] args) {
