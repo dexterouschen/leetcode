@@ -18,33 +18,31 @@ package arrays;
  */
 public class Sort_Colors {
 
-	public Sort_Colors() {
-		// TODO Auto-generated constructor stub
+	/*
+	 * Use two pointers for 0s and 2s. For detailed operations please see below.
+	 */
+	public static void sortColors(int[] A) {
+		int p0 = 0, p2 = A.length - 1;
+		int i = 0;
+		while (i <= p2) {
+			if (A[i] == 0) {
+				swap(A, i, p0);
+				p0++;
+				i++;
+				continue;
+			} else if (A[i] == 2) {
+				swap(A, i, p2);
+				p2--;
+				continue;
+			}
+			i++;
+		}
 	}
 
-	public static void sortColors(int[] A) {
-		if (A == null || A.length <= 0) {
-			return;
-		}
-		int a = 0;
-		int b = 0;
-		int c = 0;
-		for (int i = 0; i < A.length; i++) {
-			if (A[i] == 0)
-				a++;
-			if (A[i] == 1)
-				b++;
-			if (A[i] == 2)
-				c++;
-		}
-		for (int i = 0; i < A.length; i++) {
-			if (i < a)
-				A[i] = 0;
-			if (i >= a && i < a + b)
-				A[i] = 1;
-			if (i >= a + b && i < a + b + c)
-				A[i] = 2;
-		}
+	public static void swap(int[] num, int a, int b) {
+		int temp = num[a];
+		num[a] = num[b];
+		num[b] = temp;
 	}
 
 	public static void main(String[] args) {
