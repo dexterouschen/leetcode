@@ -23,43 +23,41 @@ package dfs;
 public class Unique_Paths_II {
 
 	public static int uniquePathsWithObstacles(int[][] obstacleGrid) {
-		int ways = 0;
-		if (obstacleGrid == null
-				|| obstacleGrid[obstacleGrid.length - 1][obstacleGrid[0].length - 1] == 1) {
-			return ways;
+		if (obstacleGrid == null || obstacleGrid.length == 0 || obstacleGrid[0].length == 0) {
+			return 0;
 		}
-
 		int row = obstacleGrid.length, col = obstacleGrid[0].length;
-		int[][] map = new int[row][col];
-		// initiate the edges
-		int p = row - 1;
-		while (p >= 0 && obstacleGrid[p][col - 1] != 1) {
-			map[p][col - 1] = 1;
-			p--;
-		}
-		for (int i = p; i >= 0; i--) {
-			map[p][col - 1] = 0;
-		}
-		p = col - 1;
-		while (p >= 0 && obstacleGrid[row - 1][p] != 1) {
-			map[row - 1][p] = 1;
-			p--;
-		}
-		for (int i = p; i >= 0; i--) {
-			map[row - 1][p] = 0;
-		}
-		// dp building
-		for (int i = row - 2; i >= 0; i--) {
-			for (int j = col - 2; j >= 0; j--) {
-				if (obstacleGrid[i][j] != 1) {
-					map[i][j] = map[i][j + 1] + map[i + 1][j];
-				} else {
-					map[i][j] = 0;
-				}
+		int[][] path = new int[row][col];
+		// initate
+		boolean flag = true;
+		for (int i = 0; i < row; i++) {
+			if (obstacleGrid[i][0] == 1) {
+				flag = false;
+			}
+			if (flag == true) {
+				path[i][0] = 1;
+			} else {
+				path[i][0] = 0;
 			}
 		}
-		ways = map[0][0];
-		return ways;
+		flag = true;
+		for (int i = 0; i < col; i++) {
+			if (obstacleGrid[0][i] == 1) {
+				flag = false;
+			}
+			if (flag == true) {
+				path[0][i] = 1;
+			} else {
+				path[0][i] = 0;
+			}
+		}
+		// build table
+		for (int i = 1; i < row; i++) {
+			for (int j = 1; j < col; j++) {
+				path[i][j] = obstacleGrid[i][j] == 1 ? 0 : path[i - 1][j] + path[i][j - 1];
+			}
+		}
+		return path[row - 1][col - 1];
 	}
 
 	public static void main(String[] args) {

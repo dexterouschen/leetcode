@@ -17,26 +17,23 @@ public class Linked_List_Cycle_II {
 	 * When they meet again, the node is the starting of the cycle.
 	 */
 	public static ListNode detectCycle(ListNode head) {
-		if (head == null) {
+		if (head == null || head.next == null || head.next.next == null) {
 			return null;
 		}
-		ListNode runner1 = head;
-		ListNode runner2 = head;
-		while (runner1.next != null && runner2.next != null
-				&& runner2.next.next != null) {
-			runner1 = runner1.next;
-			runner2 = runner2.next.next;
-			if (runner1.equals(runner2)) {
-				runner1 = head;
-				while (!runner1.equals(runner2)) {
-					runner1 = runner1.next;
-					runner2 = runner2.next;
-				}
-				return runner1;
+		ListNode r1 = head.next, r2 = head.next.next;
+		while (!r1.equals(r2)) {
+			if (r2.next == null || r2.next.next == null) {
+				return null;
 			}
+			r1 = r1.next;
+			r2 = r2.next.next;
 		}
-		return null;
-
+		r1 = head;
+		while (!r1.equals(r2)) {
+			r1 = r1.next;
+			r2 = r2.next;
+		}
+		return r1;
 	}
 
 	public static void main(String[] args) {

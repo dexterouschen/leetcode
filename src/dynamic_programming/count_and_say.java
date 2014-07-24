@@ -12,7 +12,7 @@ package dynamic_programming;
  Note: The sequence of integers will be represented as a string.
  */
 
-public class count_and_say {
+public class Count_and_Say {
 	/*
 	 * ���ⲻ�壬������⡣http://blog.csdn.net/fightforyourdream/article/details/12901505
 	 */

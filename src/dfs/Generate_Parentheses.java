@@ -1,6 +1,9 @@
 package dfs;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /*
  Given n pairs of parentheses,
@@ -11,67 +14,72 @@ import java.util.ArrayList;
  "((()))", "(()())", "(())()", "()(())", "()()()"
  */
 public class Generate_Parentheses {
-	public static final char LEFT = '(';
-	public static final char RIGHT = ')';
 
-	public static ArrayList<String> generateParenthesis(int n) {
-		ArrayList<String> list = new ArrayList<String>();
-		if (n == 0) {
+	/*
+	 * Use deep-search algorithm to traverse through all possible combinations
+	 * of left and right parenthesis.
+	 */
+
+	public final static char LEFT = '(';
+	public final static char RIGHT = ')';
+
+	public static List<String> generateParenthesis(int n) {
+		List<String> list = new ArrayList<String>();
+		if (n <= 0) {
 			return list;
 		}
-		String str = "";
-		dfs(list, str, n);
+		StringBuffer sb = new StringBuffer();
+		Set<String> set = new HashSet<String>();
+		deepBuild(set, sb, n);
+		for (String s : set) {
+			list.add(s);
+		}
 		return list;
 	}
 
-	public static void dfs(ArrayList<String> list, String str, int n) {
-		if (str.length() == n * 2) {
-			// String nStr = new String(str);
-			list.add(str);
+	public static void deepBuild(Set<String> set, StringBuffer sb, int n) {
+		if (sb.length() == n * 2 - 1 && isValidForRIGHT(sb)) {
+			StringBuffer nsb = new StringBuffer(sb);
+			nsb.append(RIGHT);
+			set.add(nsb.toString());
 			return;
 		}
-		if (isValid(str, LEFT, n)) {
-			String nStr = str + LEFT;
-			dfs(list, nStr, n);
+		if (isValidForLEFT(sb, n)) {
+			StringBuffer lsb = new StringBuffer(sb);
+			lsb.append(LEFT);
+			deepBuild(set, lsb, n);
 		}
-		if (isValid(str, RIGHT, n)) {
-			String nStr = str + RIGHT;
-			dfs(list, nStr, n);
+		if (isValidForRIGHT(sb)) {
+			StringBuffer rsb = new StringBuffer(sb);
+			rsb.append(RIGHT);
+			deepBuild(set, rsb, n);
 		}
 	}
 
-	// check is a parenthesis can be added
-	private static boolean isValid(String str, char p, int n) {
-		int leftCounter = 0;
-		int rightCounter = 0;
-		for (int i = 0; i < str.length(); i++) {
-			if (str.charAt(i) == LEFT) {
-				leftCounter++;
-			}
-			if (str.charAt(i) == RIGHT) {
-				rightCounter++;
-			}
+	// if in sb, # of LEFT is larger than # of RIGHT
+	public static boolean isValidForRIGHT(StringBuffer sb) {
+		int l = 0, r = 0;
+		for (int i = 0; i < sb.length(); i++) {
+			if (sb.charAt(i) == LEFT)
+				l++;
+			else
+				r++;
 		}
-		if (p == LEFT) {
-			// make sure the number of left is less than n
-			if (leftCounter < n && leftCounter >= rightCounter) {
-				return true;
-			} else {
-				return false;
-			}
-		} else if (p == RIGHT) {
-			if (rightCounter < n && rightCounter < leftCounter) {
-				return true;
-			} else {
-				return false;
-			}
+		return l > r ? true : false;
+	}
+
+	// if in sb, # of LEFT is smaller than n
+	public static boolean isValidForLEFT(StringBuffer sb, int n) {
+		int l = 0;
+		for (int i = 0; i < sb.length(); i++) {
+			if (sb.charAt(i) == LEFT)
+				l++;
 		}
-		return false;
+		return l < n ? true : false;
 	}
 
 	public static void main(String[] args) {
-		ArrayList<String> list = generateParenthesis(3);
-
+		List<String> list = generateParenthesis(3);
 		System.out.println("Size: " + list.size());
 		for (int i = 0; i < list.size(); i++) {
 			System.out.println(list.get(i));

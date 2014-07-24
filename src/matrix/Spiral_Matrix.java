@@ -1,6 +1,7 @@
 package matrix;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /*
  Given a matrix of m x n elements (m rows, n columns), 
@@ -56,6 +57,34 @@ public class Spiral_Matrix {
 			for (int i = top; i <= bottom; i++) {
 				list.add(matrix[i][left]);
 			}
+		}
+		return list;
+	}
+
+	// adjusted solution on 2014-7-24
+	public List<Integer> spiralOrder_2nd(int[][] matrix) {
+		List<Integer> list = new ArrayList<>();
+		if (matrix == null || matrix.length == 0 || matrix[0].length == 0) {
+			return list;
+		}
+		int left = 0, right = matrix[0].length - 1, top = 0, bottom = matrix.length - 1;
+		while (left <= right && top <= bottom) {
+			for (int i = left; i <= right && (left <= right && top <= bottom); i++) {
+				list.add(matrix[top][i]);
+			}
+			top++;
+			for (int i = top; i <= bottom && (left <= right && top <= bottom); i++) {
+				list.add(matrix[i][right]);
+			}
+			right--;
+			for (int i = right; i >= left && (left <= right && top <= bottom); i--) {
+				list.add(matrix[bottom][i]);
+			}
+			bottom--;
+			for (int i = bottom; i >= top && (left <= right && top <= bottom); i--) {
+				list.add(matrix[i][left]);
+			}
+			left++;
 		}
 		return list;
 	}

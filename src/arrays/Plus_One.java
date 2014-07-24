@@ -1,5 +1,7 @@
 package arrays;
 
+import java.util.Arrays;
+
 /*
  Given a non-negative number represented as an array of digits, plus one to the number.
 
@@ -9,26 +11,19 @@ package arrays;
 public class Plus_One {
 
 	public static int[] plusOne(int[] digits) {
-		int carry = 0, i = digits.length - 1;
-		digits[i] += 1;
-		while (digits[i] >= 10) {
-			digits[i] = 0;
-			i--;
-			if (i >= 0)
-				digits[i] += 1;
-			else {
-				carry = 1;
-				break;
-			}
+		int[] array = new int[digits.length + 1];
+		int carry = 1;
+		for (int i = digits.length - 1; i >= 0; i--) {
+			array[i + 1] = (digits[i] + carry) % 10;
+			carry = (digits[i] + carry) / 10;
 		}
-		if (carry == 0)
-			return digits;
-		int[] res = new int[digits.length + 1];
-		for (i = 0; i < digits.length; i++) {
-			res[i + 1] = digits[i];
+		if (carry == 1) {
+			array[0] = 1;
+			return array;
+		} else {
+			return Arrays.copyOfRange(array, 1, array.length);
 		}
-		res[0] = 1;
-		return res;
+
 	}
 
 	public static void main(String[] args) {

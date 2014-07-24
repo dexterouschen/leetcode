@@ -10,7 +10,19 @@ package arrays;
  */
 
 public class Search_in_Rotated_Sorted_Array_II {
-
+	/*
+	 * Because the sorted array was rotated at an unknown pivot, it is
+	 * impossible to find out where exactly is the pivot without an O(n) search.
+	 * However, you can always find out that by dividing the array in half, one
+	 * side must be sorted. Therefore, you can always do a binary search in the
+	 * sorted half. To figure out which half is sorted, you only need to compare
+	 * your A[mid] to A[start] or A[end].
+	 */
+	/*
+	 * Here you may have duplicates. In case if A[start] == A[mid], skip
+	 * duplicate one by "start++;". You may use "end--;" if you use
+	 * "A[mid] >= A[end]" to find sorted half.
+	 */
 	public static boolean search(int[] A, int target) {
 		int len = A.length;
 		int start = 0, end = len - 1;

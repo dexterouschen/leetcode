@@ -11,6 +11,14 @@ package arrays;
  */
 public class Search_in_Rotated_Sorted_Array {
 
+	/*
+	 * Because the sorted array was rotated at an unknown pivot, it is
+	 * impossible to find out where exactly is the pivot without an O(n) search.
+	 * However, you can always find out that by dividing the array in half, one
+	 * side must be sorted. Therefore, you can always do a binary search in the
+	 * sorted half. To figure out which half is sorted, you only need to compare
+	 * your A[mid] to A[start] or A[end].
+	 */
 	public static int search(int[] A, int target) {
 		int len = A.length;
 		int start = 0, end = len - 1;
@@ -23,6 +31,7 @@ public class Search_in_Rotated_Sorted_Array {
 				return mid;
 			}
 			if (A[mid] >= A[start]) { // left sub array must be sorted
+				// "!!!" Not ">" but ">=" in the statement above
 				if (target < A[start] || target > A[mid]) {
 					start = mid + 1; // search in right sub array
 				} else {

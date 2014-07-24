@@ -19,52 +19,35 @@ import java.util.Arrays;
 public class Spiral_Matrix_II {
 
 	public static int[][] generateMatrix(int n) {
-		if (n < 1) {
+		if (n == 0) {
 			return new int[0][0];
 		}
-		// solve this spiral problem by a while loop that travels through the
-		// boundary of the matrix clock-wisely, using 4 indexes top, bottom,
-		// left, right. Values of these 4 variables changes each time after the
-		// while loop goes through the boundary.
-		int row = n, col = n;
-		int[][] newMatrix = new int[row][col];
-		int itr = 1;
-		int top = 0, bottom = row - 1, left = 0, right = col - 1;
-		while (top < bottom && left < right) {
-			for (int i = left; i < right; i++) {
-				newMatrix[top][i] = itr;
-				itr++;
+		int[][] matrix = new int[n][n];
+		int up = 0, down = n - 1, left = 0, right = n - 1;
+		int num = 1;
+		while (left <= right && up <= down) {
+			for (int i = left; i <= right; i++) {
+				matrix[up][i] = num;
+				num++;
 			}
-			for (int i = top; i < bottom; i++) {
-				newMatrix[i][right] = itr;
-				itr++;
+			up++;
+			for (int i = up; i <= down; i++) {
+				matrix[i][right] = num;
+				num++;
 			}
-			for (int i = right; i > left; i--) {
-				newMatrix[bottom][i] = itr;
-				itr++;
+			right--;
+			for (int i = right; i >= left; i--) {
+				matrix[down][i] = num;
+				num++;
 			}
-			for (int i = bottom; i > top; i--) {
-				newMatrix[i][left] = itr;
-				itr++;
+			down--;
+			for (int i = down; i >= up; i--) {
+				matrix[i][left] = num;
+				num++;
 			}
 			left++;
-			right--;
-			top++;
-			bottom--;
 		}
-		// if the number of columns and/or rows is odd
-		if (top == bottom) {
-			for (int i = left; i <= right; i++) {
-				newMatrix[top][i] = itr;
-				itr++;
-			}
-		} else if (left == right) {
-			for (int i = top; i <= bottom; i++) {
-				newMatrix[i][left] = itr;
-				itr++;
-			}
-		}
-		return newMatrix;
+		return matrix;
 	}
 
 	public static void main(String[] args) {

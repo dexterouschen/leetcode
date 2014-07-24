@@ -32,65 +32,108 @@ public class Binary_Tree_Level_Order_Traversal_II {
 	 * another list simultaneously recording each node's level. In this problem,
 	 * two ArrayLists and two Queues are used in implementing such an algorithm.
 	 */
+	// public static ArrayList<ArrayList<Integer>> levelOrderBottom(TreeNode
+	// root) {
+	// ArrayList<ArrayList<Integer>> resultLists = new
+	// ArrayList<ArrayList<Integer>>();
+	// ArrayList<Integer> valList = new ArrayList<Integer>(); //
+	// ArrayList<Integer> levelList = new ArrayList<Integer>();
+	// if (root == null) {
+	// return resultLists;
+	// }
+	// bfs(root, valList, levelList);
+	// // Traverse levelList from tail to head
+	// int level = levelList.get(levelList.size() - 1);
+	// int index = 0;
+	// ArrayList<Integer> level0 = new ArrayList<Integer>();
+	// resultLists.add(index, level0);
+	// for (int i = levelList.size() - 1; i >= 0; i--) {
+	// if (levelList.get(i) == level) {
+	// resultLists.get(index).add(valList.get(i));
+	// } else {
+	// level--;
+	// index++;
+	// ArrayList<Integer> nLevel = new ArrayList<Integer>();
+	// resultLists.add(index, nLevel);
+	// resultLists.get(index).add(valList.get(i));
+	// }
+	// }
+	// return resultLists;
+	// }
+	//
+	// // Using BFS algorithm to update valList and levelList
+	// public static void bfs(TreeNode root, ArrayList<Integer> valList,
+	// ArrayList<Integer> levelList) {
+	// if (root == null) {
+	// return;
+	// }
+	// Queue<TreeNode> nodeQueue = new LinkedList<TreeNode>();
+	// Queue<Integer> levelQueue = new LinkedList<Integer>();
+	// nodeQueue.add(root);
+	// levelQueue.add(0);
+	// while (!nodeQueue.isEmpty()) {
+	// TreeNode node = (TreeNode) nodeQueue.poll();
+	// int level = levelQueue.poll();
+	// valList.add(node.val);
+	// levelList.add(level);
+	// if (node.right != null) {
+	// nodeQueue.add(node.right);
+	// levelQueue.add(level + 1);
+	// }
+	// if (node.left != null) {
+	// nodeQueue.add(node.left);
+	// levelQueue.add(level + 1);
+	// }
+	// }
+	// }
+
 	public static ArrayList<ArrayList<Integer>> levelOrderBottom(TreeNode root) {
-
-		ArrayList<ArrayList<Integer>> resultLists = new ArrayList<ArrayList<Integer>>();
-		ArrayList<Integer> valList = new ArrayList<Integer>(); //
-		ArrayList<Integer> levelList = new ArrayList<Integer>();
-
+		ArrayList<ArrayList<Integer>> lists = new ArrayList<ArrayList<Integer>>();
 		if (root == null) {
-			return resultLists;
+			return lists;
 		}
-
-		bfs(root, valList, levelList);
-
-		// Traverse levelList from tail to head
-		int level = levelList.get(levelList.size() - 1);
-		int index = 0;
-		ArrayList<Integer> level0 = new ArrayList<Integer>();
-		resultLists.add(index, level0);
-		for (int i = levelList.size() - 1; i >= 0; i--) {
-			if (levelList.get(i) == level) {
-				resultLists.get(index).add(valList.get(i));
-			} else {
-				level--;
-				index++;
-				ArrayList<Integer> nLevel = new ArrayList<Integer>();
-				resultLists.add(index, nLevel);
-				resultLists.get(index).add(valList.get(i));
-			}
-		}
-		return resultLists;
-	}
-
-	// Using BFS algorithm to update valList and levelList
-	public static void bfs(TreeNode root, ArrayList<Integer> valList,
-			ArrayList<Integer> levelList) {
-		if (root == null) {
-			return;
-		}
-
 		Queue<TreeNode> nodeQueue = new LinkedList<TreeNode>();
-		Queue<Integer> levelQueue = new LinkedList<Integer>();
-
+		Queue<Integer> indQueue = new LinkedList<Integer>();
+		int level = 0;
 		nodeQueue.add(root);
-		levelQueue.add(0);
+		indQueue.add(level);
+		ArrayList<Integer> valList = new ArrayList<>();
+		ArrayList<Integer> indList = new ArrayList<>();
 		while (!nodeQueue.isEmpty()) {
-			TreeNode node = (TreeNode) nodeQueue.poll();
-			int level = levelQueue.poll();
+			TreeNode node = nodeQueue.poll();
+			level = indQueue.poll();
 			valList.add(node.val);
-			levelList.add(level);
-
-			if (node.right != null) {
-				nodeQueue.add(node.right);
-				levelQueue.add(level + 1);
-			}
+			indList.add(level);
 			if (node.left != null) {
 				nodeQueue.add(node.left);
-				levelQueue.add(level + 1);
+				indQueue.add(level + 1);
 			}
-
+			if (node.right != null) {
+				nodeQueue.add(node.right);
+				indQueue.add(level + 1);
+			}
 		}
+		level = 0;
+		ArrayList<Integer> aList = new ArrayList<Integer>();
+		for (int i = 0; i < valList.size(); i++) {
+			if (indList.get(i) == level) {
+				aList.add(valList.get(i));
+			} else {
+				ArrayList<Integer> nlist = new ArrayList<Integer>(aList);
+				lists.add(nlist);
+				aList = new ArrayList<>();
+				level = indList.get(i);
+				aList.add(valList.get(i));
+			}
+		}
+		if (!aList.isEmpty()) {
+			lists.add(aList);
+		}
+		ArrayList<ArrayList<Integer>> nlists = new ArrayList<>();
+		for (int i = lists.size() - 1; i >= 0; i--) {
+			nlists.add(lists.get(i));
+		}
+		return nlists;
 	}
 
 	public static void main(String[] args) {
