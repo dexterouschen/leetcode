@@ -1,4 +1,4 @@
-package trees_and_graphs;
+package recursion;
 
 import java.util.ArrayList;
 
@@ -26,41 +26,41 @@ import test_data_structure.TreeNode;
 
 public class Path_Sum_II {
 
+	/*
+	 * Recursively dive into children of root until it finds a leaf. Similar to
+	 * a normal deep-search algorithm.
+	 */
 	public static ArrayList<ArrayList<Integer>> pathSum(TreeNode root, int sum) {
-		ArrayList<ArrayList<Integer>> lists = new ArrayList<ArrayList<Integer>>();
-		ArrayList<Integer> list = new ArrayList<Integer>();
+		ArrayList<ArrayList<Integer>> lists = new ArrayList<>();
 		if (root == null) {
 			return lists;
 		}
-		dfs(lists, list, root, sum);
+		ArrayList<Integer> list = new ArrayList<>();
+		deepSearch(lists, list, root, sum);
 		return lists;
 	}
 
-	public static void dfs(ArrayList<ArrayList<Integer>> lists,
-			ArrayList<Integer> list, TreeNode root, int sum) {
+	public static void deepSearch(ArrayList<ArrayList<Integer>> lists, ArrayList<Integer> list,
+			TreeNode root, int sum) {
 		if (root == null) {
 			return;
 		}
-		// check if it traverses to a leaf
-		int curVal = root.val;
-		if (root.left == null && root.right == null) {
-			if (curVal == sum) {
-				ArrayList<Integer> aList = new ArrayList<Integer>(list);
-				aList.add(curVal);
-				lists.add(aList);
-			}
+		if (root.left == null && root.right == null && root.val == sum) {
+			ArrayList<Integer> nlist = new ArrayList<Integer>(list);
+			nlist.add(root.val);
+			lists.add(nlist);
 			return;
 		}
-		// else it must have a child
-		int curSum = sum - curVal;
-		list.add(curVal);
+		int remain = sum - root.val;
 		if (root.left != null) {
-			ArrayList<Integer> leftList = new ArrayList<Integer>(list);
-			dfs(lists, leftList, root.left, curSum);
+			ArrayList<Integer> nlist = new ArrayList<Integer>(list);
+			nlist.add(root.val);
+			deepSearch(lists, nlist, root.left, remain);
 		}
 		if (root.right != null) {
-			ArrayList<Integer> rightList = new ArrayList<Integer>(list);
-			dfs(lists, rightList, root.right, curSum);
+			ArrayList<Integer> nlist = new ArrayList<Integer>(list);
+			nlist.add(root.val);
+			deepSearch(lists, nlist, root.right, remain);
 		}
 	}
 

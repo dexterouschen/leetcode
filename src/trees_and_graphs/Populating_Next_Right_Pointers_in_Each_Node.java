@@ -34,7 +34,7 @@ import test_data_structure.TreeLinkNode;
  4->5->6->7 -> NULL
  */
 
-public class Populating_Next_Right_Pointers_Each_Node {
+public class Populating_Next_Right_Pointers_in_Each_Node {
 
 	public static void connect(TreeLinkNode root) {
 		if (root == null) {

@@ -11,19 +11,23 @@ package arrays;
 
  Your function should return length = 2, and A is now [1,2].
  */
-public class Remove_dups_sorted_array {
+public class Remove_duplicates_from_sorted_array {
 
 	public static int removeDuplicates(int[] A) {
-		if (A == null || A.length == 0)
+		if (A == null || A.length == 0) {
 			return 0;
-		int count = 0, mark = A[0];
+		}
+		if (A.length == 1) {
+			return 1;
+		}
+		int count = 0;
 		for (int i = 1; i < A.length; i++) {
-			if (A[i] == mark) {
+			if (A[i] == A[i - 1]) {
 				count++;
 			} else {
 				A[i - count] = A[i];
-				mark = A[i];
 			}
+
 		}
 		return A.length - count;
 	}

@@ -1,4 +1,4 @@
-package trees_and_graphs;
+package recursion;
 
 import test_data_structure.Tree;
 import test_data_structure.TreeNode;
@@ -22,26 +22,14 @@ import test_data_structure.TreeNode;
 public class Path_Sum {
 
 	public static boolean hasPathSum(TreeNode root, int sum) {
-		if (root == null) {
+		if (root == null || (root.left == null && root.right == null && sum != root.val)) {
 			return false;
 		}
-		if (root.left == null && root.right == null) { // check at a leaf node
-			if (root.val != sum) {
-				return false;
-			} else {
-				return true;
-			}
+		if (root.left == null && root.right == null && sum == root.val) {
+			return true;
 		}
-
-		sum -= root.val;
-		boolean result = false;
-		if (root.left != null) {
-			result = result || hasPathSum(root.left, sum);
-		}
-		if (root.right != null) {
-			result = result || hasPathSum(root.right, sum);
-		}
-		return result;
+		int remain = sum - root.val;
+		return hasPathSum(root.left, remain) || hasPathSum(root.right, remain);
 	}
 
 	public static void main(String[] args) {

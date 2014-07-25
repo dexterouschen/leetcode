@@ -16,7 +16,7 @@ package recursion;
  ]
  */
 
-import java.util.ArrayList;
+import java.util.*;
 
 public class Combinations {
 
@@ -50,9 +50,10 @@ public class Combinations {
 		lists.addAll(listOfLessPick);
 		return lists;
 	}
+	
 
 	public static void main(String[] args) {
-		System.out.println(combine(1, 1));
+		System.out.println(combine(4, 2));
 	}
 
 }
