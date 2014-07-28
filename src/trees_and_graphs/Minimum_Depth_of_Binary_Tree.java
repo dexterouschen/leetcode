@@ -11,7 +11,10 @@ import test_data_structure.Tree;
 import test_data_structure.TreeNode;
 
 public class Minimum_Depth_of_Binary_Tree {
-
+	/*
+	 * A normal recursion problem. Be careful of the conditions where a node has
+	 * just one child.
+	 */
 	public static int minDepth(TreeNode root) {
 		if (root == null) {
 			return 0;

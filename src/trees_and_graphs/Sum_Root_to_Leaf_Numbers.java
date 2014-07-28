@@ -2,7 +2,8 @@ package trees_and_graphs;
 
 import test_data_structure.Tree;
 import test_data_structure.TreeNode;
-import java.util.ArrayList;
+
+import java.util.*;
 
 /*
  Given a binary tree containing digits from 0-9 only, each root-to-leaf path could represent a number.
@@ -24,54 +25,43 @@ import java.util.ArrayList;
 
 public class Sum_Root_to_Leaf_Numbers {
 	/*
-	 * Using DFS algorithm to find out all the paths from leaf to root. Then
-	 * convert the path into values and sum them up.
+	 * Using deep search algorithm to find out all the paths from leaf to root.
+	 * Then convert the path into values and sum them up.
 	 */
+	public static int sum = 0;
+
 	public static int sumNumbers(TreeNode root) {
-		if (root == null) {
+		if (root == null)
 			return 0;
-		}
-		ArrayList<ArrayList<TreeNode>> lists = new ArrayList<ArrayList<TreeNode>>();
-		ArrayList<TreeNode> list = new ArrayList<TreeNode>();
-		dfs(lists, list, root);
-		// // for check purposes
-		// for (ArrayList<TreeNode> a : lists) {
-		// for (TreeNode t : a) {
-		// System.out.println(t.val);
-		// }
-		// System.out.println("   ");
-		// }
-		int sum = toSum(lists);
+		ArrayList<Integer> list = new ArrayList<>();
+		deepSearch(root, list);
 		return sum;
 	}
 
-	public static void dfs(ArrayList<ArrayList<TreeNode>> lists,
-			ArrayList<TreeNode> list, TreeNode root) {
+	public static void deepSearch(TreeNode root, ArrayList<Integer> list) {
 		if (root.left == null && root.right == null) {
-			list.add(root);
-			lists.add(new ArrayList<TreeNode>(list));
+			ArrayList<Integer> nlist = new ArrayList<Integer>(list);
+			nlist.add(root.val);
+			int x = toInt(nlist);
+			sum += x;
 			return;
 		}
-		list.add(root);
 		if (root.left != null) {
-			ArrayList<TreeNode> l = new ArrayList<TreeNode>(list);
-			dfs(lists, l, root.left);
+			ArrayList<Integer> nlist = new ArrayList<Integer>(list);
+			nlist.add(root.val);
+			deepSearch(root.left, nlist);
 		}
 		if (root.right != null) {
-			ArrayList<TreeNode> r = new ArrayList<TreeNode>(list);
-			dfs(lists, r, root.right);
+			ArrayList<Integer> nlist = new ArrayList<Integer>(list);
+			nlist.add(root.val);
+			deepSearch(root.right, nlist);
 		}
 	}
 
-	public static int toSum(ArrayList<ArrayList<TreeNode>> lists) {
+	private static int toInt(ArrayList<Integer> list) {
 		int sum = 0;
-		for (ArrayList<TreeNode> a : lists) {
-			int subSum = 0;
-			for (TreeNode t : a) {
-				subSum += t.val * Math.pow(10, a.size() - 1 - a.indexOf(t));
-			}
-			sum += subSum;
-		}
+		for (int i = 0; i < list.size(); i++)
+			sum += Math.pow(10, i) * list.get(i);
 		return sum;
 	}
 
@@ -80,8 +70,8 @@ public class Sum_Root_to_Leaf_Numbers {
 		TreeNode n1 = new TreeNode(0);
 		TreeNode n2 = new TreeNode(1);
 		n1.left = n2;
-		System.out.println(sumNumbers(n1)); // should be 1
-		 System.out.println(sumNumbers(tree.root)); // should be 1776
+		// System.out.println(sumNumbers(n1)); // should be 1
+		System.out.println(sumNumbers(tree.root)); // should be 1776
 	}
 
 }

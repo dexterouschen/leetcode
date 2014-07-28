@@ -17,40 +17,28 @@ public class Trapping_Rain_Water {
 	 * positive value).
 	 */
 	public static int trap(int[] A) {
-		if (A == null || A.length < 2) {
+		if (A == null || A.length < 2)
 			return 0;
-		}
-		int len = A.length;
-		int[] maxL = new int[len], maxR = new int[len];
+		int[] maxL = new int[A.length], maxR = new int[A.length];
 		// build the list for each element's left-side maximum
 		int max = A[0];
 		maxL[0] = 0;
-		for (int i = 1; i < len - 1; i++) {
+		for (int i = 1; i < A.length - 1; i++) {
 			maxL[i] = max;
-			if (max < A[i]) {
-				max = A[i];
-			}
+			max = Math.max(A[i], max);
 		}
 		// build the list for each element's right-side maximum
-		max = A[len - 1];
-		maxR[len - 1] = 0;
-		for (int i = len - 2; i > 0; i--) {
+		max = A[A.length - 1];
+		maxR[A.length - 1] = 0;
+		for (int i = A.length - 2; i > 0; i--) {
 			maxR[i] = max;
-			if (max < A[i]) {
-				max = A[i];
-			}
+			max = Math.max(max, A[i]);
 		}
-		// for(int i=0;i<len;i++){
-		// System.out.println(maxL[i]);
-		// System.out.println(maxR[i]);
-		// }
 		// figure out the volume that each element can hold
-		int curTrap, totalTrap = 0;
-		for (int i = 1; i < len - 1; i++) {
-			curTrap = Math.min(maxL[i], maxR[i]) - A[i];
-			if (curTrap > 0) {
-				totalTrap += curTrap;
-			}
+		int totalTrap = 0;
+		for (int i = 1; i < A.length - 1; i++) {
+			totalTrap += Math.min(maxL[i], maxR[i]) - A[i] > 0 ? Math.min(maxL[i], maxR[i]) - A[i]
+					: 0;
 		}
 		return totalTrap;
 	}

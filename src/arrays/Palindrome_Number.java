@@ -5,7 +5,14 @@ package arrays;
  */
 
 public class Palindrome_Number {
-
+	/*
+	 * There are several traps for this problem. (1) manipulating 'int' may lead
+	 * to overflow; (2) converting in to String takes extra space; (3) x may be
+	 * a negative number. In fact, this type of problems can be solve by finding
+	 * the length of this number via dividing 10. Once the power is found, two
+	 * pointers based on the length of this int can then be assigned and moved
+	 * to check if this number is palindrome.
+	 */
 	public static boolean isPalindrome(int x) {
 		// find the digit of the index
 		if (x < 0) {

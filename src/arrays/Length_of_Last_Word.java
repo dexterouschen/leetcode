@@ -16,19 +16,22 @@ package arrays;
 public class Length_of_Last_Word {
 
 	public static int lengthOfLastWord(String s) {
-		int lastLen = 0;
 		if (s == null || s.length() == 0) {
 			return 0;
 		}
-
-		for (int i = 0; i < s.length(); i++) {
-			if (s.charAt(i) != ' ') {
-				lastLen++;
-			} else if (i < s.length() - 1 && s.charAt(i + 1) != ' ') {
-				lastLen = 0;
+		StringBuffer sb = new StringBuffer(s);
+		int len = 0;
+		if (sb.charAt(0) != ' ') {
+			len++;
+		}
+		for (int i = 1; i < sb.length(); i++) {
+			if (sb.charAt(i) != ' ' && sb.charAt(i - 1) == ' ') {
+				len = 1;
+			} else if (sb.charAt(i) != ' ' && sb.charAt(i - 1) != ' ') {
+				len++;
 			}
 		}
-		return lastLen;
+		return len;
 	}
 
 	public static void main(String[] args) {
