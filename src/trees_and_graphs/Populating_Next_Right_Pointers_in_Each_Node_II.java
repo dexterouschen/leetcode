@@ -1,8 +1,6 @@
 package trees_and_graphs;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.*;
 
 import test_data_structure.TreeLinkNode;
 

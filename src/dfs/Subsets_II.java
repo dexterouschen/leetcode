@@ -25,35 +25,39 @@ import java.util.Set;
  */
 
 public class Subsets_II {
-
+	/*
+	 * Two tricks for reducing redundant calculations: (1) sort the int array
+	 * 'S' before running a deep search. This makes the array lists in-order;
+	 * (2) pass in an index that tells deep search to search from left to right
+	 * without looking at elements that has already been search for each branch.
+	 */
 	public static ArrayList<ArrayList<Integer>> subsetsWithDup(int[] num) {
 		ArrayList<ArrayList<Integer>> lists = new ArrayList<ArrayList<Integer>>();
-		if (num == null || num.length == 0) {
+		if (num == null || num.length == 0)
 			return lists;
-		}
-		Arrays.sort(num);
-		ArrayList<Integer> list = new ArrayList<Integer>();
-
-		Set<ArrayList<Integer>> set = new HashSet<ArrayList<Integer>>();
+		Set<ArrayList<Integer>> set = new HashSet<>();
+		ArrayList<Integer> list = new ArrayList<>();
 		set.add(list);
-		dfs(set, list, num, 0);
-		for (ArrayList<Integer> a : set) {
-			lists.add(a);
-		}
+		Arrays.sort(num); // trick is here!
+		int index = 0;
+		deepSearch(set, list, num, index); // pass an index into deep search
+		for (ArrayList<Integer> l : set)
+			lists.add(l);
 		return lists;
 	}
 
-	public static void dfs(Set<ArrayList<Integer>> lists,
-			ArrayList<Integer> list, int[] num, int index) {
-		int len = num.length;
-		if (index == len) {
+	public static void deepSearch(Set<ArrayList<Integer>> set, ArrayList<Integer> list, int[] num,
+			int index) {
+		if (index == num.length || list.size() == num.length)
 			return;
-		}
-		for (int i = index; i < len; i++) {
-			ArrayList<Integer> curList = new ArrayList<Integer>(list);
-			curList.add(num[i]);
-			lists.add(curList);
-			dfs(lists, curList, num, i + 1);
+		for (int i = index; i < num.length; i++) {
+			ArrayList<Integer> alist = new ArrayList<Integer>();
+			alist.add(num[i]);
+			set.add(alist);
+			ArrayList<Integer> nlist = new ArrayList<Integer>(list);
+			nlist.add(num[i]);
+			set.add(nlist);
+			deepSearch(set, nlist, num, i + 1);
 		}
 	}
 

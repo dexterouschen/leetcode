@@ -5,40 +5,35 @@ package arrays;
  */
 
 public class Longest_Common_Prefix {
-
+	/*
+	 * Use an index to check is a char is the same in all strings at position
+	 * index.
+	 */
 	public static String longestCommonPrefix(String[] strs) {
-		if (strs == null || strs.length == 0) {
+		if (strs == null || strs.length == 0)
 			return "";
-		}
-
-		int len = strs.length;
-		// find the minimum string length among all strings
-		int minLen = Integer.MAX_VALUE;
-		for (int i = 0; i < len; i++) {
-			if (strs[i].length() < minLen) {
-				minLen = strs[i].length();
+		StringBuffer sb = new StringBuffer();
+		int index = 0;
+		while (true) {
+			char c;
+			if (strs[0].length() < index + 1)
+				break;
+			else
+				c = strs[0].charAt(index);
+			if (isAllSame(strs, index, c)) {
+				sb.append(c);
+				index++;
+			} else {
+				break;
 			}
 		}
-		// find the index till which the prefix is same for all strings
-		int index = 0;
-		while (index < minLen && areSame(strs, index)) {
-			index++;
-		}
-		char[] list = new char[index];
-		for (int i = 0; i < index; i++) {
-			list[i] = strs[0].charAt(i);
-		}
-		String prefix = new String(list);
-		return prefix;
+		return sb.toString();
 	}
 
-	public static boolean areSame(String[] strs, int index) {
-		char c = strs[0].charAt(index);
-		for (int i = 1; i < strs.length; i++) {
-			if (strs[i].charAt(index) != c) {
+	public static boolean isAllSame(String[] strs, int index, char c) {
+		for (int i = 0; i < strs.length; i++)
+			if (strs[i].length() < index + 1 || strs[i].charAt(index) != c)
 				return false;
-			}
-		}
 		return true;
 	}
 

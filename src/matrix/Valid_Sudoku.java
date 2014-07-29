@@ -1,6 +1,6 @@
 package matrix;
 
-import java.util.HashMap;
+import java.util.*;
 
 /*
  Determine if a Sudoku is valid, according to: Sudoku Puzzles - The Rules.
@@ -16,57 +16,46 @@ import java.util.HashMap;
  */
 
 public class Valid_Sudoku {
-
+	/*
+	 * Iteratively implement Sudoku rules by using hash set in examing if each
+	 * row, column and box is valid.
+	 */
 	public static boolean isValidSudoku(char[][] board) {
-		if (board == null || board.length < 9 || board[0].length < 9) {
-			return false;
-		}
-		// check lines
-		boolean res = true;
-		for (int i = 0; i < 9; i++) {
-			char[] hor = new char[9];
-			char[] vert = new char[9];
-			for (int j = 0; j < 9; j++) {
-				hor[j] = board[i][j];
-				vert[j] = board[j][i];
-			}
-			// check if it satisfies Sudoku rules
-			res &= isValidLine(hor);
-			res &= isValidLine(vert);
-		}
-		// check boxes
-		for (int n = 0; n < 9; n++) {
-			char[][] box = new char[3][3];
-			for (int i = 0; i < 3; i++) {
-				for (int j = 0; j < 3; j++) {
-					box[i][j] = board[3 * (n / 3) + i][3 * (n % 3) + j];
-				}
-			}
-			res &= isValidBox(box);
-		}
-		return res;
-	}
-
-	public static boolean isValidLine(char[] line) {
-		HashMap<Character, Character> map = new HashMap<Character, Character>();
-		for (int i = 0; i < line.length; i++) {
-			if (map.containsKey(line[i]) && line[i] != '.') {
-				return false;
-			} else {
-				map.put(line[i], line[i]);
-			}
-		}
-		return true;
-	}
-
-	public static boolean isValidBox(char[][] box) {
-		HashMap<Character, Character> map = new HashMap<Character, Character>();
-		for (int i = 0; i < box.length; i++) {
-			for (int j = 0; j < box[0].length; j++) {
-				if (map.containsKey(box[i][j]) && box[i][j] != '.') {
+		// check row
+		for (int i = 0; i < board.length; i++) {
+			Set<Character> set = new HashSet<>();
+			for (int j = 0; j < board[0].length; j++) {
+				if (board[i][j] != '.' && set.contains(board[i][j])) {
 					return false;
 				} else {
-					map.put(box[i][j], box[i][j]);
+					set.add(board[i][j]);
+				}
+			}
+		}
+		// check column
+		for (int i = 0; i < board[0].length; i++) {
+			Set<Character> set = new HashSet<>();
+			for (int j = 0; j < board.length; j++) {
+				if (board[j][i] != '.' && set.contains(board[j][i])) {
+					return false;
+				} else {
+					set.add(board[j][i]);
+				}
+			}
+		}
+		// check box
+		for (int m = 0; m < 3; m++) {
+			for (int n = 0; n < 3; n++) {
+				Set<Character> set = new HashSet<>();
+				for (int i = 0; i < 3; i++) {
+					for (int j = 0; j < 3; j++) {
+						if (board[i + m * 3][j + n * 3] != '.'
+								&& set.contains(board[i + m * 3][j + n * 3])) {
+							return false;
+						} else {
+							set.add(board[i + m * 3][j + n * 3]);
+						}
+					}
 				}
 			}
 		}
@@ -74,16 +63,5 @@ public class Valid_Sudoku {
 	}
 
 	public static void main(String[] args) {
-		char[] A = { '9', '8', '7', '6', '6', '.', '.', '.', '.' };
-		char[] B = { '.', '8', '.', '.', '6', '.', '.', '.', '.' };
-		char[] C = { '.', '.', '.', '.', '.', '.', '.', '.', '.' };
-		System.out.println(isValidLine(A));
-		System.out.println(isValidLine(B));
-		System.out.println(isValidLine(C));
-		char[][] boxA = { { '.', '5', '.' }, { '3', '.', '.' }, { '.', '.', '3' } };
-		char[][] boxB = { { '.', '1', '.' }, { '.', '.', '.' }, { '.', '.', '1' } };
-		System.out.println(isValidBox(boxA));
-		System.out.println(isValidBox(boxB));
-
 	}
 }

@@ -31,32 +31,33 @@ import test_data_structure.Tree;
 import test_data_structure.TreeNode;
 
 public class Flatten_Binary_Tree_to_Linked_List {
-
+	/*
+	 * Use preorder traversal to record all tree nodes into a list, then use
+	 * this list to generate a linked-list. Notice: you may use recursion
+	 * instead of pre-order traversal, but the complexity becomes O(n^2) instead
+	 * of O(n).
+	 */
 	public static void flatten(TreeNode root) {
-		if (root == null) {
+		if (root == null)
 			return;
-		}
-		ArrayList<TreeNode> list = new ArrayList<TreeNode>();
-		poTraverse(root, list);
+		ArrayList<TreeNode> list = preorderTraverse(root);
 		for (int i = 0; i < list.size() - 1; i++) {
-			// remember to set all tree nodes' left to null
 			list.get(i).left = null;
 			list.get(i).right = list.get(i + 1);
 		}
+		list.get(list.size() - 1).left = null;
+		list.get(list.size() - 1).right = null;
 	}
 
-	public static void poTraverse(TreeNode root, ArrayList<TreeNode> list) {
-		if (root.left == null && root.right == null) {
-			list.add(root);
-			return;
+	public static ArrayList<TreeNode> preorderTraverse(TreeNode root) {
+		ArrayList<TreeNode> list = new ArrayList<TreeNode>();
+		if (root == null) {
+			return list;
 		}
 		list.add(root);
-		if (root.left != null) {
-			poTraverse(root.left, list);
-		}
-		if (root.right != null) {
-			poTraverse(root.right, list);
-		}
+		list.addAll(preorderTraverse(root.left));
+		list.addAll(preorderTraverse(root.right));
+		return list;
 	}
 
 	public static void main(String[] args) {

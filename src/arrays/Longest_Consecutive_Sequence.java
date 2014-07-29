@@ -14,35 +14,41 @@ import java.util.Set;
  */
 
 public class Longest_Consecutive_Sequence {
-
+	/*
+	 * The trick for this problem is how to find out if a number in the array
+	 * (x) has consecutive numbers, meaning if there are x-1 or x+1 in the array
+	 * as well. To reach a time complexity of O(n), searching for such
+	 * neighboring elements must be O(1). One way to implement such search is
+	 * through using a set because searching in a set is always O(1). For this
+	 * problem, we may push all elements into a set and for each number (x)
+	 * contained in, look for x-1 and x+1. Dynamically update the local and
+	 * global maximum length.
+	 */
 	public static int longestConsecutive(int[] num) {
 		Set<Integer> set = new HashSet<Integer>();
-
-		for (int i : num) {
+		for (int i : num)
 			set.add(i);
-		}
-		int max = 0;
-
+		int maxLen = 0;
 		for (int i = 0; i < num.length; i++) {
 			if (set.contains(num[i])) {
-				int next = num[i] - 1; // �ұ�num[i]Сһ����ֵ
+				int next = num[i] - 1;
 				int count = 1;
-				set.remove(num[i]); // ��ʱ���Ƴ�������֮��Ĳ���ʱ��?
+				set.remove(num[i]);
 				while (set.contains(next)) {
 					set.remove(next);
 					next--;
 					count++;
 				}
-				next = num[i] + 1; // �ұ�num[i]��һ����ֵ
+				next = num[i] + 1;
 				while (set.contains(next)) {
 					set.remove(next);
 					next++;
 					count++;
 				}
-				max = Math.max(max, count);
+				maxLen = Math.max(maxLen, count);
 			}
 		}
-		return max;
+		return maxLen;
 	}
 
 	public static void main(String[] args) {
