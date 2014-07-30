@@ -67,50 +67,6 @@ public class FourSum {
 		return myLists;
 	}
 
-	// public static ArrayList<ArrayList<Integer>> fourSum(int[] num, int
-	// target) {
-	// ArrayList<ArrayList<Integer>> myLists = new
-	// ArrayList<ArrayList<Integer>>();
-	// Arrays.sort(num); // {-2,-1, 0, 0, 1, 2}
-	// Set<ArrayList<Integer>> set = new HashSet<>();
-	// Set<Integer> visited = new HashSet<>();
-	// ArrayList<Integer> list = new ArrayList<>();
-	// search(set, list, visited, num, target);
-	// for (ArrayList<Integer> a : set) {
-	// myLists.add(a);
-	// }
-	// return myLists;
-	// }
-	//
-	// private static void search(Set<ArrayList<Integer>> set,
-	// ArrayList<Integer> list, Set<Integer> visited, int[] num,
-	// int target) {
-	// if (list.size() == 4) {
-	// ArrayList<Integer> nlist = new ArrayList<Integer>(list);
-	// if (getSum(nlist) == target) {
-	// Collections.sort(nlist);
-	// set.add(nlist);
-	// }
-	// return;
-	// }
-	// for (int i = 0; i < num.length && !visited.contains(i) && visited.size()
-	// <= 4; i++) {
-	// ArrayList<Integer> nlist = new ArrayList<Integer>(list);
-	// nlist.add(num[i]);
-	// Set<Integer> nvisited = new HashSet<>(visited);
-	// nvisited.add(i);
-	// search(set, nlist, nvisited, num, target);
-	// }
-	// }
-	//
-	// public static int getSum(ArrayList<Integer> list) {
-	// int sum = 0;
-	// for (int i : list) {
-	// sum += i;
-	// }
-	// return sum;
-	// }
-
 	public static void main(String[] args) {
 		int[] num1 = { 1, 0, -1, 0, -2, 2 };
 		System.out.println(fourSum(num1, 0));

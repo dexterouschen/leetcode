@@ -2,6 +2,7 @@ package N_sum_questions;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -22,74 +23,49 @@ import java.util.Set;
 public class ThreeSum {
 
 	/*
-	 * To solve this problem, start with a typical 2-sum algorithm (the "while"
+	 * Please check the answer for "Two Sum" for more detailed explanation. To
+	 * solve this problem, start with a typical 2-sum algorithm (the "while"
 	 * loop below). First sort the int[] num, then look for a 2-sum that have a
 	 * sum equal to the negative of num[i].
 	 */
 	public static ArrayList<ArrayList<Integer>> threeSum(int[] num) {
-		ArrayList<ArrayList<Integer>> lists = new ArrayList<ArrayList<Integer>>();
-		if (num == null || num.length < 3) {
-			return lists;
-		}
+		ArrayList<ArrayList<Integer>> ans = new ArrayList<ArrayList<Integer>>();
+		Set<ArrayList<Integer>> set = new HashSet<>();
 		Arrays.sort(num);
-		Set<ArrayList<Integer>> set = new HashSet<ArrayList<Integer>>();
 		for (int i = 0; i < num.length; i++) {
-			int[] newNum = getNewArray(num, i);
-			int left = 0, right = newNum.length - 1;
+			// running a two-sum algorithm
+			int left = 0, right = num.length - 1;
 			while (left < right) {
-				if (newNum[left] + newNum[right] == -num[i]) {
-					ArrayList<Integer> curList = new ArrayList<Integer>();
-					if (num[i] < newNum[left]) {
-						curList.add(num[i]);
-						curList.add(newNum[left]);
-						curList.add(newNum[right]);
-					} else if (num[i] > newNum[right]) {
-						curList.add(newNum[left]);
-						curList.add(newNum[right]);
-						curList.add(num[i]);
-					} else {
-						curList.add(newNum[left]);
-						curList.add(num[i]);
-						curList.add(newNum[right]);
-					}
-					set.add(curList);
+				if (left == i) {
+					left++;
+					continue;
+				} else if (right == i) {
+					right--;
+					continue;
 				}
-				if (newNum[left] + newNum[right] < -num[i]) {
+				if (num[left] + num[right] == 0 - num[i]) {
+					ArrayList<Integer> list = new ArrayList<>();
+					list.add(num[left]);
+					list.add(num[right]);
+					list.add(num[i]);
+					Collections.sort(list);
+					set.add(list);
+					left++;
+					right--;
+				} else if (num[left] + num[right] < 0 - num[i]) {
 					left++;
 				} else {
 					right--;
 				}
 			}
 		}
-		for (ArrayList<Integer> l : set) {
-			lists.add(l);
+		for (ArrayList<Integer> list : set) {
+			ans.add(list);
 		}
-		return lists;
-	}
-
-	private static int[] getNewArray(int[] num, int index) {
-		int[] newArray = new int[num.length - 1];
-		if (num.length == 1) {
-			return newArray;
-		}
-		for (int i = 0; i < index; i++) {
-			newArray[i] = num[i];
-		}
-		for (int i = index; i < num.length - 1; i++) {
-			newArray[i] = num[i + 1];
-		}
-		return newArray;
+		return ans;
 	}
 
 	public static void main(String[] args) {
-		// int[] A = { -100, -5, 12, 2, 3, 4, 20 };
-		// ArrayList<ArrayList<Integer>> listsA = threeSum(A);
-		// System.out.println(listsA);
-		//
-		// int[] B = { -1, 0, 1, 2, -1, -4 };
-		// ArrayList<ArrayList<Integer>> listsB = threeSum(B);
-		// System.out.println(listsB);
-
 		int[] C = { 7, -1, 14, -12, -8, 7, 2, -15, 8, 8, -8, -14, -4, -5, 7, 9, 11, -4, -15, -6, 1,
 				-14, 4, 3, 10, -5, 2, 1, 6, 11, 2, -2, -5, -7, -6, 2, -15, 11, -6, 8, -4, 2, 1, -1,
 				4, -6, -15, 1, 5, -15, 10, 14, 9, -8, -6, 4, -6, 11, 12, -15, 7, -1, -9, 9, -1, 0,

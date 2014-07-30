@@ -1,4 +1,4 @@
-package arrays;
+package greedy_algorithm;
 
 /*
  Given an array of non-negative integers, you are initially positioned at the first index of the array.
@@ -14,18 +14,26 @@ package arrays;
  */
 
 public class Jump_Game {
-
+	/*
+	 * Be careful with edge conditions in this problem. Implementation of the
+	 * answer is straightforward: at each element in this array, update maximum
+	 * reach until it can or cannot reaches the last.
+	 */
 	public static boolean canJump(int[] A) {
-		int canReach = 0;
-		for (int i = 0; i < A.length && i <= canReach; i++) {
-			if (i + A[i] > canReach) {
-				canReach = i + A[i];
+		if (A == null || A.length <= 1) {
+			return true;
+		}
+		int max = A[0];
+		for (int i = 1; i < A.length; i++) {
+			if (max < i) {
+				return false;
 			}
-			if (canReach >= A.length - 1) {
+			max = Math.max(max, A[i] + i);
+			if (max >= A.length - 1) {
 				return true;
 			}
 		}
-		return (canReach >= A.length - 1);
+		return false;
 	}
 
 	public static void main(String[] args) {

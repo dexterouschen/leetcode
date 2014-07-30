@@ -13,11 +13,15 @@ package trees_and_graphs;
  2     1         2                 3
  */
 
-import java.util.ArrayList;
+import java.util.*;
 import test_data_structure.TreeNode;
 
 public class Unique_BST_II {
-
+	/*
+	 * Similar to "Unique_BST", we need to build a list of trees whose roots are
+	 * from 1 to n. Then recursively build each root's left and right sub-trees
+	 * by calling generateTrees().
+	 */
 	public static ArrayList<TreeNode> generateTrees(int n) {
 		ArrayList<TreeNode> list = new ArrayList<TreeNode>();
 		if (n <= 0) {
@@ -25,13 +29,11 @@ public class Unique_BST_II {
 			return list;
 		}
 		for (int i = 1; i <= n; i++) {
-			ArrayList<TreeNode> lList = makeTreeNode(1, i - 1);
-			ArrayList<TreeNode> rList = makeTreeNode(i + 1, n);
-			for (int x = 0; x < lList.size(); x++) {
-				for (int y = 0; y < rList.size(); y++) {
+			for (TreeNode l : generateTrees(1, i - 1)) {
+				for (TreeNode r : generateTrees(i + 1, n)) {
 					TreeNode root = new TreeNode(i);
-					root.left = lList.get(x);
-					root.right = rList.get(y);
+					root.left = l;
+					root.right = r;
 					list.add(root);
 				}
 			}
@@ -39,20 +41,22 @@ public class Unique_BST_II {
 		return list;
 	}
 
-	public static ArrayList<TreeNode> makeTreeNode(int start, int end) {
+	public static ArrayList<TreeNode> generateTrees(int start, int end) {
 		ArrayList<TreeNode> list = new ArrayList<TreeNode>();
 		if (start > end) {
 			list.add(null);
 			return list;
 		}
+		if (start == end) {
+			list.add(new TreeNode(start));
+			return list;
+		}
 		for (int i = start; i <= end; i++) {
-			ArrayList<TreeNode> lList = makeTreeNode(start, i - 1);
-			ArrayList<TreeNode> rList = makeTreeNode(i + 1, end);
-			for (int x = 0; x < lList.size(); x++) {
-				for (int y = 0; y < rList.size(); y++) {
+			for (TreeNode l : generateTrees(start, i - 1)) {
+				for (TreeNode r : generateTrees(i + 1, end)) {
 					TreeNode root = new TreeNode(i);
-					root.left = lList.get(x);
-					root.right = rList.get(y);
+					root.left = l;
+					root.right = r;
 					list.add(root);
 				}
 			}

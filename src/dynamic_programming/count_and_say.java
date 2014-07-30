@@ -14,7 +14,7 @@ package dynamic_programming;
 
 public class Count_and_Say {
 	/*
-	 * ���ⲻ�壬������⡣http://blog.csdn.net/fightforyourdream/article/details/12901505
+	 * http://blog.csdn.net/fightforyourdream/article/details/12901505
 	 */
 	public static String countAndSay(int n) {
 		n = n - 1;
@@ -23,8 +23,8 @@ public class Count_and_Say {
 		}
 		StringBuffer buffer = new StringBuffer();
 		String str = "1";
-		int curN = 1;
-		while (curN <= n) {
+		int curNumber = 1;
+		while (curNumber <= n) {
 			buffer.delete(0, buffer.length());
 			int count = 1;
 			int i = 1;
@@ -38,7 +38,7 @@ public class Count_and_Say {
 			}
 			buffer.append(count).append(str.charAt(i - 1));
 			str = buffer.toString();
-			curN++;
+			curNumber++;
 		}
 		return buffer.toString();
 	}
