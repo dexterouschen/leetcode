@@ -7,12 +7,15 @@ package trees_and_graphs;
  You may assume that duplicates do not exist in the tree.
  */
 
-import java.util.Arrays;
+import java.util.*;
 
 import test_data_structure.TreeNode;
 
 public class Construct_Binary_Tree_from_Preorder_and_Inorder_Traversal {
-
+	/*
+	 * Three fundamental types of tree traversal can be illustrated better with
+	 * visual aid from wikipedia: http://en.wikipedia.org/wiki/Tree_traversal
+	 */
 	public static TreeNode buildTree(int[] preorder, int[] inorder) {
 		if (preorder == null || inorder == null || preorder.length == 0
 				|| preorder.length != inorder.length) {
@@ -39,8 +42,7 @@ public class Construct_Binary_Tree_from_Preorder_and_Inorder_Traversal {
 	}
 
 	public static void main(String[] args) {
-		int[] preorder = { 1, 2, 4, 5, 3, 6, 7 }, inorder = { 4, 2, 5, 1, 6, 3,
-				7 };
+		int[] preorder = { 1, 2, 4, 5, 3, 6, 7 }, inorder = { 4, 2, 5, 1, 6, 3, 7 };
 		TreeNode root = buildTree(preorder, inorder);
 		System.out.println(root.right.left.val);
 

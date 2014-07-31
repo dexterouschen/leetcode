@@ -1,5 +1,6 @@
 package trees_and_graphs;
 
+import java.util.*;
 import test_data_structure.TreeNode;
 
 /*
@@ -10,43 +11,38 @@ import test_data_structure.TreeNode;
  */
 
 public class Construct_Binary_Tree_from_Inorder_and_Postorder_Traversal {
-
+	/*
+	 * Three fundamental types of tree traversal can be illustrated better with
+	 * visual aid from wikipedia: http://en.wikipedia.org/wiki/Tree_traversal
+	 */
 	public static TreeNode buildTree(int[] inorder, int[] postorder) {
-		if (inorder == null || postorder == null || inorder.length == 0
+		if (inorder == null || postorder == null || inorder.length == 0 || postorder.length <= 0
 				|| inorder.length != postorder.length) {
 			return null;
 		}
-		// find the root
-		TreeNode root = new TreeNode(postorder[postorder.length - 1]);
-		// look it up in inorder list
-		int indexInorder = 0;
+		int len = postorder.length;
+		TreeNode root = new TreeNode(postorder[len - 1]);
+		if (len == 1) {
+			return root;
+		}
+		// find root in inorder array
+		int rootIndex = 0;
 		for (int i = 0; i < inorder.length; i++) {
 			if (inorder[i] == postorder[postorder.length - 1]) {
-				indexInorder = i;
+				rootIndex = i;
 			}
 		}
-		// divide inorder and postorder array into left and right
-		int[] leftInorder = copyArray(inorder, 0, indexInorder - 1);
-		int[] rightInorder = copyArray(inorder, indexInorder + 1,
-				inorder.length - 1);
-		int[] leftPostorder = copyArray(postorder, 0, indexInorder - 1);
-		int[] rightPostorder = copyArray(postorder, indexInorder,
-				postorder.length - 2);
-
+		// build sub-arrays
+		int[] leftInorder = 0 < rootIndex ? Arrays.copyOfRange(inorder, 0, rootIndex) : null;
+		int[] leftPostorder = 0 < rootIndex ? Arrays.copyOfRange(postorder, 0, rootIndex) : null;
+		int[] rightInorder = rootIndex + 1 < len ? Arrays.copyOfRange(inorder, rootIndex + 1, len)
+				: null;
+		int[] rightPostorder = rootIndex < len - 1 ? Arrays.copyOfRange(postorder, rootIndex,
+				len - 1) : null;
+		// recursion
 		root.left = buildTree(leftInorder, leftPostorder);
 		root.right = buildTree(rightInorder, rightPostorder);
 		return root;
-	}
-
-	private static int[] copyArray(int[] inorder, int start, int end) {
-		if (start > end) {
-			return null;
-		}
-		int[] newArr = new int[end - start + 1];
-		for (int i = 0; i < newArr.length; i++) {
-			newArr[i] = inorder[start + i];
-		}
-		return newArr;
 	}
 
 	public static void main(String[] args) {

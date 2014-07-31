@@ -14,38 +14,34 @@ import test_data_structure.ListNode;
  */
 
 public class Partition_List {
-
+	/*
+	 * pointer operations.
+	 */
 	public static ListNode partition(ListNode head, int x) {
-		if (head == null) {
+		if (head == null)
 			return null;
-		}
-
-		ListNode cur = head;
-		ListNode small = new ListNode(999999), large = new ListNode(999999);
-		ListNode sHead = small, lHead = large;
-
-		while (cur != null) {
-			if (cur.val < x) {
-				small.next = new ListNode(cur.val);
-				small = small.next;
+		ListNode fakeHead1 = new ListNode(0);
+		ListNode fakeHead2 = new ListNode(0);
+		fakeHead1.next = head;
+		ListNode p = head;
+		ListNode prev = fakeHead1;
+		ListNode p2 = fakeHead2;
+		while (p != null) {
+			if (p.val < x) {
+				p = p.next;
+				prev = prev.next;
 			} else {
-				large.next = new ListNode(cur.val);
-				large = large.next;
+				p2.next = p;
+				prev.next = p.next;
+
+				p = prev.next;
+				p2 = p2.next;
 			}
-			cur = cur.next;
 		}
-
-		if (sHead.next == null) {
-			return lHead.next;
-		} else if (lHead.next == null) {
-			return sHead.next;
-		} else {
-			sHead = sHead.next;
-			lHead = lHead.next;
-			small.next = lHead;
-		}
-
-		return sHead;
+		// close the list
+		p2.next = null;
+		prev.next = fakeHead2.next;
+		return fakeHead1.next;
 	}
 
 	public static void main(String[] args) {

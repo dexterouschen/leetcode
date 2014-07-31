@@ -1,4 +1,4 @@
-package dfs;
+package deep_search;
 
 /*
  A robot is located at the top-left corner of a m x n grid.

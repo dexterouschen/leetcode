@@ -1,4 +1,4 @@
-package dfs;
+package deep_search;
 
 import java.util.ArrayList;
 import java.util.HashSet;

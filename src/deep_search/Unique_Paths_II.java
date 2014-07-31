@@ -1,4 +1,4 @@
-package dfs;
+package deep_search;
 
 /*
  Follow up for "Unique Paths":
