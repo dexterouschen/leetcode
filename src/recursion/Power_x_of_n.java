@@ -5,18 +5,26 @@ package recursion;
  */
 
 public class Power_x_of_n {
+	/*
+	 * Use recursion to reduce complexity from O(n) to O(log n).
+	 */
+	public static double power(double x, int n) {
+		if (n == 0)
+			return 1;
+		double val = power(x, n / 2);
+		if (n % 2 == 0) {
+			return val * val;
+		} else {
+			return val * val * x;
+		}
+	}
 
 	public static double pow(double x, int n) {
-		if (n == 0)
-			return 1.;
-		if (x == 0.)
-			return 0.;
 		if (n < 0) {
-			n = -n;
-			x = 1. / x;
+			return 1 / power(x, -n);
+		} else {
+			return power(x, n);
 		}
-		double temp = pow(x, n / 2);
-		return n % 2 == 0 ? temp * temp : temp * temp * x;
 	}
 
 	public static void main(String[] args) {

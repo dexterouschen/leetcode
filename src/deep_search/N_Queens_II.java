@@ -1,4 +1,4 @@
-package recursion;
+package deep_search;
 
 /*
  Follow up for N-Queens problem.

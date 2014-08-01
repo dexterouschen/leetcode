@@ -1,4 +1,4 @@
-package recursion;
+package deep_search;
 
 import java.util.ArrayList;
 import java.util.Arrays;

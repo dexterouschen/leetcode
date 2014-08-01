@@ -17,49 +17,51 @@ import java.util.ArrayList;
  */
 
 public class Palindrome_Partitioning {
-
+	/*
+	 * Deep search through all possible combinations of palindromes. Add
+	 * substrings that are palindromes. Be careful with the parameters you pass
+	 * into 'deepSearch()'. You may use indexes to reduce memory use, but simply
+	 * passing in strings is easier for implementation and debug.
+	 */
 	public static ArrayList<ArrayList<String>> partition(String s) {
-		ArrayList<ArrayList<String>> myLists = new ArrayList<ArrayList<String>>();
-		ArrayList<String> list = new ArrayList<String>();
-		if (s == null || s.length() == 0) {
-			list.add("");
-			myLists.add(list);
-			return myLists;
+		ArrayList<ArrayList<String>> lists = new ArrayList<ArrayList<String>>();
+		if (s == null || s.isEmpty()) {
+			return lists;
 		}
-		dfs(myLists, list, s);
-		return myLists;
+		ArrayList<String> list = new ArrayList<>();
+		deepSearch(lists, list, s);
+		return lists;
 	}
 
-	private static void dfs(ArrayList<ArrayList<String>> myLists, ArrayList<String> list, String str) {
-		// 当处理到传入的字符串长度等于0,则这个集合list满足条件，加入到结果集中
-		if (str.length() == 0)
-			myLists.add(new ArrayList<String>(list));
-		int len = str.length();
-		// 递归调用
-		// 字符串由前往后，先判断str.substring(0, i)是否是回文字符串
-		// 如果是的话，继续调用函数calResult，把str.substring(i)字符串传入做处理
-		for (int i = 1; i <= len; ++i) {
-			String subStr = str.substring(0, i);
-			if (isPalindrome(subStr)) {
-				list.add(subStr);
-				String restSubStr = str.substring(i);
-				dfs(myLists, list, restSubStr);
-				list.remove(list.size() - 1);
+	public static void deepSearch(ArrayList<ArrayList<String>> lists, ArrayList<String> list,
+			String s) {
+		if (s == null) {
+			lists.add(list);
+			return;
+		}
+		for (int i = 1; i <= s.length(); i++) {
+			String left = s.substring(0, i);
+			String right = i == s.length() ? null : s.substring(i);
+			if (isPalindrome(left)) {
+				ArrayList<String> nlist = new ArrayList<String>(list);
+				nlist.add(left);
+				deepSearch(lists, nlist, right);
 			}
 		}
 	}
 
-	private static boolean isPalindrome(String str) {
-		if (str.length() == 1) {
-			return true;
+	public static boolean isPalindrome(String s) {
+		if (s == null || s.isEmpty()) {
+			return false;
 		}
-		int start = 0, end = str.length() - 1;
+		int start = 0, end = s.length() - 1;
 		while (start <= end) {
-			if (str.charAt(start) != str.charAt(end)) {
+			if (s.charAt(start) != s.charAt(end)) {
 				return false;
+			} else {
+				start++;
+				end--;
 			}
-			start++;
-			end--;
 		}
 		return true;
 	}
