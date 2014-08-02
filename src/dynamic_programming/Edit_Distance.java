@@ -13,50 +13,38 @@ package dynamic_programming;
  */
 
 public class Edit_Distance {
-
+	/*
+	 * A typical DP problem. Assume in int[][] distance, distance[i][j]
+	 * represents a table that describes the edit distance from substring
+	 * word1.substring(0, i) to substring word2.substring(0, j). It must be
+	 * equal to the minimum among: "distance[i-1][j] + 1",
+	 * "distance[i][j-1] + 1" and depending on whether word1[i-1] == word2[j-1],
+	 * (true) "distance[i-1][j-1]" or (false) "distance[i-1][j-1] + 1".
+	 */
+	// Reference:
+	// http://yucoding.blogspot.com/2013/09/leetcode-question-29-edit-distance.html
 	public static int minDistance(String word1, String word2) {
-		// edge conditions
-		if (word1 == null || word1.isEmpty()) {
-			if (word2 == null || word2.isEmpty()) {
-				return 0;
-			} else {
-				return word2.length();
+		if (word1 == null && word2 == null) {
+			return 0;
+		}
+		int[][] distance = new int[word1.length() + 1][word2.length() + 1];
+		// build the edge
+		for (int i = 0; i < word1.length() + 1; i++) {
+			distance[i][0] = i;
+		}
+		for (int i = 0; i < word2.length() + 1; i++) {
+			distance[0][i] = i;
+		}
+		// DP build the table
+		for (int i = 1; i < word1.length() + 1; i++) {
+			for (int j = 1; j < word2.length() + 1; j++) {
+				distance[i][j] = Math.min(
+						(word1.charAt(i - 1) == word2.charAt(j - 1) ? distance[i - 1][j - 1]
+								: distance[i - 1][j - 1] + 1), Math.min(distance[i][j - 1] + 1,
+								distance[i - 1][j] + 1));
 			}
 		}
-		if (word2 == null || word2.isEmpty()) {
-			if (word1 == null || word1.isEmpty()) {
-				return 0;
-			} else {
-				return word1.length();
-			}
-		}
-
-		// initiate the table: please be noticed that edge initiation is not all
-		// "0" or "1", but the length of the word lengths.
-		int len1 = word1.length(), len2 = word2.length();
-		int[][] table = new int[len1 + 1][len2 + 1];
-		for (int i = 0; i <= len1; i++) {
-			table[i][0] = i;
-		}
-		for (int i = 0; i <= len2; i++) {
-			table[0][i] = i;
-		}
-		// building the table
-		for (int i = 1; i <= len1; i++) {
-			for (int j = 1; j <= len2; j++) {
-				// "+1" because insert/delete counts as one operation
-				int minUpAndLeft = Math.min(table[i - 1][j] + 1,
-						table[i][j - 1] + 1);
-				if (word1.charAt(i - 1) == word2.charAt(j - 1)) {
-					table[i][j] = Math.min(minUpAndLeft, table[i - 1][j - 1]);
-				} else {
-					// "+1" because "replace" counts as one operation
-					table[i][j] = Math.min(minUpAndLeft,
-							table[i - 1][j - 1] + 1);
-				}
-			}
-		}
-		return table[len1][len2];
+		return distance[word1.length()][word2.length()];
 	}
 
 	public static void main(String[] args) {
