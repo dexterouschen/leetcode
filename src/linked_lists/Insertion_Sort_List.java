@@ -7,39 +7,36 @@ import test_data_structure.ListNode;
  */
 
 public class Insertion_Sort_List {
-
+	/*
+	 * ListNode operations.
+	 */
 	public static ListNode insertionSortList(ListNode head) {
 		if (head == null || head.next == null) {
 			return head;
 		}
-		ListNode node = head;
-		ListNode cur = null;
+		ListNode node = head, trav = null;
 		while (node.next != null) {
-			cur = node.next;
-			if (cur.val >= node.val) {
+			trav = node.next;
+			if (trav.val >= node.val) {
 				node = node.next;
 				continue;
 			}
-			node.next = cur.next; // delete the node
-			if (cur.val <= head.val) {
-				cur.next = head;
-				head = cur;
+			node.next = trav.next; // delete the node
+			if (trav.val <= head.val) { // if trav is inserted to head position
+				trav.next = head;
+				head = trav;
 				continue;
 			}
-			ListNode pos = findInsertPos(head, cur);
-			cur.next = pos.next;
-			pos.next = cur;
+			// find correct position for trav
+			ListNode pos = head;
+			while (head != null && head.val < node.val) {
+				pos = head;
+				head = head.next;
+			}
+			trav.next = pos.next;
+			pos.next = trav;
 		}
 		return head;
-	}
-
-	public static ListNode findInsertPos(ListNode head, ListNode node) {
-		ListNode pos = head;
-		while (head != null && head.val < node.val) {
-			pos = head;
-			head = head.next;
-		}
-		return pos;
 	}
 
 	public static void main(String[] args) {

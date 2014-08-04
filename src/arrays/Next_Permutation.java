@@ -19,12 +19,13 @@ package arrays;
 public class Next_Permutation {
 
 	/*
-	 * Solution figure:
+	 * Solution figure. This is a math problem rather than an algorithm problem:
 	 * http://fisherlei.blogspot.com/2012/12/leetcode-next-permutation.html
 	 */
 	public static void nextPermutation(int[] num) {
-		if (num == null || num.length == 0)
+		if (num == null || num.length == 0) {
 			return;
+		}
 		int i = num.length - 2;
 		while (i >= 0 && num[i] >= num[i + 1]) {
 			i--;
