@@ -30,23 +30,21 @@ public class Triangle {
 	 * The value for min_path at the top element is therefore the answer.
 	 */
 	public int minimumTotal(ArrayList<ArrayList<Integer>> triangle) {
-		if (triangle == null || triangle.size() == 0)
+		if (triangle == null) {
 			return 0;
-		int length = triangle.size();
-		int[] cLine = new int[length];
-		// Initial value is the last line
-		ArrayList<Integer> lastLine = triangle.get(length - 1);
-		for (int j = 0; j < length; j++) {
-			cLine[j] = lastLine.get(j);
 		}
-		// Updating from bottom up
-		for (int i = length - 2; i >= 0; i--) {
-			ArrayList<Integer> line = triangle.get(i);
+		int[][] minValTable = new int[triangle.size()][triangle.size()];
+		// building from the bottom of the table
+		for (int i = 0; i < triangle.size(); i++) {
+			minValTable[triangle.size() - 1][i] = triangle.get(triangle.size() - 1).get(i);
+		}
+		for (int i = triangle.size() - 2; i >= 0; i--) {// bottom-up calculation
 			for (int j = 0; j < i + 1; j++) {
-				cLine[j] = line.get(j) + Math.min(cLine[j], cLine[j + 1]); // DP
+				minValTable[i][j] = triangle.get(i).get(j)
+						+ Math.min(minValTable[i + 1][j], minValTable[i + 1][j + 1]);
 			}
 		}
-		return cLine[0];
+		return minValTable[0][0];
 	}
 
 	public static void main(String[] args) {

@@ -10,38 +10,40 @@ package arrays;
  You may assume no duplicate exists in the array.
  */
 public class Search_in_Rotated_Sorted_Array {
-
 	/*
 	 * Because the sorted array was rotated at an unknown pivot, it is
 	 * impossible to find out where exactly is the pivot without an O(n) search.
 	 * However, you can always find out that by dividing the array in half, one
 	 * side must be sorted. Therefore, you can always do a binary search in the
 	 * sorted half. To figure out which half is sorted, you only need to compare
-	 * your A[mid] to A[start] or A[end].
+	 * your A[mid] to A[start] to figure out which side is sorted. Comparing
+	 * A[mid] to A[end] will NOT always get your correct answer of which side is
+	 * sorted. Also be careful of the equal signs: you may have a situation
+	 * where you have a sorted array or sub array. In this case, "<" or ">" may
+	 * not work, you need to use "<=" or ">=" instead.
 	 */
 	public static int search(int[] A, int target) {
-		int len = A.length;
-		int start = 0, end = len - 1;
-		if (len < 1) {
+		if (A == null || A.length == 0) {
 			return -1;
 		}
-		while (start <= end) {
-			int mid = (start + end) / 2;
+		int left = 0, right = A.length - 1;
+		while (left <= right) {
+			int mid = (left + right) / 2;
 			if (A[mid] == target) {
 				return mid;
 			}
-			if (A[mid] >= A[start]) { // left sub array must be sorted
-				// "!!!" Not ">" but ">=" in the statement above
-				if (target < A[start] || target > A[mid]) {
-					start = mid + 1; // search in right sub array
-				} else {
-					end = mid - 1; // search in left sub array
+			// find out which side is sorted
+			if (A[mid] >= A[left]) { // left side is sorted
+				if (target >= A[left] && target <= A[mid]) {// must be in left
+					right = mid - 1;
+				} else { // target must be in right side
+					left = mid + 1;
 				}
-			} else { // right sub array must be sorted
-				if (target < A[mid] || target > A[end]) {
-					end = mid - 1; // search in left sub array
-				} else {
-					start = mid + 1; // search in right sub array
+			} else { // right side is sorted
+				if (target >= A[mid] && target <= A[right]) {// must be in right
+					left = mid + 1;
+				} else { // target must be in left
+					right = mid - 1;
 				}
 			}
 		}

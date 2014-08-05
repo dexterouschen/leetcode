@@ -11,18 +11,27 @@ package arrays;
  */
 
 public class Remove_duplicates_from_Sorted_Array_II {
-
+	/*
+	 * Similar to Remove Duplicates from Sorted Array. Use an additional counter
+	 * to record how many duplicates have appeared.
+	 */
 	public static int removeDuplicates(int[] A) {
-		int n = 2;
-		int len = A.length;
-		if (len<2) return len;
-		int newLen = n, itor = n;
-		while (itor < len) {
-			if (A[itor] != A[newLen - 2])
-				A[newLen++] = A[itor];
-			itor++;
+		if (A == null || A.length == 0) {
+			return 0;
 		}
-		return newLen;
+		int count = 0, repeat = 0;
+		for (int i = 1; i < A.length; i++) {
+			if (A[i] == A[i - 1]) {
+				repeat++;
+				if (repeat >= 2) {
+					count++;
+				}
+			} else {
+				repeat = 0;
+			}
+			A[i - count] = A[i];
+		}
+		return A.length - count;
 	}
 
 	public static void main(String[] args) {

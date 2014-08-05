@@ -18,21 +18,28 @@ import test_data_structure.ListNode;
 public class Remove_Nth_Node_From_End_of_List {
 
 	public static ListNode removeNthFromEnd(ListNode head, int n) {
-		ListNode first = head, second = head;
-		int count = 0;
-		while (count < n + 1) {
-			if (first == null) {
-				head = head.next;
-				return head;
-			}
-			first = first.next;
+		if (head == null || n == 0) {
+			return head;
+		}
+		ListNode fast = head, slow = head;
+		int count = 1;
+		while (count < n) {
+			fast = fast.next;
 			count++;
 		}
-		while (first != null) {
-			first = first.next;
-			second = second.next;
+		if (fast == null) { // check if head needs to be removed
+			return head.next;
 		}
-		second.next = second.next.next;
+		fast = fast.next;
+		if (fast == null) {
+			return head.next;
+		}
+		// locate slow to the previous node of the one that needs to be removed
+		while (fast.next != null) {
+			fast = fast.next;
+			slow = slow.next;
+		}
+		slow.next = slow.next.next; // if slow is the head
 		return head;
 	}
 

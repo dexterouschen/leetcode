@@ -19,21 +19,31 @@ public class Convert_Sorted_List_to_BST {
 	 * where the middle position is.
 	 */
 	public static TreeNode sortedListToBST(ListNode head) {
-		return recursion(head, null);
-	}
-
-	public static TreeNode recursion(ListNode start, ListNode end) {
-		if (start == end) {
+		if (head == null) {
 			return null;
 		}
-		ListNode p = start, q = start;
-		while (q != end && q.next != end) { // to find out middle position
-			p = p.next;
-			q = q.next.next;
+		if (head.next == null) {
+			return new TreeNode(head.val);
 		}
-		TreeNode root = new TreeNode(p.val);
-		root.left = recursion(start, p);
-		root.right = recursion(p.next, end);
+		ListNode fast = head, slow = head; // to find the middle node
+		while (fast != null && fast.next != null) {
+			fast = fast.next.next;
+			slow = slow.next;
+		}
+		TreeNode root = new TreeNode(slow.val);
+		// check if slow is head
+		if (slow == head) {
+			root.left = null;
+			root.right = sortedListToBST(slow.next);
+		} else {
+			root.right = sortedListToBST(slow.next);
+			ListNode trav = head;
+			while (trav.next != slow) {
+				trav = trav.next;
+			}
+			trav.next = null;
+			root.left = sortedListToBST(head);
+		}
 		return root;
 	}
 

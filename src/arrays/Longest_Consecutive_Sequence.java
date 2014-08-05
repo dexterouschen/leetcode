@@ -26,24 +26,24 @@ public class Longest_Consecutive_Sequence {
 	 */
 	public static int longestConsecutive(int[] num) {
 		Set<Integer> set = new HashSet<Integer>();
-		for (int i : num)
+		for (int i : num) {
 			set.add(i);
-		int maxLen = 0;
+		}
+		int maxLen = 1;
 		for (int i = 0; i < num.length; i++) {
 			if (set.contains(num[i])) {
-				int next = num[i] - 1;
-				int count = 1;
 				set.remove(num[i]);
-				while (set.contains(next)) {
-					set.remove(next);
-					next--;
+				int prev = num[i] - 1, next = num[i] + 1;
+				int count = 1;
+				while (set.contains(prev)) {
+					set.remove(prev);
 					count++;
+					prev--;
 				}
-				next = num[i] + 1;
 				while (set.contains(next)) {
 					set.remove(next);
-					next++;
 					count++;
+					next++;
 				}
 				maxLen = Math.max(maxLen, count);
 			}

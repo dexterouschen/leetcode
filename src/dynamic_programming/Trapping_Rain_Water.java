@@ -13,34 +13,32 @@ public class Trapping_Rain_Water {
 	 * The trick of solving this problem is to keep two lists that stores in the
 	 * ith element's the left-side maximum and right-side maximum. The volume of
 	 * water that can be held at the ith element in the input array is then
-	 * found as Math.min(maxL[i], maxR[i]) - A[i] (accumulate only if it's a
-	 * positive value).
+	 * found as Math.min(leftMax[i], rightMax[i]) - A[i] (accumulate only if
+	 * it's a positive value).
 	 */
 	public static int trap(int[] A) {
-		if (A == null || A.length < 2)
+		if (A == null || A.length < 3)
 			return 0;
-		int[] maxL = new int[A.length], maxR = new int[A.length];
+		int[] leftMax = new int[A.length], rightMax = new int[A.length];
+		leftMax[0] = 0;
+		leftMax[A.length - 1] = 0;
+		rightMax[0] = 0;
+		rightMax[A.length - 1] = 0;
 		// build the list for each element's left-side maximum
-		int max = A[0];
-		maxL[0] = 0;
 		for (int i = 1; i < A.length - 1; i++) {
-			maxL[i] = max;
-			max = Math.max(A[i], max);
+			leftMax[i] = Math.max(leftMax[i - 1], A[i - 1]);
 		}
 		// build the list for each element's right-side maximum
-		max = A[A.length - 1];
-		maxR[A.length - 1] = 0;
-		for (int i = A.length - 2; i > 0; i--) {
-			maxR[i] = max;
-			max = Math.max(max, A[i]);
+		for (int i = A.length - 2; i >= 0; i--) {
+			rightMax[i] = Math.max(rightMax[i + 1], A[i + 1]);
 		}
 		// figure out the volume that each element can hold
-		int totalTrap = 0;
-		for (int i = 1; i < A.length - 1; i++) {
-			totalTrap += Math.min(maxL[i], maxR[i]) - A[i] > 0 ? Math.min(maxL[i], maxR[i]) - A[i]
-					: 0;
+		int vol = 0;
+		for (int i = 0; i < A.length; i++) {
+			vol += (Math.min(leftMax[i], rightMax[i]) - A[i] > 0) ? Math.min(leftMax[i],
+					rightMax[i]) - A[i] : 0;
 		}
-		return totalTrap;
+		return vol;
 	}
 
 	public static void main(String[] args) {

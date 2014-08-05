@@ -29,38 +29,41 @@ public class Two_sum {
 	 * asks to sum up. Be careful if there are duplicates in such number array.
 	 */
 	public static int[] twoSum(int[] numbers, int target) {
-		Map<Integer, ArrayList<Integer>> map = new HashMap<>();
 		int[] ans = new int[2];
+		HashMap<Integer, ArrayList<Integer>> map = new HashMap<>();
 		for (int i = 0; i < numbers.length; i++) {
-			if (!map.containsKey(numbers[i])) {
-				ArrayList<Integer> list = new ArrayList<>();
+			if (map.containsKey(numbers[i])) {
+				ArrayList<Integer> list = map.get(numbers[i]);
 				list.add(i);
 				map.put(numbers[i], list);
 			} else {
-				ArrayList<Integer> list = map.get(numbers[i]);
+				ArrayList<Integer> list = new ArrayList<>();
 				list.add(i);
 				map.put(numbers[i], list);
 			}
 		}
 		Arrays.sort(numbers);
 		int left = 0, right = numbers.length - 1;
-		int index1 = 0, index2 = 0;
 		while (left < right) {
 			if (numbers[left] + numbers[right] == target) {
-				index1 = map.get(numbers[left]).get(0) + 1;
-				index2 = map.get(numbers[left]).size() == 2 ? map.get(numbers[left]).get(1) + 1
-						: map.get(numbers[right]).get(0) + 1;
-				break;
-			} else if (numbers[left] + numbers[right] < target) {
-				left++;
-			} else {
+				if (numbers[left] == numbers[right]) {
+					ArrayList<Integer> list = map.get(numbers[left]);
+					ans[0] = list.get(0) > list.get(1) ? list.get(1) + 1 : list.get(0) + 1;
+					ans[1] = list.get(0) > list.get(1) ? list.get(0) + 1 : list.get(1) + 1;
+				} else {
+					ans[0] = map.get(numbers[left]).get(0) > map.get(numbers[right]).get(0) ? map
+							.get(numbers[right]).get(0) + 1 : map.get(numbers[left]).get(0) + 1;
+					ans[1] = map.get(numbers[left]).get(0) < map.get(numbers[right]).get(0) ? map
+							.get(numbers[right]).get(0) + 1 : map.get(numbers[left]).get(0) + 1;
+				}
+				return ans;
+			} else if (numbers[left] + numbers[right] > target) {
 				right--;
+			} else {
+				left++;
 			}
 		}
-		ans[0] = index1 < index2 ? index1 : index2;
-		ans[1] = index1 < index2 ? index2 : index1;
 		return ans;
-
 	}
 
 	public static void main(String[] args) {

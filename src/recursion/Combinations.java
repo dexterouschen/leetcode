@@ -19,38 +19,34 @@ package recursion;
 import java.util.*;
 
 public class Combinations {
-
+	/*
+	 * This problem can be divided into two sub problems: combine(n, k) =
+	 * combine(n-1, k) + combine(n-1, k-1).addAll(n)
+	 */
 	public static ArrayList<ArrayList<Integer>> combine(int n, int k) {
-		ArrayList<ArrayList<Integer>> lists = new ArrayList<ArrayList<Integer>>();
-		if (n < k || n < 1 || k < 1) {
-			return null;
+		ArrayList<ArrayList<Integer>> lists = new ArrayList<>();
+		if (n <= 0 || k <= 0 || n < k) {
+			ArrayList<Integer> list = new ArrayList<>();
+			lists.add(list);
+			return lists;
 		}
 		if (n == k) {
-			ArrayList<Integer> list = new ArrayList<Integer>();
+			ArrayList<Integer> list = new ArrayList<>();
 			for (int i = 1; i <= n; i++) {
 				list.add(i);
 			}
 			lists.add(list);
 			return lists;
 		}
-		if (k == 1) {
-			for (int i = 1; i <= n; i++) {
-				ArrayList<Integer> list = new ArrayList<Integer>();
-				list.add(i);
-				lists.add(list);
-			}
-			return lists;
+		ArrayList<ArrayList<Integer>> subProblem1 = combine(n - 1, k);
+		ArrayList<ArrayList<Integer>> subProblem2 = combine(n - 1, k - 1);
+		for (ArrayList<Integer> l : subProblem2) {
+			l.add(n);
 		}
-		ArrayList<ArrayList<Integer>> listOfLessBase = combine(n - 1, k);
-		ArrayList<ArrayList<Integer>> listOfLessPick = combine(n - 1, k - 1);
-		for (ArrayList<Integer> a : listOfLessPick) {
-			a.add(n);
-		}
-		lists.addAll(listOfLessBase);
-		lists.addAll(listOfLessPick);
+		lists.addAll(subProblem1);
+		lists.addAll(subProblem2);
 		return lists;
 	}
-	
 
 	public static void main(String[] args) {
 		System.out.println(combine(4, 2));

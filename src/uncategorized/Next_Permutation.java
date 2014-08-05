@@ -1,4 +1,4 @@
-package arrays;
+package uncategorized;
 
 /*
  Implement next permutation, which rearranges numbers into the lexicographically
