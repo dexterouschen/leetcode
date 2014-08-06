@@ -13,30 +13,32 @@ package arrays;
  */
 
 public class Gas_Station {
-
+	/*
+	 * Iterative approach. Start from each point in this array and see if it can
+	 * complete a circuit.
+	 */
 	public static int canCompleteCircuit(int[] gas, int[] cost) {
 		if (gas == null || gas.length == 0 || cost == null || cost.length == 0
 				|| gas.length != cost.length) {
 			return -1;
 		}
-		int len = gas.length;
-		for (int i = 0; i < len; i++) { // starting at station i
-			if (runAround(gas, cost, i)) {
+		int remain = 0;
+		for (int i = 0; i < gas.length; i++) {
+			if (canComplete(gas, cost, i, remain)) {
 				return i;
 			}
 		}
 		return -1;
 	}
 
-	public static boolean runAround(int[] gas, int[] cost, int index) {
-		int len = gas.length, remain = 0;
-		for (int i = index; i < len; i++) {
+	public static boolean canComplete(int[] gas, int[] cost, int index, int remain) {
+		for (int i = index; i < gas.length; i++) {
 			remain += gas[i] - cost[i];
 			if (remain < 0) {
 				return false;
 			}
 		}
-		for (int i = 0; i <= index - 1; i++) {
+		for (int i = 0; i < index; i++) {
 			remain += gas[i] - cost[i];
 			if (remain < 0) {
 				return false;

@@ -13,33 +13,30 @@ import test_data_structure.ListNode;
 
 public class Remove_Duplicates_from_Sorted_List_II {
 
+	/*
+	 * Linked list operations. Use a dummy head to handle the situation in which
+	 * duplicates exist at the beginning of the list.
+	 */
 	public static ListNode deleteDuplicates(ListNode head) {
 		if (head == null) {
 			return null;
 		}
-		ListNode trav = head;
-		boolean flag = true;
-		ListNode nhead = new ListNode(999999), ntrav = nhead;
+		ListNode nhead = new ListNode(0);
+		nhead.next = head;
+		ListNode last = nhead, trav = last.next;
 		while (trav != null) {
-			if (trav.next == null) {
-				if (flag == true) {
-					ntrav.next = trav;
-					ntrav = ntrav.next;
+			// if duplicate found, traverse until diff or null
+			if (trav.next != null && trav.next.val == trav.val) {
+				ListNode cur = trav;
+				while (cur.next != null && cur.next.val == trav.val) {
+					cur = cur.next;
 				}
-				break;
-			}
-			if (trav.val != trav.next.val) {
-				if (flag == true) {
-					ntrav.next = trav;
-					ntrav = ntrav.next;
-				} else {
-					flag = true;
-				}
+				last.next = cur.next;
+				trav = last.next;
 			} else {
-				flag = false;
+				last = trav;
+				trav = trav.next;
 			}
-			trav = trav.next;
-			ntrav.next = null;
 		}
 		return nhead.next;
 	}

@@ -9,7 +9,7 @@ import test_data_structure.ListNode;
  Given 1->1->2, return 1->2.
  Given 1->1->2->3->3, return 1->2->3.
  */
-public class Remove_Dups_from_Sorted_List {
+public class Remove_Duplicates_from_Sorted_List {
 	/*
 	 * Use two while loops, one is for storing sorted list node, the other one
 	 * is for traversing among duplicates.

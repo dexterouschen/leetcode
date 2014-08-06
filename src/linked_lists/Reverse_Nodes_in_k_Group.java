@@ -1,7 +1,5 @@
 package linked_lists;
 
-import java.util.Stack;
-
 import test_data_structure.ListNode;
 
 /*
@@ -22,37 +20,66 @@ import test_data_structure.ListNode;
  */
 
 public class Reverse_Nodes_in_k_Group {
+	/*
+	 * A simple method if you want to reverse the entire list.
+	 */
+	public static ListNode reverseEntireList(ListNode head) {
+		if (head == null || head.next == null) {
+			return head;
+		}
+		ListNode nhead = new ListNode(0);
+		nhead.next = head;
+		ListNode last = head, cur = head.next;
+		while (cur != null) {
+			last.next = cur.next;
+			cur.next = nhead.next;
+			nhead.next = cur;
+			cur = last.next;
+		}
+		return nhead.next;
+	}
+
+	/**
+	 * Reverse a link list between pre and next exclusively an example: a linked
+	 * list: 0->1->2->3->4->5->6 | | pre next after call pre = reverse(pre,
+	 * next)
+	 * 
+	 * 0->3->2->1->4->5->6 | | pre next
+	 * 
+	 * @param pre
+	 * @param next
+	 * @return the reversed list's last node, which is the precedence of
+	 *         parameter next
+	 */
+	private static ListNode reverse(ListNode pre, ListNode next) {
+		ListNode last = pre.next;// where first will be doomed "last"
+		ListNode cur = last.next;
+		while (cur != next) {
+			last.next = cur.next;
+			cur.next = pre.next;
+			pre.next = cur;
+			cur = last.next;
+		}
+		return last;
+	}
 
 	public static ListNode reverseKGroup(ListNode head, int k) {
-		if (head == null) {
-			return null;
-		}
-		ListNode trav = head;
-		Stack<ListNode> stack = new Stack<ListNode>();
-		stack.add(trav);
-		int count = 1;
-		while (trav != null && count < k) {
-			trav = trav.next;
-			stack.add(trav);
-			count++;
-		} // now trav is at the last element of the reverse list
-//		System.out.println(trav + "   " + count);
-		if (trav == null) {
-			if (count <= k) {
-				return head;
+		if (head == null || k == 1)
+			return head;
+		ListNode dummy = new ListNode(0);
+		dummy.next = head;
+		ListNode pre = dummy;
+		int i = 0;
+		while (head != null) {
+			i++;
+			if (i % k == 0) {
+				pre = reverse(pre, head.next);
+				head = pre.next;
 			} else {
-				return null;
+				head = head.next;
 			}
 		}
-		ListNode remain = trav.next; // get the remain list
-		ListNode reverse = stack.pop(); // get the reverse list
-		ListNode nhead = reverse;
-		while (!stack.isEmpty()) {
-			reverse.next = stack.pop();
-			reverse = reverse.next;
-		}
-		reverse.next = reverseKGroup(remain, k);
-		return nhead;
+		return dummy.next;
 	}
 
 	public static void main(String[] args) {
@@ -63,23 +90,17 @@ public class Reverse_Nodes_in_k_Group {
 		ListNode n5 = new ListNode(5);
 		ListNode n6 = new ListNode(6);
 		ListNode n7 = new ListNode(7);
-		 n1.next = n2;
-		 n2.next = n3;
-		 n3.next = n4;
-		 n4.next = n5;
-		 n5.next = n6;
-		 n6.next = n7;
+		n1.next = n2;
+		n2.next = n3;
+		n3.next = n4;
+		n4.next = n5;
+		n5.next = n6;
+		n6.next = n7;
 
-		ListNode x = n1;
+		ListNode x = reverseKGroup(n1, 3);
 		while (x != null) {
 			System.out.print(x.val + "->");
 			x = x.next;
-		}
-		System.out.println("\nAfter reverse: ");
-		ListNode y = reverseKGroup(n1, 3);
-		while (y != null) {
-			System.out.print(y.val + "->");
-			y = y.next;
 		}
 	}
 
