@@ -8,10 +8,6 @@ package arrays;
 
 public class Roman_to_integer {
 
-	public Roman_to_integer() {
-		// TODO Auto-generated constructor stub
-	}
-
 	public static int romanToInt(String s) {
 		int len = s.length();
 

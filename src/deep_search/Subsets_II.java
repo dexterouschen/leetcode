@@ -1,9 +1,6 @@
 package deep_search;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /*
  Given a collection of integers that might contain duplicates, S, return all possible subsets.

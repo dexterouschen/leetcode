@@ -16,9 +16,7 @@ public class Maximum_Subarray {
 		int curSum = 0, maxSum = Integer.MIN_VALUE;
 		for (int i = 0; i < A.length; i++) {
 			curSum += A[i];
-			if (curSum > maxSum) {
-				maxSum = curSum;
-			}
+			maxSum = Math.max(curSum, maxSum);
 			if (curSum < 0) {
 				curSum = 0;
 			}

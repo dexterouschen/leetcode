@@ -1,9 +1,6 @@
 package deep_search;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /*
  Given n pairs of parentheses,
@@ -19,7 +16,6 @@ public class Generate_Parentheses {
 	 * Use deep-search algorithm to traverse through all possible combinations
 	 * of left and right parenthesis.
 	 */
-
 	public final static char LEFT = '(';
 	public final static char RIGHT = ')';
 

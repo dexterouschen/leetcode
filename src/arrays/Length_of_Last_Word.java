@@ -14,20 +14,21 @@ package arrays;
  */
 
 public class Length_of_Last_Word {
-
+	/*
+	 * Be careful if there are multiple chars at the end of String s.
+	 */
 	public static int lengthOfLastWord(String s) {
 		if (s == null || s.length() == 0) {
 			return 0;
 		}
-		StringBuffer sb = new StringBuffer(s);
 		int len = 0;
-		if (sb.charAt(0) != ' ') {
+		if (s.charAt(0) != ' ') {
 			len++;
 		}
-		for (int i = 1; i < sb.length(); i++) {
-			if (sb.charAt(i) != ' ' && sb.charAt(i - 1) == ' ') {
+		for (int i = 1; i < s.length(); i++) {
+			if (s.charAt(i) != ' ' && s.charAt(i - 1) == ' ') {
 				len = 1;
-			} else if (sb.charAt(i) != ' ' && sb.charAt(i - 1) != ' ') {
+			} else if (s.charAt(i) != ' ' && s.charAt(i - 1) != ' ') {
 				len++;
 			}
 		}

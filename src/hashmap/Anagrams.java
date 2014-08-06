@@ -1,8 +1,6 @@
 package hashmap;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
+import java.util.*;
 
 /*
  Given an array of strings, return all groups of strings that are anagrams.

@@ -1,9 +1,6 @@
 package deep_search;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /*
  Given a collection of numbers that might contain duplicates, return all possible unique permutations.
@@ -22,15 +19,15 @@ public class Permutations_II {
 		if (num == null || num.length == 0) {
 			return myLists;
 		}
-		Arrays.sort(num);
+		Arrays.sort(num); // sort the array to help handle duplicated elements
 		dfs(set, list, num);
 		for (ArrayList<Integer> x : set) {
 			myLists.add(x);
 		}
 		return myLists;
 	}
-	private static void dfs(Set<ArrayList<Integer>> set,
-			ArrayList<Integer> list, int[] num) {
+
+	private static void dfs(Set<ArrayList<Integer>> set, ArrayList<Integer> list, int[] num) {
 		if (num == null) {
 			set.add(new ArrayList<Integer>(list));
 			return;

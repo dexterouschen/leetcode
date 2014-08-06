@@ -1,4 +1,4 @@
-package deep_search;
+package dynamic_programming;
 
 /*
  Follow up for "Unique Paths":

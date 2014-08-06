@@ -6,16 +6,19 @@ package arrays;
  The order of elements can be changed. It doesn't matter what you leave beyond the new length.
  */
 public class Remove_element {
-
+	/*
+	 * Use a counter to record how many times elem has appeared in A.
+	 * Dynamically copy A[i] to A[i-count].
+	 */
 	public static int removeElement(int[] A, int elem) {
-        int count = 0;
-        for (int i = 0; i < A.length; i++){
-            if(A[i] == elem){
-                count++;
-            }else{
-                A[i-count] = A[i];
-            }
-        }
+		int count = 0;
+		for (int i = 0; i < A.length; i++) {
+			if (A[i] == elem) {
+				count++;
+			} else {
+				A[i - count] = A[i];
+			}
+		}
 		return A.length - count;
 	}
 

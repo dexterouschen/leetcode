@@ -19,7 +19,6 @@ public class Valid_Palindrome {
 		if (s == null || s.isEmpty()) {
 			return true;
 		}
-		// 本题难点就是下面这句，把原来string里的非字母和数字部分去掉的方法
 		String str = s.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
 		int len = str.length();
 		int left = 0, right = len - 1;

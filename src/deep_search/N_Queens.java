@@ -1,11 +1,36 @@
 package deep_search;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+/*
+ * The n-queens puzzle is the problem of placing n queens on an n¡Án chessboard 
+ * such that no two queens attack each other.
+
+ Given an integer n, return all distinct solutions to the n-queens puzzle.
+
+ Each solution contains a distinct board configuration of the n-queens' placement,
+ where 'Q' and '.' both indicate a queen and an empty space respectively.
+
+ For example,
+ There exist two distinct solutions to the 4-queens puzzle:
+
+ [
+ [".Q..",  // Solution 1
+ "...Q",
+ "Q...",
+ "..Q."],
+
+ ["..Q.",  // Solution 2
+ "Q...",
+ "...Q",
+ ".Q.."]
+ ]
+ */
+
+import java.util.*;
 
 public class N_Queens {
-
+	/*
+	 * Solve this problem using deep-search algorithm.
+	 */
 	public static List<String[]> solveNQueens(int n) {
 		ArrayList<String[]> list = new ArrayList<String[]>();
 		if (n == 0) {
@@ -16,13 +41,12 @@ public class N_Queens {
 		return list;
 	}
 
-	// DFS solve question
-	public static void dfs(int row, int n, String[] rowStrings, ArrayList<String[]> result) {
+	public static void dfs(int row, int n, String[] rowStrings, ArrayList<String[]> list) {
 		// "row==n" meaning that rowStrings has already been filled up with Qs
 		// at each row, therefore it's a valid solution and can be add to result
 		if (row == n) {
 			// VERY IMPORTANT HRER!! Need to use clone() to add into list;
-			result.add(rowStrings.clone());
+			list.add(rowStrings.clone());
 			return;
 		}
 		// Else since rowStrings has not been filled up, iterate through all
@@ -37,7 +61,7 @@ public class N_Queens {
 				// update rowStrings with this new row
 				rowStrings[row] = String.copyValueOf(chars);
 				// recursion to look into the next row
-				dfs(row + 1, n, rowStrings, result);
+				dfs(row + 1, n, rowStrings, list);
 			}
 		}
 
@@ -61,58 +85,6 @@ public class N_Queens {
 		}
 		return true;
 	}
-
-//	public static List<String[]> solveNQueens(int n) {
-//		List<String[]> list = new ArrayList<String[]>();
-//		String[] strArray = new String[4];
-//		if (n <= 0) {
-//			return list;
-//		}
-//		char[] line = new char[n];
-//		for (int i = 0; i < n; i++) {
-//			line[i] = '.';
-//		}
-//		boolean[][] occupied = new boolean[n][n];
-//		dfs(list, strArray, occupied, n, 0, line);
-//		return list;
-//	}
-//
-//	public static void dfs(List<String[]> list, String[] strArray, boolean[][] occupied, int n, int curRow, char[] line) {
-//		if (curRow == n - 1) {
-//			for (int i = 0; i < n; i++) {
-//				if (occupied[n - 1][i] == false) {
-//					char[] nline = Arrays.copyOf(line, n);
-//					String[] nStrArray = Arrays.copyOf(strArray, n);
-//					nline[i] = 'Q';
-//					nStrArray[curRow] = nline.toString();
-//					list.add(nStrArray);
-//				}
-//			}
-//			return;
-//		}
-//		for (int i = 0; i < n; i++) {
-//			for (int j = 0; j < n && occupied[curRow][j] == false; j++) {
-//				char[] nline = Arrays.copyOf(line, n);
-//				String[] nStrArray = Arrays.copyOf(strArray, n);
-//				nline[i] = 'Q';
-//				nStrArray[curRow] = nline.toString();
-//				dfs(list, nStrArray, setInvalid(occupied, curRow, j), n, curRow + 1, line);
-//			}
-//		}
-//	}
-//
-//	public static boolean[][] setInvalid(boolean[][] occupied, int row, int col) {
-//		boolean[][] no = occupied.clone();
-//		int len = no.length;
-//		for (int i = 0; i < len; i++) {
-//			for (int j = 0; j < len; j++) {
-//				if (i == row || j == col || Math.abs(i - row) == Math.abs(j - col)) {
-//					no[i][j] = true;
-//				}
-//			}
-//		}
-//		return no;
-//	}
 
 	public static void main(String[] args) {
 		List<String[]> list = solveNQueens(4);

@@ -10,7 +10,7 @@ package arrays;
  Your function should return length = 5, and A is now [1,1,2,2,3].
  */
 
-public class Remove_duplicates_from_Sorted_Array_II {
+public class Remove_Duplicates_From_Sorted_Array_II {
 	/*
 	 * Similar to Remove Duplicates from Sorted Array. Use an additional counter
 	 * to record how many duplicates have appeared.

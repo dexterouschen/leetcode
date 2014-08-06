@@ -11,7 +11,7 @@ package arrays;
 
  Your function should return length = 2, and A is now [1,2].
  */
-public class Remove_duplicates_from_sorted_array {
+public class Remove_Duplicates_From_Sorted_Array {
 
 	public static int removeDuplicates(int[] A) {
 		if (A == null || A.length == 0) {

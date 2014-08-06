@@ -42,7 +42,7 @@ public class Search_for_a_Range {
 				right = mid - 1;
 			}
 		}
-		if (left > right) {
+		if (left > right) { // if not found
 			return range;
 		}
 		// search/update leftBound between left and mid

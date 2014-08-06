@@ -11,11 +11,13 @@ package greedy_algorithm;
  Given array A = [2,3,1,1,4]
 
  The minimum number of jumps to reach the last index is 2. 
- Jump 1 step from index 0 to 1, then 3 steps to the last index.)
+ Jump 1 step from index 0 to 1, then 3 steps to the last index.
  */
 
 public class Jump_Game_II {
-
+	/**
+	 * Use a greedy approach to update the number of steps at each time.
+	 */
 	public static int jump(int[] A) {
 		int minStep = 0, reach = 0, maxDistance = 0;
 		for (int i = 0; i < A.length; i++) {

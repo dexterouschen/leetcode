@@ -23,7 +23,6 @@ public class Reverse_Integer {
 		int len = array.length;
 		char prefix;
 		char[] newArray = new char[len];
-
 		if (array[0] == '-') {
 			prefix = array[0];
 			for (int i = 0; i < len - 1; i++) {

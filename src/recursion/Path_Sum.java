@@ -20,7 +20,10 @@ import test_data_structure.TreeNode;
  */
 
 public class Path_Sum {
-
+	/**
+	 * Use recursive call to traverse through its left and right sub-trees to
+	 * find out if there is a valid path.
+	 */
 	public static boolean hasPathSum(TreeNode root, int sum) {
 		if (root == null || (root.left == null && root.right == null && sum != root.val)) {
 			return false;
@@ -28,8 +31,7 @@ public class Path_Sum {
 		if (root.left == null && root.right == null && sum == root.val) {
 			return true;
 		}
-		int remain = sum - root.val;
-		return hasPathSum(root.left, remain) || hasPathSum(root.right, remain);
+		return hasPathSum(root.left, sum - root.val) || hasPathSum(root.right, sum - root.val);
 	}
 
 	public static void main(String[] args) {

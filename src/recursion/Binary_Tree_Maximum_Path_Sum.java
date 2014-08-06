@@ -1,7 +1,6 @@
 package recursion;
 
-import test_data_structure.Tree;
-import test_data_structure.TreeNode;
+import test_data_structure.*;
 
 /*
  Given a binary tree, find the maximum path sum.
@@ -18,8 +17,14 @@ import test_data_structure.TreeNode;
  */
 
 public class Binary_Tree_Maximum_Path_Sum {
-
-	// store max value
+	/**
+	 * This Problem can be divided into two conditions: at each node in this
+	 * tree, the largest sum path can only be (1) this node itself, (2) this
+	 * node plus one path on its left and one path on its right. So each time
+	 * when visiting a node, record (1) and (2) and update them comparing to
+	 * global maximum value. Then pass node.val + Math.max(left_path,
+	 * right_path).
+	 */
 	public static int max;
 
 	public static int maxPathSum(TreeNode root) {

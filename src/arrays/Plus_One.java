@@ -9,21 +9,26 @@ import java.util.Arrays;
  */
 
 public class Plus_One {
-
+	/*
+	 * Be careful when new array is one digit longer than original array.
+	 */
 	public static int[] plusOne(int[] digits) {
-		int[] array = new int[digits.length + 1];
-		int carry = 1;
-		for (int i = digits.length - 1; i >= 0; i--) {
-			array[i + 1] = (digits[i] + carry) % 10;
-			carry = (digits[i] + carry) / 10;
+		int[] A = new int[digits.length + 1];
+		int carry = 1, index = digits.length - 1;
+		while (carry == 1 && index >= 0) {
+			A[index + 1] = digits[index] + carry == 10 ? 0 : digits[index] + 1;
+			carry = digits[index] + 1 == 10 ? 1 : 0;
+			index--;
 		}
-		if (carry == 1) {
-			array[0] = 1;
-			return array;
+		if (index < 0) {
+			A[0] = 1;
+			return A;
 		} else {
-			return Arrays.copyOfRange(array, 1, array.length);
+			for (int i = index; i >= 0; i--) {
+				A[index + 1] = digits[i];
+			}
+			return Arrays.copyOfRange(A, 1, A.length);
 		}
-
 	}
 
 	public static void main(String[] args) {
