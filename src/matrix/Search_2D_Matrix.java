@@ -19,7 +19,9 @@ package matrix;
  */
 
 public class Search_2D_Matrix {
-
+	/*
+	 * Use binary search in rows and columns.
+	 */
 	public static boolean searchMatrix(int[][] matrix, int target) {
 		if (matrix == null || matrix.length == 0 || matrix[0].length == 0) {
 			return false;

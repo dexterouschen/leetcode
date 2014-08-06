@@ -8,7 +8,7 @@ package dynamic_programming;
  (ie, you must sell the stock before you buy again).
  */
 
-public class Best_Time_to_Buy_Sell_Stock_II {
+public class Best_Time_to_Buy_and_Sell_Stock_II {
 
 	/*
 	 * the general strategy: buy when the next day is higher; sell when the next

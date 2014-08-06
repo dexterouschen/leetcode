@@ -1,7 +1,6 @@
 package matrix;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /*
  Given a matrix of m x n elements (m rows, n columns), 
@@ -17,8 +16,13 @@ import java.util.List;
  ]
  You should return [1,2,3,6,9,8,7,4,5].
  */
-public class Spiral_Matrix {
 
+public class Spiral_Matrix {
+	/*
+	 * Use four indexes to set up the circles of iterations. After each circle,
+	 * update indexes. Finally, check if there is one column or row of numbers
+	 * that are needed to added into the list.
+	 */
 	public static ArrayList<Integer> spiralOrder(int[][] matrix) {
 		ArrayList<Integer> list = new ArrayList<Integer>();
 		if (matrix == null || matrix.length == 0) {

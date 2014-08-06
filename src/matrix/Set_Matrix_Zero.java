@@ -1,8 +1,5 @@
 package matrix;
 
-import java.util.HashSet;
-import java.util.Set;
-
 /*
  Given an m x n matrix, if an element is 0, set its entire row and column to 0. Do it in place.
 

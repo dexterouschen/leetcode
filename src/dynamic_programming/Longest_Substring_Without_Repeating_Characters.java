@@ -1,7 +1,6 @@
 package dynamic_programming;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /*
  Given a string, find the length of the longest substring without repeating characters. 
@@ -11,14 +10,12 @@ import java.util.Set;
 
  For "bbbbb" the longest substring is "b", with the length of 1.
  */
-import java.util.*;
 
 public class Longest_Substring_Without_Repeating_Characters {
 
 	/*
 	 * http://blog.csdn.net/likecool21/article/details/10858799
 	 */
-
 	public static int len = 0;
 
 	public static int lengthOfLongestSubString_Leetcode(String s) {
@@ -68,8 +65,7 @@ public class Longest_Substring_Without_Repeating_Characters {
 					max = set.size();
 				}
 				set.clear();
-				i = map.get(s.charAt(i)).get(
-						map.get(s.charAt(i)).indexOf(i) - 1);
+				i = map.get(s.charAt(i)).get(map.get(s.charAt(i)).indexOf(i) - 1);
 				continue;
 			} else {
 				set.add(s.charAt(i));

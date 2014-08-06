@@ -15,31 +15,6 @@ import java.util.List;
 
 public class Pascal_Triangle_II {
 
-	// public static ArrayList<Integer> getRow(int rowIndex) {
-	// ArrayList<Integer> list = new ArrayList<Integer>();
-	// if (rowIndex < 0) {
-	// return list;
-	// }
-	// if (rowIndex == 0) {
-	// list.add(1);
-	// return list;
-	// }
-	// if (rowIndex == 1) {
-	// list.add(1);
-	// list.add(1);
-	// return list;
-	// }
-	// for (int i = 2; i <= rowIndex + 1; i++) {
-	// ArrayList<Integer> lowerList = new ArrayList<Integer>();
-	// lowerList.add(1);
-	// for (int j = 1; j < list.size(); j++) {
-	// lowerList.add(list.get(j - 1) + list.get(j));
-	// }
-	// lowerList.add(1);
-	// list = lowerList;
-	// }
-	// return list;
-	// }
 	public static List<Integer> getRow(int rowIndex) {
 		List<Integer> list = new ArrayList<Integer>();
 		list.add(1);

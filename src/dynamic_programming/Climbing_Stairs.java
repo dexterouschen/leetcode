@@ -10,7 +10,6 @@ public class Climbing_Stairs {
 
 	// Dynamic programming
 	// waysOfClimb[i] = waysOfClimb[i - 1] + waysOfClimb[i - 2]
-
 	public static int climbStairs(int n) {
 		if (n <= 2) {
 			return n;

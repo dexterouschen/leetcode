@@ -22,6 +22,7 @@ public class Rotate_Image {
 		}
 		int n = matrix.length;
 		for (int i = 0; i < n / 2; i++) {
+			// Here j should be smaller then n/2 or n/2 + 1
 			for (int j = 0; j < (n % 2 == 0 ? n / 2 : n / 2 + 1); j++) {
 				int temp = matrix[i][j];
 				matrix[i][j] = matrix[n - j - 1][i];
