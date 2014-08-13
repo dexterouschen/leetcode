@@ -8,53 +8,51 @@ import test_data_structure.ListNode;
 
 public class Sort_List {
 
-	/*
-	 * This is a normal merge-sort. I'm not sure if it satisfies
-	 * "constant space complexity". One trick of this problem if how to find the
-	 * mid-point of a linked list. Here I used two runners: a slow one and a
+	/**
+	 * This is a normal merge-sort. I'm not sure if it satisfies the requirement
+	 * of "constant space complexity". One trick of this problem if how to find
+	 * the mid-point of a linked list. Here I used two runners: a slow one and a
 	 * fast one.
 	 */
-
 	public static ListNode sortList(ListNode head) {
-		return mergeSort(head);
+		return sort(head);
 	}
 
-	public static ListNode mergeSort(ListNode head) {
-		if (head == null || head.next == null)
+	public static ListNode sort(ListNode head) {
+		if (head == null || head.next == null) {
 			return head;
-		ListNode slow = head;
-		ListNode fast = head;
-		while (fast.next != null && fast.next.next != null) {
-			slow = slow.next;
-			fast = fast.next.next;
 		}
-		ListNode right = slow.next;
+		ListNode fast = head, slow = head;
+		while (fast.next != null && fast.next.next != null) {
+			fast = fast.next.next;
+			slow = slow.next;
+		}
+		ListNode left = head, right = slow.next;
 		slow.next = null;
-		ListNode left = head;
-		left = mergeSort(left);
-		right = mergeSort(right);
+		left = sort(left);
+		right = sort(right);
 		return merge(left, right);
 	}
 
-	public static ListNode merge(ListNode n1, ListNode n2) {
-		ListNode n = new ListNode(0);
-		ListNode p1 = n1, p2 = n2, p = n;
-		while (p1 != null && p2 != null) {
-			if (p1.val < p2.val) {
-				p.next = p1;
-				p1 = p1.next;
+	public static ListNode merge(ListNode head1, ListNode head2) {
+		ListNode nhead = new ListNode(0);
+		ListNode cur = nhead;
+		while (head1 != null && head2 != null) {
+			if (head1.val <= head2.val) {
+				cur.next = head1;
+				head1 = head1.next;
 			} else {
-				p.next = p2;
-				p2 = p2.next;
+				cur.next = head2;
+				head2 = head2.next;
 			}
-			p = p.next;
+			cur = cur.next;
 		}
-		if (p1 == null) {
-			p.next = p2;
-		} else {
-			p.next = p1;
+		if (head1 == null) {
+			cur.next = head2;
+		} else if (head2 == null) {
+			cur.next = head1;
 		}
-		return n.next;
+		return nhead.next;
 	}
 
 	public static void main(String[] args) {
