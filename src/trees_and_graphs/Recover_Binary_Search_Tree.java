@@ -9,13 +9,17 @@ package trees_and_graphs;
  A solution using O(n) space is pretty straight forward. Could you devise a constant space solution?
  */
 
-import java.util.ArrayList;
+import java.util.*;
 
 import test_data_structure.TreeNode;
 
 public class Recover_Binary_Search_Tree {
 
-	public static void recoverTree(TreeNode root) {
+	/**
+	 * O(n) space solution. It converts a tree into a list and then find out the
+	 * two elements that are not in-order.
+	 */
+	public static void recoverTree2(TreeNode root) {
 		if (root == null) {
 			return;
 		}
@@ -53,6 +57,7 @@ public class Recover_Binary_Search_Tree {
 		return list;
 	}
 
+	// the purpose of this method is for testing only
 	public static ArrayList<Integer> toIntArray(TreeNode root) {
 		ArrayList<Integer> list = new ArrayList<Integer>();
 		if (root == null) {
@@ -84,7 +89,7 @@ public class Recover_Binary_Search_Tree {
 		ArrayList<Integer> list1 = toIntArray(t4);
 		System.out.println("Before: " + list1);
 
-		recoverTree(t4);
+		recoverTree2(t4);
 
 		ArrayList<Integer> list2 = toIntArray(t4);
 		System.out.println("After: " + list2);
