@@ -13,16 +13,18 @@ import java.util.*;
  */
 
 public class First_Missing_Positive {
-
+	/**
+	 * Use hashmap to handle this problem. Build a map that contains all values
+	 * of "A". Positive elements that appear in A will be counted as 1 or more
+	 * in map. Each element's neighbors (+/-1) are counted as 0. If there is no
+	 * "1" in array A, the result should be 1; otherwise the answer will be the
+	 * smallest element in this map that are mapped as 0.
+	 */
 	public static int firstMissingPositive(int[] A) {
 		if (A == null || A.length == 0) {
 			return 1;
 		}
 		HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
-		// build a map that contains all values of "A". Positive elements that
-		// appear in A will be counted as 1 or more in map. Each element's
-		// neighbors (+/-1) are counted as 0. The answer will be the smallest
-		// element in this map that are mapped as 0.
 		for (int i = 0; i < A.length; i++) {
 			if (!map.containsKey(A[i])) { // map doesn't have A[i]
 				map.put(A[i], 1);
@@ -43,16 +45,12 @@ public class First_Missing_Positive {
 				}
 			}
 		}
-		// for (int i : map.keySet()) {
-		// System.out.println("Key: " + i + "; Val: " + map.get(i));
-		// }
 		int result = Integer.MAX_VALUE;
 		for (int i : map.keySet()) {
 			if (i < result && map.get(i) == 0) {
 				result = i;
 			}
 		}
-		// System.out.println("res: " + res);
 		if (map.containsKey(1)) {
 			return result;
 		} else {

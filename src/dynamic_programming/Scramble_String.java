@@ -49,6 +49,13 @@ public class Scramble_String {
 	/*
 	 * http://www.blogjava.net/sandy/archive/2013/05/22/399605.html
 	 */
+
+	/**
+	 * The basic idea to solve this problem is that s1 and s2 can be divided
+	 * into two sets of substrings: s1a, s1b, s2a, s2b. To satisfy the scramble
+	 * rule, it must be "s1a == s2a && s1b == s2b" or
+	 * "s1a == s2b && s1b == s2a".
+	 */
 	public static boolean isScrambleRecursion(String s1, String s2) {
 		int len1 = s1.length(), len2 = s2.length();
 		if (len1 != len2)
@@ -72,25 +79,28 @@ public class Scramble_String {
 		// the results for their sub-substrings. This will end until recursion
 		// reaches substrings that is just one single char.
 		boolean result = false;
-		for (int i = 1; i < len1 && result == false; i++) {
+		for (int i = 1; i < s1.length(); i++) {
+			if (result)
+				break;
 			String s11 = s1.substring(0, i);
 			String s12 = s1.substring(i);
 			String s21 = s2.substring(0, i);
 			String s22 = s2.substring(i);
-			result = isScrambleRecursion(s11, s21) && isScrambleRecursion(s12, s22);
-			if (result == false) {
-				String s31 = s2.substring(0, len1 - i);
-				String s32 = s2.substring(len1 - i);
-				result = isScrambleRecursion(s11, s32) && isScrambleRecursion(s12, s31);
-			}
+			String s31 = s2.substring(0, s1.length() - i);
+			String s32 = s2.substring(s1.length() - i);
+			result = isScrambleRecursion(s11, s21) && isScrambleRecursion(s12, s22)
+					|| isScrambleRecursion(s11, s32) && isScrambleRecursion(s12, s31);
 		}
 		return result;
 	}
 
-	/*
-	 * 这里我使用了一个三维数组boolean
-	 * result[len][len][len],其中第一维为子串的长度，第二维为s1的起始索引，第三维为s2的起始索引。
-	 * result[k][i][j]表示s1[i...i+k]是否可以由s2[j...j+k]变化得来。
+	/**
+	 * Recursive solution is straightforward yet expensive. So we may need to
+	 * build a DP algorithm to simply computation. Here I used a 3D array of
+	 * boolean result[len][len][len], in which 1st dimension is for the length
+	 * of substring; 2nd dimension represents the starting index for s1; 3rd
+	 * dimension represents the starting index for s2. result[k][i][j] means
+	 * whether substring s1[i...i+k] can be scrambled from s2[j...j+k].
 	 */
 	public static boolean isScrambleDP(String s1, String s2) {
 		int len = s1.length();

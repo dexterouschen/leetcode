@@ -16,6 +16,22 @@ import test_data_structure.TreeNode;
 public class Recover_Binary_Search_Tree {
 
 	/**
+	 * O(2) space solution. Use min/max values pair to find out which two
+	 * tree-nodes are wrongly placed. Then switch their values.
+	 */
+	public static void recoverTree(TreeNode root) {
+		if (root == null || (root.left == null && root.right == null)) {
+			return;
+		}
+		Set<Integer> set = new HashSet<Integer>();
+		int min = Integer.MIN_VALUE, max = Integer.MAX_VALUE;
+		// check if root is placed in the correct position
+		if(root.val < root.left.val || root.val > root.right.val) {
+			
+		}
+	}
+
+	/**
 	 * O(n) space solution. It converts a tree into a list and then find out the
 	 * two elements that are not in-order.
 	 */
