@@ -54,7 +54,6 @@ public class Validate_Binary_Search_Tree {
 			return true;
 		}
 		int min = Integer.MIN_VALUE, max = Integer.MAX_VALUE;
-
 		return isValidBST(root.left, min, root.val) && isValidBST(root.right, root.val, max);
 	}
 

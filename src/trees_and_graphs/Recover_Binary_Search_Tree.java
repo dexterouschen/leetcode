@@ -16,19 +16,55 @@ import test_data_structure.TreeNode;
 public class Recover_Binary_Search_Tree {
 
 	/**
-	 * O(2) space solution. Use min/max values pair to find out which two
-	 * tree-nodes are wrongly placed. Then switch their values.
+	 * http://yucoding.blogspot.com/2013/03/leetcode-question-75-recover-binary.html
+	 * 
+	 * O(1) space solution, similar to a normal inorder-traversal. Now how to do
+	 * this procedure in O(1)? What we need is actually two pointers, which
+	 * point to 2 tree nodes where is incorrect. Therefore, we only need to
+	 * store these two pointers, and, we also need another pointer to store the
+	 * previous element, in order to compare if the current element is valid or
+	 * not.
+	 * 
+	 * In the code below, you will find, the last step is to replace the wrong
+	 * pair's value. And the inOrder function is to search the whole BST and
+	 * find the wrong pairs.
+	 * 
+	 * Note that, (1)the previous element is NOT the root node of the current
+	 * element, but the previous element in the "inOrder" order; (2) To store
+	 * the wrong pair, the first found wrong element is stored in first pointer,
+	 * while the next is stored in the second pointer.
 	 */
-	public static void recoverTree(TreeNode root) {
-		if (root == null || (root.left == null && root.right == null)) {
+	TreeNode prev = null;
+	TreeNode p1 = null;
+	TreeNode p2 = null;
+
+	public void recoverTree(TreeNode root) {
+		if (root == null) {
 			return;
 		}
-		Set<Integer> set = new HashSet<Integer>();
-		int min = Integer.MIN_VALUE, max = Integer.MAX_VALUE;
-		// check if root is placed in the correct position
-		if(root.val < root.left.val || root.val > root.right.val) {
-			
+		inorderTraverse(root);
+		int temp = p1.val;
+		p1.val = p2.val;
+		p2.val = temp;
+	}
+
+	public void inorderTraverse(TreeNode root) {
+		if (root == null) {
+			return;
 		}
+		inorderTraverse(root.left);
+		if (prev == null) { // for the 1st node in inorder-traversal
+			prev = root;
+		} else {
+			if (prev.val >= root.val) {
+				if (p1 == null) {
+					p1 = prev;
+				}
+				p2 = root; // trick here! use this to avoid continuous wrong numbers
+			}
+			prev = root;
+		}
+		inorderTraverse(root.right);
 	}
 
 	/**

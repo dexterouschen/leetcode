@@ -17,7 +17,21 @@ import java.util.ArrayList;
  */
 
 public class ZigZag_Conversion {
-
+	/**
+	 * Algorithm:
+	 * 
+	 * Maintain down boolean which tells whether you are going up or down in zig
+	 * zag order.
+	 * 
+	 * As soon as rows = 0 means you need to go down now and as soon as rows =
+	 * nRows - 1 you need to go up now
+	 * 
+	 * Just keep on doing this until whole string is exhausted
+	 * 
+	 * Using StringBuilder list/array to store elements in zig zag order and in
+	 * the end just append all characters from each StringBuilder to return
+	 * output.
+	 */
 	public static String convert(String s, int nRows) {
 		if (s == null || s.length() <= 1 || nRows <= 1) {
 			return s;

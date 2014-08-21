@@ -9,14 +9,19 @@ import java.util.*;
  */
 
 public class Anagrams {
-	// build a hashmap in which the ordered char arrays are keys. Each key
-	// corresponds to a arraylist containing anagram strings.
+	/**
+	 * The question should be stated in this way for better understanding:
+	 * "Given an array of strings, return all strings that have their anagrams in this array."
+	 * So the easiest way to do so is by implementing a hash-map. The keys of
+	 * this map are the sorted char arrays of each string, and the values of the
+	 * map are the strings.
+	 */
 	public static ArrayList<String> anagrams(String[] strs) {
-		ArrayList<String> list = new ArrayList<String>();
+		ArrayList<String> list = new ArrayList<>();
 		if (strs == null || strs.length == 0) {
 			return list;
 		}
-		HashMap<String, ArrayList<String>> map = new HashMap<String, ArrayList<String>>();
+		Map<String, ArrayList<String>> map = new HashMap<>();
 		for (String s : strs) {
 			char[] chars = s.toCharArray();
 			Arrays.sort(chars);
