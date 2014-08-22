@@ -14,7 +14,13 @@ package arrays;
  */
 
 public class Valid_Palindrome {
-
+	/**
+	 * Yes, I know this problem sounds really straightforward and easy. The
+	 * basic idea is of course to use two pointers to scan the string from each
+	 * end of a string. But how do you do it considering "only alphanumeric
+	 * characters"? The trick is shown below, just a single line of code and
+	 * that does it.
+	 */
 	public static boolean isPalindrome(String s) {
 		if (s == null || s.isEmpty()) {
 			return true;

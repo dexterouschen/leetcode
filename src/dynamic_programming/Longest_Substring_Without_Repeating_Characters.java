@@ -1,6 +1,7 @@
 package dynamic_programming;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 /*
  Given a string, find the length of the longest substring without repeating characters. 
@@ -13,7 +14,8 @@ import java.util.*;
 
 public class Longest_Substring_Without_Repeating_Characters {
 
-	/*
+	/**
+	 * Solution 1: DP approach.
 	 * http://blog.csdn.net/likecool21/article/details/10858799
 	 */
 	public static int len = 0;
@@ -28,7 +30,6 @@ public class Longest_Substring_Without_Repeating_Characters {
 		int max = 1;
 		int start = 0;
 		int end = 1;
-
 		countTable[s.charAt(0)] = 0;
 		while (end < length) {
 			// Has not reached a duplicate char
@@ -42,84 +43,43 @@ public class Longest_Substring_Without_Repeating_Characters {
 		return max;
 	}
 
-	public static int lengthOfLongestSubstring(String s) {
+	/**
+	 * Solution 2. The basic idea is as following: use a hashmap (must be a
+	 * concurrent hashmap!!) to store continuous chars and their indexes in the
+	 * string. If a conflict takes place, update global maximum length as the
+	 * number of chars within the map. Then remove the chars whose indexes are
+	 * smaller than the conflicting char's. Keep running this algorithm until
+	 * all the chars in the string are visited.
+	 */
+	public static int lengthOfLongestSubstring2(String s) {
 		if (s == null || s.length() == 0) {
 			return 0;
 		}
-		Set<Character> set = new HashSet<Character>();
-		HashMap<Character, ArrayList<Integer>> map = new HashMap<Character, ArrayList<Integer>>();
-		int len = s.length();
-		for (int i = 0; i < len; i++) {
+		Map<Character, Integer> map = new ConcurrentHashMap<>();
+		int maxLen = 0;
+		for (int i = 0; i < s.length(); i++) {
 			if (!map.containsKey(s.charAt(i))) {
-				ArrayList<Integer> list = new ArrayList<Integer>();
-				list.add(i);
-				map.put(s.charAt(i), list);
-			} else {
-				map.get(s.charAt(i)).add(i);
-			}
-		}
-		int max = 0;
-		for (int i = 0; i < len; i++) {
-			if (set.contains(s.charAt(i))) {
-				if (set.size() > max) {
-					max = set.size();
+				map.put(s.charAt(i), i);
+			} else { // conflict occurs
+				maxLen = Math.max(maxLen, map.keySet().size());
+				// remove chars whose indexes are smaller
+				int curIndex = map.get(s.charAt(i));
+				for (char c : map.keySet()) {
+					if (map.get(c) < curIndex) {
+						map.remove(c);
+					}
 				}
-				set.clear();
-				i = map.get(s.charAt(i)).get(map.get(s.charAt(i)).indexOf(i) - 1);
-				continue;
-			} else {
-				set.add(s.charAt(i));
+				map.put(s.charAt(i), i);// update conflicting char
 			}
 		}
-		return max;
+		return Math.max(maxLen, map.keySet().size());
 	}
-
-	// ================= Old Codes =================
-	public static int lengthOfLongestSubstringRecurssion(String s) {
-		if (s == null || s.length() == 0) {
-			return 0;
-		}
-		Set<Character> set = new HashSet<Character>();
-		dfs(s, set, 0);
-		return len;
-	}
-
-	public static void dfs(String str, Set<Character> set, int index) {
-		if (index >= str.length() - 1) {
-			return;
-		}
-		if (set.size() > len) {
-			len = set.size();
-		}
-		for (int i = index; i < str.length(); i++) {
-			if (!set.contains(str.charAt(i))) {
-				set.add(str.charAt(i));
-				dfs(str, set, i + 1);
-			} else {
-				set = new HashSet<Character>(str.charAt(i));
-				dfs(str, set, i + 1);
-			}
-		}
-	}
-
-	// ============================================
 
 	public static void main(String[] args) {
-		// String s1 = "abcabcbb";
-		// System.out.println(lengthOfLongestSubstringRecurssion(s1)); // should
-		// be 3
-		//
-		// String s2 =
-		// "wlrbbmqbhcdarzowkkyhiddqscdxrjmowfrxsjybldbefsarcbynecdyggxxpklorellnmpapqfwkhopkmco";
-		// System.out.println(lengthOfLongestSubstringRecurssion(s2)); // should
-		// be 12
-
-		// String s1 = "abcabcbb";
-		// System.out.println(lengthOfLongestSubstring(s1)); // should be 3
-
+		String s1 = "qopubjguxhxdipfzwswybgfylqvjzhar";
 		String s2 = "wlrbbmqbhcdarzowkkyhiddqscdxrjmowfrxsjybldbefsarcbynecdyggxxpklorellnmpapqfwkhopkmco";
-		System.out.println(lengthOfLongestSubstring(s2)); // should be 12
-
+		System.out.println(lengthOfLongestSubstring2(s1)); // should be 12
+		System.out.println(lengthOfLongestSubstring2(s2)); // should be 12
 	}
 
 }
