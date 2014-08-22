@@ -14,19 +14,26 @@ package dynamic_programming;
  */
 
 public class Distinct_Subsequences {
-
+	/**
+	 * Let Table[i][j] stand for the number of subsequences of S(0, i) in T(0,
+	 * j). If S.charAt(i) == T.charAt(j), Table[i][j] = Table[i-1][j-1] +
+	 * Table[i-1][j]; Otherwise, Table[i][j] = Table[i-1][j].
+	 */
 	public static int numDistinct(String S, String T) {
-		int[] match = new int[S.length()];
-		if (S.length() < T.length())
-			return 0;
-		match[0] = 1;
-		for (int i = 1; i <= T.length(); i++)
-			match[i] = 0;
-		for (int i = 1; i <= S.length(); i++)
-			for (int j = T.length(); j >= 1; j--)
-				if (S.charAt(i - 1) == T.charAt(j - 1))
-					match[j] += match[j - 1];
-		return match[T.length()];
+		int[][] table = new int[S.length() + 1][T.length() + 1];
+		for (int i = 0; i < S.length(); i++) {
+			table[i][0] = 1;
+		}
+		for (int i = 1; i <= S.length(); i++) {
+			for (int j = 1; j <= T.length(); j++) {
+				if (S.charAt(i - 1) == T.charAt(j - 1)) {
+					table[i][j] += table[i - 1][j] + table[i - 1][j - 1];
+				} else {
+					table[i][j] += table[i - 1][j];
+				}
+			}
+		}
+		return table[S.length()][T.length()];
 	}
 
 	public static void main(String[] args) {
