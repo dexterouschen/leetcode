@@ -10,7 +10,7 @@ package arrays;
  You may assume no duplicate exists in the array.
  */
 public class Search_in_Rotated_Sorted_Array {
-	/*
+	/**
 	 * Because the sorted array was rotated at an unknown pivot, it is
 	 * impossible to find out where exactly is the pivot without an O(n) search.
 	 * However, you can always find out that by dividing the array in half, one

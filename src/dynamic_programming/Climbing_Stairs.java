@@ -14,13 +14,13 @@ public class Climbing_Stairs {
 		if (n <= 2) {
 			return n;
 		}
-		int[] waysOfClimb = new int[n];
-		waysOfClimb[0] = 1;
-		waysOfClimb[1] = 2;
-		for (int i = 2; i < n; i++) {
-			waysOfClimb[i] = waysOfClimb[i - 1] + waysOfClimb[i - 2];
+		int[] step = new int[n + 1];
+		step[1] = 1;
+		step[2] = 2;
+		for (int i = 3; i <= n; i++) {
+			step[i] = step[i - 1] + step[i - 2];
 		}
-		return waysOfClimb[n - 1];
+		return step[n];
 	}
 
 	// Memorization:

@@ -11,7 +11,7 @@ package arrays;
  */
 
 public class Remove_Duplicates_From_Sorted_Array_II {
-	/*
+	/**
 	 * Similar to Remove Duplicates from Sorted Array. Use an additional counter
 	 * to record how many duplicates have appeared.
 	 */

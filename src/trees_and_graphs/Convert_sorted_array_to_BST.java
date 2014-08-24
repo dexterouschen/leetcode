@@ -9,13 +9,14 @@ import test_data_structure.TreeNode;
  */
 
 public class Convert_sorted_array_to_BST {
-
+	/**
+	 * Recursive approach: find the mid point of the array and take it as the
+	 * root. Then recursively call sortedArrayBST() to generate its left and
+	 * right subtree.
+	 */
 	public TreeNode sortedArrayToBST(int[] num) {
 		if (num == null || num.length == 0) {
 			return null;
-		}
-		if (num.length == 1) {
-			return new TreeNode(num[0]);
 		}
 		int mid = num.length / 2;
 		TreeNode root = new TreeNode(num[mid]);
@@ -24,20 +25,7 @@ public class Convert_sorted_array_to_BST {
 		return root;
 	}
 
-	public int[] toSubArray(int[] A, int start, int end) {
-		if (A.length <= 0 || start > end) {
-			return null;
-		}
-		int[] ans = new int[end - start + 1];
-		for (int i = start; i <= end; i++) {
-			ans[i - start] = A[i];
-		}
-		return ans;
-	}
-
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
 	}
 
 }

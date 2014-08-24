@@ -9,7 +9,7 @@ package dynamic_programming;
  */
 
 public class Trapping_Rain_Water {
-	/*
+	/**
 	 * The trick of solving this problem is to keep two lists that stores in the
 	 * ith element's the left-side maximum and right-side maximum. The volume of
 	 * water that can be held at the ith element in the input array is then
@@ -21,24 +21,18 @@ public class Trapping_Rain_Water {
 			return 0;
 		int[] leftMax = new int[A.length], rightMax = new int[A.length];
 		leftMax[0] = 0;
-		leftMax[A.length - 1] = 0;
-		rightMax[0] = 0;
 		rightMax[A.length - 1] = 0;
-		// build the list for each element's left-side maximum
-		for (int i = 1; i < A.length - 1; i++) {
+		int water = 0;
+		// build the list for each element's dual-side maximum
+		for (int i = 1; i < A.length; i++) {
 			leftMax[i] = Math.max(leftMax[i - 1], A[i - 1]);
-		}
-		// build the list for each element's right-side maximum
-		for (int i = A.length - 2; i >= 0; i--) {
-			rightMax[i] = Math.max(rightMax[i + 1], A[i + 1]);
+			rightMax[A.length - 1 - i] = Math.max(rightMax[A.length - i], A[A.length - i]);
 		}
 		// figure out the volume that each element can hold
-		int vol = 0;
 		for (int i = 0; i < A.length; i++) {
-			vol += (Math.min(leftMax[i], rightMax[i]) - A[i] > 0) ? Math.min(leftMax[i],
-					rightMax[i]) - A[i] : 0;
+			water += Math.max(0, Math.min(leftMax[i], rightMax[i]) - A[i]);
 		}
-		return vol;
+		return water;
 	}
 
 	public static void main(String[] args) {

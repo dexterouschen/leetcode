@@ -2,7 +2,7 @@ package uncategorized;
 
 public class Container_With_Most_Water {
 
-	/*
+	/**
 	 * There is an O(n) way to solve this problem: starting from the entire
 	 * array, shrink the array by either taking one point off from the head or
 	 * taking one point off from the tail. Every time doing such, update the max
