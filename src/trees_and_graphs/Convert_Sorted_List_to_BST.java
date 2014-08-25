@@ -9,8 +9,7 @@ import test_data_structure.TreeNode;
  */
 
 public class Convert_Sorted_List_to_BST {
-
-	/*
+	/**
 	 * Since a list is used in this problem, O(1) access for each element is no
 	 * longer available. To solve it, we need to find out the middle element of
 	 * the list, and then recursively generate left tree and right tree for
@@ -31,8 +30,7 @@ public class Convert_Sorted_List_to_BST {
 			slow = slow.next;
 		}
 		TreeNode root = new TreeNode(slow.val);
-		// check if slow is head
-		if (slow == head) {
+		if (slow == head) { // check if slow is head
 			root.left = null;
 			root.right = sortedListToBST(slow.next);
 		} else {

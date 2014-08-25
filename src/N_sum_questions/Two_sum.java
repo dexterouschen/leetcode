@@ -16,7 +16,7 @@ import java.util.*;
 
 public class Two_sum {
 
-	/*
+	/**
 	 * Any N-sum problem is essentially a "two-sum" problem. First let's take a
 	 * look at how to solve a "two-sum" problem. The optimal way to solve it is
 	 * by sorting the array in O(nlogn) complexity. Then we can use two pointers
@@ -29,40 +29,38 @@ public class Two_sum {
 	 * asks to sum up. Be careful if there are duplicates in such number array.
 	 */
 	public static int[] twoSum(int[] numbers, int target) {
-		int[] ans = new int[2];
-		HashMap<Integer, ArrayList<Integer>> map = new HashMap<>();
+		Map<Integer, ArrayList<Integer>> map = new HashMap<>();
+		// record each element's index
 		for (int i = 0; i < numbers.length; i++) {
-			if (map.containsKey(numbers[i])) {
-				ArrayList<Integer> list = map.get(numbers[i]);
-				list.add(i);
+			if (!map.containsKey(numbers[i])) {
+				ArrayList<Integer> list = new ArrayList<>();
+				list.add(i + 1);
 				map.put(numbers[i], list);
 			} else {
-				ArrayList<Integer> list = new ArrayList<>();
-				list.add(i);
+				ArrayList<Integer> list = map.get(numbers[i]);
+				list.add(i + 1);
 				map.put(numbers[i], list);
 			}
 		}
-		Arrays.sort(numbers);
+		Arrays.sort(numbers); // sort the array
 		int left = 0, right = numbers.length - 1;
-		while (left < right) {
+		while (left < right) { // use two pointers to find the target
 			if (numbers[left] + numbers[right] == target) {
-				if (numbers[left] == numbers[right]) {
-					ArrayList<Integer> list = map.get(numbers[left]);
-					ans[0] = list.get(0) > list.get(1) ? list.get(1) + 1 : list.get(0) + 1;
-					ans[1] = list.get(0) > list.get(1) ? list.get(0) + 1 : list.get(1) + 1;
-				} else {
-					ans[0] = map.get(numbers[left]).get(0) > map.get(numbers[right]).get(0) ? map
-							.get(numbers[right]).get(0) + 1 : map.get(numbers[left]).get(0) + 1;
-					ans[1] = map.get(numbers[left]).get(0) < map.get(numbers[right]).get(0) ? map
-							.get(numbers[right]).get(0) + 1 : map.get(numbers[left]).get(0) + 1;
-				}
-				return ans;
-			} else if (numbers[left] + numbers[right] > target) {
-				right--;
-			} else {
+				break;
+			}
+			if (numbers[left] + numbers[right] < target) {
 				left++;
 			}
+			if (numbers[left] + numbers[right] > target) {
+				right--;
+			}
 		}
+		int[] ans = new int[2];
+		int ans1 = map.get(numbers[left]).get(0);
+		map.get(numbers[left]).remove(0); // in case there are duplicates
+		int ans2 = map.get(numbers[right]).get(0);
+		ans[0] = ans1 > ans2 ? ans2 : ans1;
+		ans[1] = ans1 < ans2 ? ans2 : ans1;
 		return ans;
 	}
 
