@@ -13,7 +13,7 @@ package arrays;
  */
 
 public class Gas_Station {
-	/*
+	/**
 	 * Iterative approach. Start from each point in this array and see if it can
 	 * complete a circuit.
 	 */

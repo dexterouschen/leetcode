@@ -11,31 +11,37 @@ import test_data_structure.ListNode;
  */
 
 public class Rotate_List {
-
+	/**
+	 * A smart way to solve this problem is by connecting the tail and the head,
+	 * which makes this list into a circle. Then rotate the circle clock-wise
+	 * for n positions. Then disconnect the node between new head and new tail.
+	 * Please be careful when "n" is larger than the size of the list.
+	 */
 	public static ListNode rotateRight(ListNode head, int n) {
-		if (head == null || n == 0) {
+		if (head == null || head.next == null || n == 0) {
 			return head;
 		}
-		// r2 runs ahead of r1
-		ListNode r1 = head, r2 = head;
-		int count = 0;
-		// locate r2
-		while (r2 != null && count < n) {
-			count++;
-			r2 = r2.next == null ? head : r2.next;
+		ListNode trav = head;
+		int length = 1; // find out the length of this list
+		while (trav.next != null) {
+			trav = trav.next;
+			length++;
 		}
-		while (r2.next != null) {
-			r1 = r1.next;
-			r2 = r2.next;
-		}
-		ListNode r3 = r1; // r3 is the new tail;
-		r1 = r1.next; // r1 is the new head
-		if (r1 == null) {
+		// update the effective number of nodes that need to be rotated
+		int rotate = n % length;
+		if (rotate == 0) {
 			return head;
 		}
-		r2.next = head;
-		r3.next = null;
-		return r1;
+		trav.next = head; // connect head and tail
+		int move = length - rotate, i = 1; // moves pointer to the new tail
+		ListNode ntail = head;
+		while (i < move) {
+			ntail = ntail.next;
+			i++;
+		}
+		ListNode nhead = ntail.next;
+		ntail.next = null;
+		return nhead;
 	}
 
 	public static void print(ListNode head) {

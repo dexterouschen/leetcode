@@ -12,27 +12,46 @@ import test_data_structure.ListNode;
  */
 
 public class Add_Two_Numbers {
-
+	/**
+	 * Simple linked list pointers operation again. But be careful when you have
+	 * your 'carry' = 1 when finished traversing the entire lists. In this case,
+	 * you need to create a new node at the end of your resulting list.
+	 */
 	public static ListNode addTwoNumbers(ListNode l1, ListNode l2) {
 		int carry = 0;
-		ListNode newHead = new ListNode(0);
-		ListNode pointer1 = l1, pointer2 = l2, pointer3 = newHead;
-		while (pointer1 != null || pointer2 != null) {
-			if (pointer1 != null) {
-				carry += pointer1.val;
-				pointer1 = pointer1.next;
-			}
-			if (pointer2 != null) {
-				carry += pointer2.val;
-				pointer2 = pointer2.next;
-			}
-			pointer3.next = new ListNode(carry % 10);
-			pointer3 = pointer3.next;
-			carry /= 10;
+		ListNode n1 = l1, n2 = l2, nhead = new ListNode(0), n3 = nhead;
+		// we use list1 for in-place calculation to save space
+		n3.next = n1;
+		while (n1 != null && n2 != null) {
+			int sum = n1.val + n2.val + carry;
+			n1.val = sum % 10;
+			carry = sum / 10;
+			n3 = n1;
+			n1 = n1.next;
+			n2 = n2.next;
 		}
-		if (carry == 1)
-			pointer3.next = new ListNode(1);
-		return newHead.next;
+		if (n1 == null) {
+			n3.next = n2;
+			while (n2 != null) {
+				int sum = n2.val + carry;
+				n2.val = sum % 10;
+				carry = sum / 10;
+				n3 = n2;
+				n2 = n2.next;
+			}
+		} else if (n2 == null) {
+			while (n1 != null) {
+				int sum = n1.val + carry;
+				n1.val = sum % 10;
+				carry = sum / 10;
+				n3 = n1;
+				n1 = n1.next;
+			}
+		}
+		if (carry == 1) { // if there is a "1" left.
+			n3.next = new ListNode(1);
+		}
+		return nhead.next;
 	}
 
 	public static void main(String[] args) {
