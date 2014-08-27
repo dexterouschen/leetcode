@@ -14,66 +14,41 @@ import java.util.*;
  */
 
 public class Word_Break {
-
-	// Define: possible[i] represents whether s[0,i] can be segmented by
-	// dictionary.
+	/**
+	 * Recursive solution is obvious. And thus we know it must be a DP solution.
+	 * Intuitively, we can build a boolean array "inDict" such that inDict[i]
+	 * represents the result if s[0, i] can be broke and found in "dict". So how
+	 * about the value at the "i + 1" position? In order to be "true", it can
+	 * only be that s[0, i+1] is itself in "dict", or there exists a break point
+	 * "k" in s[0, i] such that "s[0, k] == true" and s[k+1, i+1] is in "dict".
+	 */
 	public static boolean wordBreak(String s, Set<String> dict) {
 		if (s == null || s.isEmpty())
 			return true;
 		if (dict == null || dict.isEmpty())
 			return false;
-		boolean[] possible = new boolean[s.length()];
-		possible[0] = dict.contains(s.substring(0, 1)) ? true : false;
-		for (int i = 1; i < s.length(); i++) {
-			if (dict.contains(s.substring(0, i + 1))) { // if dict contains
-														// s[0,i]
-				possible[i] = true;
-			} else if (hasBreakPoint(s, dict, possible, i)) { // see below
-				possible[i] = true;
-			} else { // else possible must be false
-				possible[i] = false;
+		boolean[] inDict = new boolean[s.length()];
+		for (int i = 0; i < s.length(); i++) {
+			if (dict.contains(s.substring(0, i + 1))) {
+				inDict[i] = true;
+			} else if (hasBreakPoint(s, dict, inDict, i)) {
+				inDict[i] = true;
+			} else {
+				inDict[i] = false;
 			}
 		}
-
-		return possible[s.length() - 1];
+		return inDict[inDict.length - 1];
 	}
 
 	// checks if there is a break point "k" that possible[k] is true and
 	// s.substring(k,i+1) is in dictionary
-	public static boolean hasBreakPoint(String s, Set<String> dict, boolean[] possible, int index) {
+	public static boolean hasBreakPoint(String s, Set<String> dict, boolean[] inDict, int index) {
 		for (int i = 0; i < index; i++) {
-			if (possible[i] == true && dict.contains(s.substring(i + 1, index + 1))) {
+			if (inDict[i] == true && dict.contains(s.substring(i + 1, index + 1))) {
 				return true;
 			}
 		}
 		return false;
-	}
-
-	public static boolean wordBreakRecursion(String s, Set<String> dict) {
-		if (s == null || s.isEmpty())
-			return true;
-		if (dict == null || dict.isEmpty())
-			return false;
-		int index = 1;
-		boolean result = false;
-		result = segment(s, dict, index);
-		return result;
-	}
-
-	public static boolean segment(String s, Set<String> dict, int index) {
-		if (dict.contains(s))
-			return true;
-		if (index == s.length()) {
-			if (dict.contains(s))
-				return true;
-			else
-				return false;
-		}
-		boolean result1 = false;
-		if (dict.contains(s.substring(0, index))) {
-			result1 = segment(s.substring(index), dict, 1);
-		}
-		return result1 || segment(s, dict, index + 1);
 	}
 
 	public static void main(String[] args) {

@@ -5,15 +5,15 @@ package matrix;
  find the largest rectangle containing all ones and return its area.
  */
 
-/*
- * 先用dp求一个新矩阵，d[i][j]表示以(i, j)结尾有几个连续1（在当前row)。
- * 然后遍历这个新矩阵，在每个cell，都看看“宽度是d[i][j]的矩阵最多能有多高,
- * 也就是往上expand到宽度变窄为止，往下expand到宽度变窄为止,
- * 然后总高度×当前宽度就是d[i][j]所属于的矩阵的最大面积。这就是个O(M * N) * O(M)。
- */
-
 public class Maximal_Rectangle {
-
+	/**
+	 * I don't know if there is a better way to solve this problem. My solution
+	 * is of O(N * M^2). First build a new matrix M such that M[i][j] represents
+	 * the length of continuous "1"s in current row. After building this matrix,
+	 * for each cell M[i][j] that is not "0", do this: expand up and down until
+	 * M[i +/- x][j] < M[i][j]. Then calculate the value of area by following:
+	 * "area = M[i][j] * (up - down)". Dynamically update the maximum.
+	 */
 	public static int maximalRectangle(char[][] matrix) {
 		if (matrix == null || matrix.length == 0 || matrix[0].length == 0) {
 			return 0;
@@ -22,47 +22,32 @@ public class Maximal_Rectangle {
 		int row = matrix.length, col = matrix[0].length;
 		// build a matrix that record width of '1' of each point in matrix
 		int[][] width = new int[row][col];
-		for (int i = 0; i < row; i++) {
+		for (int i = 0; i < row; i++) { // building the width matrix
+			int curLen = 0;
 			for (int j = 0; j < col; j++) {
 				if (matrix[i][j] == '1') {
-					int move = j, len = 0;
-					while (move >= 0 && matrix[i][move] == '1') {
-						len++;
-						move--;
-					}
-					width[i][j] = len;
+					curLen++;
+				} else {
+					curLen = 0;
 				}
+				width[i][j] = curLen;
 			}
 		}
-		// find out the height of each point in matrix as their upper/lower rows
-		// have the same width of '1'
 		for (int i = 0; i < row; i++) {
 			for (int j = 0; j < col; j++) {
-				if (width[i][j] != 0) {
-					int up = 0, down = 0, move = i - 1;
-					while (move >= 0 && isAllOne(matrix, move, j - width[i][j] + 1, j)) {
-						up++;
-						move--;
+				if (width[i][j] > 0) {
+					int up = i, down = i;
+					while (up - 1 >= 0 && width[up - 1][j] >= width[i][j]) {
+						up--;
 					}
-					move = i + 1;
-					while (move <= row - 1 && isAllOne(matrix, move, j - width[i][j] + 1, j)) {
+					while (down + 1 < row && width[down + 1][j] >= width[i][j]) {
 						down++;
-						move++;
 					}
-					int height = up + down + 1;
-					area = Math.max(area, width[i][j] * height);
+					area = Math.max(area, (down - up + 1) * width[i][j]);
 				}
 			}
 		}
 		return area;
-	}
-
-	private static boolean isAllOne(char[][] matrix, int row, int col1, int col2) {
-		for (int i = col1; i <= col2; i++) {
-			if (matrix[row][i] == '0')
-				return false;
-		}
-		return true;
 	}
 
 	public static void main(String[] args) {

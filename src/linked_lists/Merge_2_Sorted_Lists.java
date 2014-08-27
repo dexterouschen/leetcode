@@ -7,7 +7,10 @@ import test_data_structure.ListNode;
  The new list should be made by splicing together the nodes of the first two lists.
  */
 public class Merge_2_Sorted_Lists {
-
+	/**
+	 * Use two pointers to point at each list's start, then recursively compare
+	 * their values and add to new list.
+	 */
 	public static ListNode mergeTwoLists(ListNode l1, ListNode l2) {
 		ListNode newhead = new ListNode(888);
 		ListNode head = newhead;

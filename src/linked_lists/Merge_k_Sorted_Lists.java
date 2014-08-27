@@ -1,8 +1,6 @@
 package linked_lists;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.PriorityQueue;
+import java.util.*;
 
 import test_data_structure.ListNode;
 
@@ -11,32 +9,42 @@ import test_data_structure.ListNode;
  */
 
 public class Merge_k_Sorted_Lists {
-	/*
-	 * solve this problem by using a heap
+	/**
+	 * The basic idea is to compare the head nodes for all lists. Yet how can
+	 * you compare more than two nodes at the same time? One solution is to use
+	 * heaps (which can be implemented as priority queues). Therefore, the
+	 * algorithm is as following: create a priority queue that collects head
+	 * nodes of all lists. Keep poping out the smallest one (n) and do n =
+	 * n.next until there are all "null"s in the queue.
 	 */
-	public ListNode mergeKLists(List<ListNode> lists) {
-		PriorityQueue<Integer> heap = new PriorityQueue<Integer>();
-		for (ListNode x : lists) {
-			while (x != null) {
-				heap.add(x.val);
-				// add everything in all list (not just heads) into the heap
-				x = x.next;
-			}
+	public static ListNode mergeKLists(List<ListNode> lists) {
+		PriorityQueue<ListNode> heap = new PriorityQueue<ListNode>(lists.size(),
+				new Comparator<ListNode>() {
+					public int compare(ListNode n1, ListNode n2) {
+						return n1.val == n2.val ? 0 : (n1.val > n2.val ? 1 : -1);
+					}
+				});
+		for (ListNode node : lists) {
+			if (node != null)
+				heap.add(node);
 		}
-		if (heap.isEmpty() || lists.isEmpty()) {
-			return null;
+		ListNode nhead = new ListNode(0), trav = nhead;
+		while (!heap.isEmpty()) {
+			ListNode node = heap.poll();
+			trav.next = node;
+			trav = trav.next;
+			node = node.next;
+			if (node != null)
+				heap.add(node);
 		}
-		ListNode result = new ListNode(heap.remove());
-		ListNode first = result;
-		int counter = heap.size();
-		for (int i = 0; i < counter; i++) {
-			result.next = new ListNode(heap.remove());
-			result = result.next;
-		}
-		return first;
+		return nhead.next;
 	}
 
-	public static ListNode mergeKLists(ArrayList<ListNode> lists) {
+	/**
+	 * Here is another solution that directly compare the head nodes without
+	 * using a heap.
+	 */
+	public static ListNode mergeKLists2(ArrayList<ListNode> lists) {
 		if (lists.isEmpty()) {
 			return null;
 		}
@@ -107,7 +115,6 @@ public class Merge_k_Sorted_Lists {
 			System.out.println(n.val);
 			n = n.next;
 		}
-
 	}
 
 }
