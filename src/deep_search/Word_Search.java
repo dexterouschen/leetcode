@@ -20,9 +20,11 @@ package deep_search;
  */
 
 public class Word_Search {
-	/*
+	/**
 	 * Use recursive search to traverse through the matrix and match the word
-	 * with chars on the board one-by-one.
+	 * with chars on the board one-by-one. A deep-search algorithm can solve
+	 * this problem efficiently. I haven't come up with better algorithm yet.
+	 * Email or msg me if you know one.
 	 */
 	public static boolean exist(char[][] board, String word) {
 		if (board == null || board.length == 0) {
