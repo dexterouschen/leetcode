@@ -9,9 +9,8 @@ package dynamic_programming;
  */
 
 public class Best_Time_to_Buy_and_Sell_Stock_II {
-
-	/*
-	 * the general strategy: buy when the next day is higher; sell when the next
+	/**
+	 * The general strategy: buy when the next day is higher; sell when the next
 	 * day is lower; hold if "hasStock" is true and next day is higher;
 	 */
 	public static int maxProfit(int[] prices) {

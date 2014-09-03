@@ -9,11 +9,9 @@ package dynamic_programming;
  */
 
 public class Best_Time_to_Buy_and_Sell_Stock {
-
-	/*
+	/**
 	 * 1D DP problem. Assume max[i] is the maximum profit for prices[0...i],
-	 * max[i+1] must be Math.max(max[i], prices[i+1] -
-	 * "smallest value in prices[0..i]").
+	 * max[i+1] must be Math.max(max[i], prices[i+1] - "smallest value in prices[0..i]").
 	 */
 	public static int maxProfit(int[] prices) {
 		if (prices == null || prices.length < 2) {

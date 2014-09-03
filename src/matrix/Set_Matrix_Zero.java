@@ -13,8 +13,7 @@ package matrix;
  */
 
 public class Set_Matrix_Zero {
-
-	/*
+	/**
 	 * To solve this problem WITHOUT using extra space, a good idea is to store
 	 * the indexes for "zeroes" at the first row and column of the matrix.
 	 * Remember to record if there is any zeroes in first row and/or column

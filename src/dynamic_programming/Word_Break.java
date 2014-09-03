@@ -15,12 +15,15 @@ import java.util.*;
 
 public class Word_Break {
 	/**
-	 * Recursive solution is obvious. And thus we know it must be a DP solution.
+	 * Recursive solution is obvious. And thus we know there must be a DP solution.
 	 * Intuitively, we can build a boolean array "inDict" such that inDict[i]
-	 * represents the result if s[0, i] can be broke and found in "dict". So how
-	 * about the value at the "i + 1" position? In order to be "true", it can
-	 * only be that s[0, i+1] is itself in "dict", or there exists a break point
-	 * "k" in s[0, i] such that "s[0, k] == true" and s[k+1, i+1] is in "dict".
+	 * represents the result if s[0, i] can be broke and found in "dict". 
+	 * So how do we know if s[0, i] is true? It must be two cases:
+	 * (1) s[0, i] can be found in dictionary, or
+	 * (2) there exists a point 'k' where s[0, k] == true AND s[k + 1, i] is in dictionary.
+	 * 
+	 * This algorithm, however, is not O(n) complexity in time. It's worst case 
+	 * complexity is O(n^2).
 	 */
 	public static boolean wordBreak(String s, Set<String> dict) {
 		if (s == null || s.isEmpty())

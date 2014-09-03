@@ -4,7 +4,8 @@ import java.util.Arrays;
 import java.util.Stack;
 
 /*
- Given n non-negative integers representing the histogram's bar height where the width of each bar is 1, find the area of largest rectangle in the histogram.
+ Given n non-negative integers representing the histogram's bar height where the width of each bar is 1, 
+ find the area of largest rectangle in the histogram.
 
  Above is a histogram where width of each bar is 1, given height = [2,1,5,6,2,3].
 
@@ -20,12 +21,13 @@ public class Largest_Rectangle_in_Histogram {
 	 * I don't know how one could come up with such a smart solution. Geek! :)
 	 * 
 	 * Use a stack to store the indexes of elements in 'height' whose values are
-	 * continuously increasing. Do such operations while iterating through the
-	 * array: (1) push h[0] into the stack; (2) compare h[i] with stack.top().
-	 * If h[i] < stack.top(), then push h[i] into stack; else, pop indexes from
-	 * stack, update the maximum area; (3) keep doing operations in Step 2 until
-	 * h[i] >= stack.top(). Then resume pushing h[i] into stack until h[i] <
-	 * stack.top() again. Iterate until the end of the array.
+	 * continuously increasing. Do such operations while iterating through the array: 
+	 * (1) push h[0] into the stack; 
+	 * (2) compare h[i] with stack.top(). If h[i] < stack.top(), then push h[i] into stack; 
+	 * else, pop indexes from stack, update the maximum area; 
+	 * (3) keep doing operations in Step 2 until h[i] >= stack.top(). Then resume 
+	 * pushing h[i] into stack until h[i] < stack.top() again. 
+	 * Iterate until the end of the array.
 	 * 
 	 * For detailed explanation with graphic aids, please go to the following
 	 * references.

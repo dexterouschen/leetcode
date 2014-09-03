@@ -12,22 +12,22 @@ import java.util.*;
 
 public class Permutations_II {
 
-	public static ArrayList<ArrayList<Integer>> permuteUnique(int[] num) {
-		ArrayList<ArrayList<Integer>> myLists = new ArrayList<ArrayList<Integer>>();
-		Set<ArrayList<Integer>> set = new HashSet<ArrayList<Integer>>();
-		ArrayList<Integer> list = new ArrayList<Integer>();
+	public static List<List<Integer>> permuteUnique(int[] num) {
+		List<List<Integer>> myLists = new ArrayList<>();
+		Set<List<Integer>> set = new HashSet<>();
+		List<Integer> list = new ArrayList<Integer>();
 		if (num == null || num.length == 0) {
 			return myLists;
 		}
 		Arrays.sort(num); // sort the array to help handle duplicated elements
 		dfs(set, list, num);
-		for (ArrayList<Integer> x : set) {
+		for (List<Integer> x : set) {
 			myLists.add(x);
 		}
 		return myLists;
 	}
 
-	private static void dfs(Set<ArrayList<Integer>> set, ArrayList<Integer> list, int[] num) {
+	private static void dfs(Set<List<Integer>> set, List<Integer> list, int[] num) {
 		if (num == null) {
 			set.add(new ArrayList<Integer>(list));
 			return;
@@ -36,7 +36,7 @@ public class Permutations_II {
 			if (i > 0 && num[i] == num[i - 1]) {
 				continue;
 			}
-			ArrayList<Integer> newList = new ArrayList<Integer>(list);
+			List<Integer> newList = new ArrayList<Integer>(list);
 			newList.add(num[i]);
 			int[] newNum = toSubArray(num, i);
 			dfs(set, newList, newNum);
@@ -59,8 +59,8 @@ public class Permutations_II {
 
 	public static void main(String[] args) {
 		int[] num = { 3, 3, 0, 0, 2, 3, 2 };
-		ArrayList<ArrayList<Integer>> myLists = permuteUnique(num);
-		for (ArrayList<Integer> x : myLists) {
+		List<List<Integer>> myLists = permuteUnique(num);
+		for (List<Integer> x : myLists) {
 			System.out.println(x);
 		}
 		System.out.println(myLists.size());

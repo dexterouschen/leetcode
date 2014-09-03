@@ -28,7 +28,7 @@ public class Unique_Paths_II {
 		}
 		int row = obstacleGrid.length, col = obstacleGrid[0].length;
 		int[][] path = new int[row][col];
-		// initate
+		// initiate
 		boolean flag = true;
 		for (int i = 0; i < row; i++) {
 			if (obstacleGrid[i][0] == 1) {

@@ -1,6 +1,6 @@
 package dynamic_programming;
 
-import java.util.ArrayList;
+import java.util.*;
 
 /*
  Given numRows, generate the first numRows of Pascal's triangle.
@@ -8,22 +8,21 @@ import java.util.ArrayList;
  For example, given numRows = 5,
  */
 public class Pascal_Triangle {
-
-	/*
-	 * DP solution. Build solution from top to bottom.
+	/**
+	 * DP approach. Build solution from top to bottom.
 	 */
-	public static ArrayList<ArrayList<Integer>> generate(int numRows) {
-		ArrayList<ArrayList<Integer>> lists = new ArrayList<ArrayList<Integer>>();
+	public static List<List<Integer>> generate(int numRows) {
+		List<List<Integer>> lists = new ArrayList<>();
 		if (numRows <= 0) {
 			return lists;
 		}
-		ArrayList<Integer> list = new ArrayList<Integer>();
+		List<Integer> list = new ArrayList<Integer>();
 		list.add(1);
 		lists.add(list);
 		for (int i = 2; i <= numRows; i++) {
-			ArrayList<Integer> curList = new ArrayList<>();
+			List<Integer> curList = new ArrayList<>();
 			curList.add(1);
-			ArrayList<Integer> prevList = lists.get(lists.size() - 1);
+			List<Integer> prevList = lists.get(lists.size() - 1);
 			for (int j = 1; j < prevList.size(); j++) {
 				curList.add(prevList.get(j) + prevList.get(j - 1));
 			}

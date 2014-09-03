@@ -10,8 +10,7 @@ package matrix;
  */
 
 public class Rotate_Image {
-
-	/*
+	/**
 	 * One of a Google phone interview questions. Be careful with the sequence
 	 * of rotation: four lines below "int temp = matrix[i][j];", as well as the
 	 * second for-loop declaration ('j').
@@ -33,6 +32,7 @@ public class Rotate_Image {
 		}
 	}
 
+	// for debugging and testing purposes
 	public static void printTable(int[][] newTable) {
 		int n = newTable.length;
 		for (int i = 0; i < n; i++) {

@@ -13,7 +13,7 @@ package dynamic_programming;
  */
 
 public class Edit_Distance {
-	/*
+	/**
 	 * A typical DP problem. Assume in int[][] distance, distance[i][j]
 	 * represents a table that describes the edit distance from substring
 	 * word1.substring(0, i) to substring word2.substring(0, j). It must be

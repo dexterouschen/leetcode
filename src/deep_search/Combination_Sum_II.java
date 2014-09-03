@@ -21,7 +21,7 @@ package deep_search;
 import java.util.*;
 
 public class Combination_Sum_II {
-	/*
+	/**
 	 * Run a deep-search algorithm that traverses through all possible
 	 * combinations and return the result if target is found accumulatively.
 	 */

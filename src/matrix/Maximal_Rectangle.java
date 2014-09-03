@@ -12,7 +12,7 @@ public class Maximal_Rectangle {
 	 * the length of continuous "1"s in current row. After building this matrix,
 	 * for each cell M[i][j] that is not "0", do this: expand up and down until
 	 * M[i +/- x][j] < M[i][j]. Then calculate the value of area by following:
-	 * "area = M[i][j] * (up - down)". Dynamically update the maximum.
+	 * "area = M[i][j] * (up - down)". Dynamically update the global maximum.
 	 */
 	public static int maximalRectangle(char[][] matrix) {
 		if (matrix == null || matrix.length == 0 || matrix[0].length == 0) {

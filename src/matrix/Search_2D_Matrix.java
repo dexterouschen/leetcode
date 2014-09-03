@@ -19,7 +19,7 @@ package matrix;
  */
 
 public class Search_2D_Matrix {
-	/*
+	/**
 	 * Use binary search in rows and columns.
 	 */
 	public static boolean searchMatrix(int[][] matrix, int target) {
@@ -29,6 +29,7 @@ public class Search_2D_Matrix {
 		if (target < matrix[0][0]) {
 			return false;
 		}
+		// search row
 		int row = matrix.length, col = matrix[0].length;
 		int up = 0, down = row - 1;
 		while (up <= down) {
@@ -42,7 +43,8 @@ public class Search_2D_Matrix {
 				down = mid - 1;
 			}
 		}
-		int curRow = down;
+		// search column
+		int curRow = down; // this finds out the current row
 		int left = 0, right = col - 1;
 		while (left <= right) {
 			int mid = (left + right) / 2;

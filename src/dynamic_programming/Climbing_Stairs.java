@@ -7,9 +7,9 @@ package dynamic_programming;
  In how many distinct ways can you climb to the top?
  */
 public class Climbing_Stairs {
-
-	// Dynamic programming
-	// waysOfClimb[i] = waysOfClimb[i - 1] + waysOfClimb[i - 2]
+	/**
+	 * DP: waysOfClimb[i] = waysOfClimb[i - 1] + waysOfClimb[i -2]
+	 */
 	public static int climbStairs(int n) {
 		if (n <= 2) {
 			return n;

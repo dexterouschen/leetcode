@@ -13,7 +13,6 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 
 public class Longest_Substring_Without_Repeating_Characters {
-
 	/**
 	 * Solution 1: DP approach.
 	 * http://blog.csdn.net/likecool21/article/details/10858799

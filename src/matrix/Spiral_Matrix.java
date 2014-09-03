@@ -18,7 +18,7 @@ import java.util.*;
  */
 
 public class Spiral_Matrix {
-	/*
+	/**
 	 * Use four indexes to set up the circles of iterations. After each circle,
 	 * update indexes. Finally, check if there is one column or row of numbers
 	 * that are needed to added into the list.

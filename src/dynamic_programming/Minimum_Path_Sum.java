@@ -5,7 +5,9 @@ package dynamic_programming;
  find a path from top left to bottom right which minimizes the sum of all numbers along its path.
  */
 public class Minimum_Path_Sum {
-
+	/**
+	 * A simple DP approach. "sum[i][j] = Math.min(sum[i-1][j], sum[i][j-1])".
+	 */
 	public static int minPathSum(int[][] grid) {
 		if (grid == null || grid.length == 0 || grid[0].length == 0) {
 			return 0;

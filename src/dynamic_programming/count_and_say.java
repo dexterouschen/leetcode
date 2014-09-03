@@ -13,7 +13,8 @@ package dynamic_programming;
  */
 
 public class Count_and_Say {
-	/*
+	/**
+	 * I don't know how to interpret the solution. So here is the link:
 	 * http://blog.csdn.net/fightforyourdream/article/details/12901505
 	 */
 	public static String countAndSay(int n) {

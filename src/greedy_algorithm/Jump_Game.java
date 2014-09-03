@@ -14,7 +14,7 @@ package greedy_algorithm;
  */
 
 public class Jump_Game {
-	/*
+	/**
 	 * Be careful with edge conditions in this problem. Implementation of the
 	 * answer is straightforward: at each element in this array, update maximum
 	 * reach until it can or cannot reaches the last.

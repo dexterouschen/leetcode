@@ -16,7 +16,7 @@ import java.util.*;
  */
 
 public class Valid_Sudoku {
-	/*
+	/**
 	 * Iteratively implement Sudoku rules by using hash set in examing if each
 	 * row, column and box is valid.
 	 */

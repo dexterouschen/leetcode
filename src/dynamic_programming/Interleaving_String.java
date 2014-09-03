@@ -13,7 +13,6 @@ package dynamic_programming;
  */
 
 public class Interleaving_String {
-
 	// DP solution:
 	// http://fisherlei.blogspot.com/2012/12/leetcode-interleaving-string.html
 	public static boolean isInterleave(String s1, String s2, String s3) {

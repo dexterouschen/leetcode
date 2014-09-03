@@ -1,8 +1,8 @@
 package deep_search;
 
 /*
- * The n-queens puzzle is the problem of placing n queens on an n¡Án chessboard 
- * such that no two queens attack each other.
+ The n-queens puzzle is the problem of placing n queens on an n¡Án chessboard 
+ such that no two queens attack each other.
 
  Given an integer n, return all distinct solutions to the n-queens puzzle.
 
@@ -28,7 +28,7 @@ package deep_search;
 import java.util.*;
 
 public class N_Queens {
-	/*
+	/**
 	 * Solve this problem using deep-search algorithm.
 	 */
 	public static List<String[]> solveNQueens(int n) {

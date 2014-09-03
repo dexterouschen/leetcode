@@ -12,7 +12,7 @@ import java.util.*;
  */
 public class Generate_Parentheses {
 
-	/*
+	/**
 	 * Use deep-search algorithm to traverse through all possible combinations
 	 * of left and right parenthesis.
 	 */

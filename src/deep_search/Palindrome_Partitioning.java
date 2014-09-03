@@ -1,6 +1,6 @@
 package deep_search;
 
-import java.util.ArrayList;
+import java.util.*;
 
 /*
  Given a string s, partition s such that every substring of the partition is a palindrome.
@@ -17,24 +17,23 @@ import java.util.ArrayList;
  */
 
 public class Palindrome_Partitioning {
-	/*
+	/**
 	 * Deep search through all possible combinations of palindromes. Add
 	 * substrings that are palindromes. Be careful with the parameters you pass
 	 * into 'deepSearch()'. You may use indexes to reduce memory use, but simply
 	 * passing in strings is easier for implementation and debug.
 	 */
-	public static ArrayList<ArrayList<String>> partition(String s) {
-		ArrayList<ArrayList<String>> lists = new ArrayList<ArrayList<String>>();
+	public static List<List<String>> partition(String s) {
+		List<List<String>> lists = new ArrayList<>();
 		if (s == null || s.isEmpty()) {
 			return lists;
 		}
-		ArrayList<String> list = new ArrayList<>();
+		List<String> list = new ArrayList<>();
 		deepSearch(lists, list, s);
 		return lists;
 	}
 
-	public static void deepSearch(ArrayList<ArrayList<String>> lists, ArrayList<String> list,
-			String s) {
+	public static void deepSearch(List<List<String>> lists, List<String> list, String s) {
 		if (s == null) {
 			lists.add(list);
 			return;
@@ -43,7 +42,7 @@ public class Palindrome_Partitioning {
 			String left = s.substring(0, i);
 			String right = i == s.length() ? null : s.substring(i);
 			if (isPalindrome(left)) {
-				ArrayList<String> nlist = new ArrayList<String>(list);
+				List<String> nlist = new ArrayList<String>(list);
 				nlist.add(left);
 				deepSearch(lists, nlist, right);
 			}
@@ -67,7 +66,7 @@ public class Palindrome_Partitioning {
 	}
 
 	public static void main(String[] args) {
-		ArrayList<ArrayList<String>> myLists = partition("aab");
+		List<List<String>> myLists = partition("aab");
 		System.out.println(myLists);
 		System.out.println(myLists.size());
 		// System.out.println(System.getProperty("java.runtime.version"));

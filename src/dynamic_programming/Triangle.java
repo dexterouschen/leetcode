@@ -21,7 +21,7 @@ import java.util.ArrayList;
  */
 
 public class Triangle {
-	/*
+	/**
 	 * DP solution: there are i elements at level "i", and i - 1 elements at
 	 * level "i - 1". To map the min paths from "i" to "i-1" level, do this: for
 	 * an element "j" at level "i-1", its min_path_level_i-1[j] =

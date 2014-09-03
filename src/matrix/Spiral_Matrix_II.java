@@ -3,7 +3,7 @@ package matrix;
 import java.util.Arrays;
 
 /*
- Given an integer n, generate a square matrix filled with elements from 1 to n2 in spiral order.
+ Given an integer n, generate a square matrix filled with elements from n1 to n2 in spiral order.
 
  For example,
  Given n = 3,
@@ -17,7 +17,9 @@ import java.util.Arrays;
  */
 
 public class Spiral_Matrix_II {
-
+	/**
+	 * Similar approach to "Spiral Matrix". 
+	 */
 	public static int[][] generateMatrix(int n) {
 		if (n == 0) {
 			return new int[0][0];
