@@ -15,6 +15,8 @@ import java.util.concurrent.ConcurrentHashMap;
 public class Longest_Substring_Without_Repeating_Characters {
 	/**
 	 * Solution 1: DP approach.
+	 * To be honest I'm not sure how it does the work.
+	 * Here is the reference:
 	 * http://blog.csdn.net/likecool21/article/details/10858799
 	 */
 	public static int len = 0;

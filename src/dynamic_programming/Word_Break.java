@@ -15,12 +15,15 @@ import java.util.*;
 
 public class Word_Break {
 	/**
-	 * Recursive solution is obvious. And thus we know there must be a DP solution.
+	 * Recursive solution is obvious. And thus we know there must be a DP solution 
+	 * with better time complexity. (You know what an interviewer expects, right?) 
 	 * Intuitively, we can build a boolean array "inDict" such that inDict[i]
 	 * represents the result if s[0, i] can be broke and found in "dict". 
 	 * So how do we know if s[0, i] is true? It must be two cases:
 	 * (1) s[0, i] can be found in dictionary, or
-	 * (2) there exists a point 'k' where s[0, k] == true AND s[k + 1, i] is in dictionary.
+	 * (2) there exists a point 'k' where s[0, k] AND s[k + 1, i] are in dictionary. Here is 
+	 *		 why we need DP: we have already stored whether s[0, k] is in dictionary, as 
+	 *      it is inDict[k] == true or false. 
 	 * 
 	 * This algorithm, however, is not O(n) complexity in time. It's worst case 
 	 * complexity is O(n^2).

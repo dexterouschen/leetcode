@@ -19,13 +19,13 @@ public class Word_Break_II {
 	/**
 	 * You may easily get to a recursive solution (deep search) and think it as
 	 * inefficient. Then you want to find out the DP solution of this problem,
-	 * right? The true is: you are for sure allowed to look for a DP solution.
-	 * But this problem is not really a DP-type of problem because you must
-	 * store all the results of wordBreak(s[0, i], dict). When s[i + 1] is
+	 * right? The truth is: you are for sure allowed to look for a DP solution,
+	 * although this problem is not really a DP-type of problem because you 
+	 * must store all the results of wordBreak(s[0, i], dict). When s[i + 1] is
 	 * iterated, it must look up ALL results and decide if there are new strings
 	 * that are needed to be added. In this way, you may prune the calculations
-	 * and storage. But you can never get a real DP solution where you
-	 * answer(i + 1) is solely based on answer(i).
+	 * and space for storage. But you can never get a real DP solution because you
+	 * answer(i + 1) is not solely based on answer(i).
 	 *
 	 * The following calculation is a slightly-better-than-brute-force solution.
 	 * It doesn't pass LeetCode OJ. But it is definitely a correct result.
@@ -98,8 +98,7 @@ public class Word_Break_II {
 			}
 		}
 		if (dp[n] == false)
-			return ret; // DP here! Sounds like a joke, right? It's just
-						// pruning.
+			return ret; // DP? Sounds like a joke, right? It's just pruning.
 		StringBuilder cur = new StringBuilder();
 		dfs(s, 0, cur, ret, dict);
 		return ret;

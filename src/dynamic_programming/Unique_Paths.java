@@ -12,8 +12,11 @@ package dynamic_programming;
  */
 
 public class Unique_Paths {
-
-	// Using DP to build a table
+	/**
+	 * This problem can be solved using a DP algorithm. Let path[i][j] be the 
+	 * number of paths to get to grid[i][j]. Then we can find that:
+	 * path[i][j] = path[i - 1][j] + path[i][j - 1].
+	 */
 	public static int uniquePaths(int m, int n) {
 		if (m == 0 || n == 0)
 			return 0;

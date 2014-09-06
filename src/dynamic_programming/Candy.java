@@ -22,6 +22,7 @@ public class Candy {
 	* You may find a problem that your candies[i] = 3 but there are 4 continues 
 	* decreasing neighbors, in which case you don't have enough room to make sure 
 	* the minimum in the decreasing array to be '1'.
+	* 
 	* My strategy is as such, assuming ratings[i + 1] < ratings[i] for the first time:
 	* (1) find where a decreasing sub-array starts, in this case it's "i + 1"th element in "candies";
 	* (2) no matter how long the decreasing sub-array is, set candies[i + 1] = 1;

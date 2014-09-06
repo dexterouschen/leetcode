@@ -21,7 +21,11 @@ package dynamic_programming;
  */
 
 public class Unique_Paths_II {
-
+	/**
+	 * This problem can be solved with a DP approach that is similar to 
+	 * "Unique Paths". But in this case, you need to take care of if obstacles 
+	 * exist when building edges and building the DP table.
+	 */
 	public static int uniquePathsWithObstacles(int[][] obstacleGrid) {
 		if (obstacleGrid == null || obstacleGrid.length == 0 || obstacleGrid[0].length == 0) {
 			return 0;
@@ -30,7 +34,7 @@ public class Unique_Paths_II {
 		int[][] path = new int[row][col];
 		// initiate
 		boolean flag = true;
-		for (int i = 0; i < row; i++) {
+		for (int i = 0; i < row; i++) { // build the edge
 			if (obstacleGrid[i][0] == 1) {
 				flag = false;
 			}
@@ -41,7 +45,7 @@ public class Unique_Paths_II {
 			}
 		}
 		flag = true;
-		for (int i = 0; i < col; i++) {
+		for (int i = 0; i < col; i++) { // build the edge
 			if (obstacleGrid[0][i] == 1) {
 				flag = false;
 			}

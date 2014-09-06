@@ -1,4 +1,4 @@
-package dynamic_programming;
+package iteration;
 
 /*
  The count-and-say sequence is the sequence of integers beginning as follows:
@@ -14,8 +14,14 @@ package dynamic_programming;
 
 public class Count_and_Say {
 	/**
-	 * I don't know how to interpret the solution. So here is the link:
-	 * http://blog.csdn.net/fightforyourdream/article/details/12901505
+	 * The problem statement is vague even it gives out example input and output. 
+	 * So I put some explanations below the examples so you understand it better. 
+	 * To find out countAndSay(n), one needs to compute countAndSay(n - 1). To 
+	 * find out countAndSay(n - 1), one needs to compute countAndSay(n - 2)... 
+	 * So this problem can be iterative from countAndSay(1) to countAndSay(n).
+	 *  
+	 * If you still have any question regarding to question statement as well as the algorithm,
+	 * here is the reference: http://blog.csdn.net/fightforyourdream/article/details/12901505
 	 */
 	public static String countAndSay(int n) {
 		n = n - 1;

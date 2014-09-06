@@ -14,15 +14,25 @@ package dynamic_programming;
 
 public class Edit_Distance {
 	/**
-	 * A typical DP problem. Assume in int[][] distance, distance[i][j]
-	 * represents a table that describes the edit distance from substring
-	 * word1.substring(0, i) to substring word2.substring(0, j). It must be
-	 * equal to the minimum among: "distance[i-1][j] + 1",
-	 * "distance[i][j-1] + 1" and depending on whether word1[i-1] == word2[j-1],
-	 * (true) "distance[i-1][j-1]" or (false) "distance[i-1][j-1] + 1".
+	 * A typical DP problem. Assume in a table int[][] distance, distance[i][j] represents 
+	 * a table that describes the edit distance from substring word1.substring(0, i) 
+	 * to substring word2.substring(0, j).
+	 * 
+	 *  Now we need to compare the two LAST chars: word1[i] and word2[j].
+	 *  
+	 *  If word1[i] == word2[j], we don't need to edit anything from word1 to word2, so 
+	 *  distance[i][j] = distance[i - 1][j - 1].
+	 *  
+	 *  If word1[i] != word2[j], there could be three different conditions as we have three
+	 *  operations:
+	 *      replace word1[i]: distance[i][j] = distance[i - 1][j - 1] + 1;
+	 *      delete word1[i]: delete distance[i][j] = distance[i - 1][j] + 1;
+	 *      add word1[i]: distance[i][j] = distance[i][j - 1] + 1;
+	 *  distance[i][j] must be equal to the minimum one in whose three conditions.
+	 *  
+	 * Reference:
+	 * http://yucoding.blogspot.com/2013/09/leetcode-question-29-edit-distance.html
 	 */
-	// Reference:
-	// http://yucoding.blogspot.com/2013/09/leetcode-question-29-edit-distance.html
 	public static int minDistance(String word1, String word2) {
 		if (word1 == null && word2 == null) {
 			return 0;
